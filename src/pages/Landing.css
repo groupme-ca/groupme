@@ -1,0 +1,49 @@
+.main {
+    text-align: center;
+}
+
+.main-title { 
+    font-family: Poppins;
+    font-size: 3em;
+    font-weight: 700;
+    margin-bottom: 0.5em;
+    color: #333;
+    width: 50%;
+    line-height: 1em;
+}
+
+.get-started {
+    background: #ff914e;
+    border-radius: 8px;
+    padding: 16px 56px;
+    color: white;
+    font-size: 0.9em;
+    font-weight: 700;
+}
+
+.main-header {
+    background-color: white;
+    margin-top: 15vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+}
+
+.sub-title-container {
+    display: flex;
+    font-size: 0.7em;
+}
+
+.sub-title-prompt {
+    margin-right: 4px;
+}
+
+.sub-title-cta {
+    color: #ff914e;
+}
+
+.sub-title-cta:hover {
+    cursor: pointer;
+}
