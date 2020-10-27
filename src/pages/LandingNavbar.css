@@ -1,0 +1,42 @@
+.navbar-container {
+    margin-top: 1vh;
+    margin-left: 2vw;
+    display: flex;
+    align-items: center;
+}
+
+#about-us {
+    width: 72px;
+    padding: 8px 16px;
+    color: #333;
+    margin-right: 1vw;
+    text-align: center;
+    font-weight: 700;
+}
+
+.navbar-controls {
+    display: flex;
+    align-items: center;
+    margin-left: 64vw;
+}
+
+#sign-in {
+    width: 72px;
+    padding: 8px 16px;
+    color: #ff914e;
+    border: 2px solid #ff914e;
+    border-radius: 8px;
+    margin-right: 1vw;
+    text-align: center;
+    font-weight: 700;
+}
+
+#register {
+    width: 72px;
+    padding: 8px 16px;
+    background: #ff914e;
+    color: white;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 700;
+}
