@@ -1,0 +1,61 @@
+.main {
+    text-align: center;
+}
+
+.L-icon {
+    position: absolute;
+    left: 97px;
+    top: 210px;
+}
+
+.ball-icon {
+    position: absolute;
+    left: 1279px;
+    top: 270px;
+}
+
+.main-title { 
+    font-family: Poppins;
+    font-size: 3em;
+    font-weight: 700;
+    margin-bottom: 0.5em;
+    color: #333;
+    width: 50%;
+    line-height: 1em;
+}
+
+.get-started {
+    background: #ff914e;
+    border-radius: 8px;
+    padding: 16px 56px;
+    color: white;
+    font-size: 0.9em;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.main-header {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+}
+
+.sub-title-container {
+    display: flex;
+    font-size: 0.7em;
+}
+
+.sub-title-prompt {
+    margin-right: 4px;
+}
+
+.sub-title-cta {
+    color: #ff914e;
+}
+
+.sub-title-cta:hover {
+    cursor: pointer;
+}
