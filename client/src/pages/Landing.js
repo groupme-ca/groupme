@@ -1,4 +1,4 @@
-import LandingNavbar from './LandingNavbar';
+import LandingNavbar from '../components/LandingNavbar';
 
 import Lshape from '../assets/img/asset-3-L.svg';
 import ballshape from '../assets/img/asset-4-ball.svg';
