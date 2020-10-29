@@ -1,49 +1,40 @@
 import express from 'express';
-import User from '../../models/User.js'
+import User from '../../models/User.js';
 
 const router = express.Router();
-// User Model
-// const User = require('../../models/User').default;
 
 /** 
  * @route       GET users
  * @description Get all users
  * @access      public
 */
-router.get('/', (req, res) => {
-	User.find()
+router.get('/', async (req, res) => {
+	await User.find()
 		.then(users => res.json(users));
-})
-
+});
 
 /** 
  * @route       POST api/users
- * @description Post all users
+ * @description Post the user from the request into the database
  * @access      public
 */
-router.post('/', (req, res) => {
-	const newUser = new User({
-		name: req.body.name, 
-		username: req.body, 
-		email: req.body.email,
-		hobbies: req.body.hobbies, 
-		courses: req.body.courses
-	});
+router.post('/', async  (req, res) => {
+	// Save the new user from the request
+	const newUser = new User(req.body);
 
 	newUser.save().then(user => res.json(user))
-})
+});
 
 
 /** 
  * @route       DELETE api/users/:id
- * @description Delete a Users
+ * @description Delete a User by their ID and returns the user which was deleted
  * @access      public
 */
-router.get('/', (req, res) => {
-	User.delete(req.params.id)
-		.then(user => user.remove().then(() => res.json({success: true})))
+router.delete('/:id', (req, res) => {
+	User.findByIdAndRemove(req.params.id)
+		.then(user => res.json(user))
 		.catch(err => res.status(404).json({success: false}))
 });
 
 export default router;
-// module.exports = router;

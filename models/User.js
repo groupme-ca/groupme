@@ -16,13 +16,17 @@ const UserSchema = new Schema({
 		type: String,
 		required: true
 	},
+	bio: {
+		type: String, 
+		default: ""
+	},
 	hobbies: {
 		type: Array,
-		default: {}
+		default: []
 	},
 	courses: {
 		type: Array,
-		default: {}
+		default: []
 	}
 });
 
