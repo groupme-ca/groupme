@@ -1,0 +1,81 @@
+#logo {
+    margin-top: 1vh;
+    margin-left: 2vw;
+}
+
+.page-title {
+    margin-top: -10vh;
+    font-family: Poppins;
+}
+
+.form-container {
+    margin-left: 12vw;
+    margin-top: 10vh;
+    
+    display: flex;
+    align-items: center;
+}
+
+.form-fields {
+    align-items: center;
+    justify-content: right;
+    margin-left: 2vw;
+}
+
+.form-row {
+    display: flex;
+    margin: 1em;
+}
+
+label {
+    width: 8em;
+    color: #333;
+}
+
+input {
+    border-radius: 0;
+    width: 20em;
+    border: 1px solid #afafaf;
+}
+
+input:focus {
+    border-radius: 0;
+    width: 20em;
+    outline: none;
+    border: 1px solid #ff914e;
+}
+
+.PLACEHOLDER-img {
+    width: 128px;
+    height: 128px;
+    border: 1px solid #333;
+    background: #f0f0f0;
+
+    font-size: 11px;
+    color: #111;
+}
+
+.bio-container {
+    margin-top: 5vh;
+    margin-left: 12vw;
+    display: flex;
+    flex-direction: column;
+}
+
+.bio-container > input {
+    width: 40em;
+    height: 10em;
+    border-radius: 4px;
+}
+
+.next-button {
+    background: #ff914e;
+    border-radius: 8px;
+    padding: 16px 32px;
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    margin-top: 11vh;
+    margin-left: 12vw;
+}
