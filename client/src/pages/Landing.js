@@ -1,4 +1,10 @@
 import LandingNavbar from '../components/LandingNavbar';
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+  } from "react-router-dom";
 
 import Lshape from '../assets/img/asset-3-L.svg';
 import ballshape from '../assets/img/asset-4-ball.svg';
@@ -13,13 +19,12 @@ const LandingPage = () => {
             <div className="main">
             <header className="main-header">
                 <h1 className="main-title"> Connecting students virtually </h1>
-                <a
-                className="get-started"
-                target="_blank"
-                rel="noopener noreferrer"
+                <Link
+                    className="get-started"
+                    to='/signup'
                 >
-                Get started
-                </a>
+                    Get started
+                </Link>
                 <div className='sub-title-container'>
                     <h3 className='sub-title-prompt'> Are you a professor? </h3>
                     <h3 className='sub-title-cta'> Add your class</h3>
