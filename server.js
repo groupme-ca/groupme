@@ -10,8 +10,7 @@ import keys from './config/keys.js';
 const app = express()
 app.disable("x-powered-by")
 // Body parser
-app.use(express.json);
-
+app.use(express.json());
 // Connect to MongoDB
 mongoose.connect(keys.mongoURI)
   .then(() => console.log("MongoDB connected"))
@@ -19,7 +18,7 @@ mongoose.connect(keys.mongoURI)
 
 // Use Routes 
 app.use('/api/users', users); // anything that goes to 'api/users' should refer to users
-
+// app.use(users);
 const port = process.env.PORT || 5000;
 
 app.listen(port, () => console.log(`Server started on port ${port}`));
