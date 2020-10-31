@@ -5,7 +5,7 @@ const router = express.Router();
 
 /** 
  * @route       GET users
- * @description Get all users
+ * @description Get All Users
  * @access      public
 */
 router.get('/', async (req, res) => {
@@ -36,5 +36,7 @@ router.delete('/:id', (req, res) => {
 		.then(user => res.json(user))
 		.catch(err => res.status(404).json({success: false}))
 });
+
+
 
 export default router;
