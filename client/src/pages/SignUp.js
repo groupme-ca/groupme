@@ -4,13 +4,14 @@ import { Link } from "react-router-dom";
 import './SignUpPage.css';
 import logo from '../assets/img/logo.svg';
 
-const formFields = ['Username', 'Email', 'Password'];
+const formFields = ['Name', 'Username', 'Email', 'Password'];
 
 class SignUpPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             stage: 1,
+            Name: '',
             Username: '',
             Password: '',
             Email: '',
@@ -21,7 +22,8 @@ class SignUpPage extends React.Component {
      * For now, this will just check for hardcoded values
      */
     authenticate() {
-        if (           
+        if (
+            this.state.Name ==  'a user' &&           
             this.state.Username == 'auser' && 
             this.state.Password == 'apassword' &&
             this.state.Email == 'auser@mail.utoronto.ca'
