@@ -5,7 +5,7 @@ const router = express.Router();
 
 /** 
  * @route       GET users
- * @description Get all users
+ * @description Get All Users
  * @access      public
 */
 router.get('/', async (req, res) => {
@@ -18,7 +18,7 @@ router.get('/', async (req, res) => {
  * @description Post the user from the request into the database
  * @access      public
 */
-router.post('/', async  (req, res) => {
+router.post('/', async (req, res) => {
 	// Save the new user from the request
 	const newUser = new User(req.body);
 
@@ -31,10 +31,20 @@ router.post('/', async  (req, res) => {
  * @description Delete a User by their ID and returns the user which was deleted
  * @access      public
 */
-router.delete('/:id', (req, res) => {
+router.delete('/:id', async (req, res) => {
 	User.findByIdAndRemove(req.params.id)
 		.then(user => res.json(user))
 		.catch(err => res.status(404).json({success: false}))
 });
+
+router.put('/:id', async (req, res) => {
+	const updatedUser = User.findByIdAndUpdate(req.params.id, req.body, {new:true})
+						.then(user => res.json(user))
+						.catch(err => res.status(404).json({success: false}))
+	
+	// updatedUser.save().then(user => res.json(user))
+	
+})
+
 
 export default router;

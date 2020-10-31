@@ -4,16 +4,17 @@ import { Link } from "react-router-dom";
 import './SignUpPage.css';
 import logo from '../assets/img/logo.svg';
 
-const formFields = ['Username *', 'Email *', 'Password *']
+const formFields = ['Name', 'Username', 'Email', 'Password'];
 
 class SignUpPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             stage: 1,
-            user: '',
-            password: '',
-            email: '',
+            Name: '',
+            Username: '',
+            Password: '',
+            Email: '',
         };
     }
 
@@ -22,15 +23,24 @@ class SignUpPage extends React.Component {
      */
     authenticate() {
         if (
-            this.state.user == 'auser' && 
-            this.state.password == 'apassword' &&
-            this.state.email == 'auser@mail.utoronto.ca'
+            this.state.Name ==  'a user' &&           
+            this.state.Username == 'auser' && 
+            this.state.Password == 'apassword' &&
+            this.state.Email == 'auser@mail.utoronto.ca'
         ) {
+            console.log(this.state);
             alert('yes')
         } else {
+            console.log(this.state);
             alert('no');
         }
     }
+
+    formEvent = ({ target }) => {
+        this.setState({ 
+            [target.name]: target.value
+        });
+      };
 
     render() {
         return (
@@ -44,6 +54,8 @@ class SignUpPage extends React.Component {
                     </h1>
                 </center>
 
+
+
                 <div className='form-container'>
                     <div className='PLACEHOLDER-img'> 
                         FEATURE COMING SOON
@@ -51,8 +63,10 @@ class SignUpPage extends React.Component {
                     <div className='form-fields'>
                         {formFields.map((field)  => (
                                 <div className='form-row'>
-                                    <label> {field} </label>
-                                    {field == 'Password *' ? <input type="password" /> : <input />}
+                                    <label> {field} * </label>
+                                    {/* This hooks up the form to the state variable
+                                        also, if it's a password field it gives it the type password*/}
+                                    <input type={field == "Password" ? "password" : "" } name={field} onChange={this.formEvent} /> 
                                 </div>
                             ))
                         }

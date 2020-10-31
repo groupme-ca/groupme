@@ -1,5 +1,5 @@
 {
-  "name": "groupme",
+  "name": "groupme-client",
   "type": "module",
   "version": "1.0.0",
   "description": "An application to help students find other students to study or group up with.",
