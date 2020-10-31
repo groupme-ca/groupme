@@ -23,7 +23,8 @@ class SignUpPage extends React.Component {
 
     componentDidMount(props) {
         this.setState({
-            //stage: 1,
+            stage: 1,
+            nextPage: '/signup',
             Name: '',
             Username: '',
             Password: '',
@@ -35,21 +36,22 @@ class SignUpPage extends React.Component {
      * For now, this will just check for hardcoded values
      */
     authenticate() {
+        /**
+         * We input our placeholder logic for now
+         */
         if (
             this.state.Name ===  'a user' &&           
             this.state.Username === 'auser' && 
             this.state.Password === 'apassword' &&
             this.state.Email === 'auser@mail.utoronto.ca'
         ) {
-            console.log(this.state);
             this.setState({ error: false });
             return 0;
         } else {
-            console.log(this.state);
             this.setState({ error: true });
             return 1;
         }
-    }
+    } 
 
     formEvent = ({ target }) => {
         this.setState({ 
@@ -99,24 +101,31 @@ class SignUpPage extends React.Component {
                     </div>
                 ) : (
                     <div className="select-wrapper">
-                        <Select 
-                            isMulti
-                            className="select-container"
-                            options={options.hobbies} 
-                        />
-                        <Select 
-                            isMulti
-                            className="select-container"
-                            options={options.courses} 
-                        />
+                        <div>
+                            <p className='select-header'> Hobbies </p>
+                            <Select 
+                                isMulti
+                                className="select-container"
+                                options={options.hobbies} 
+                            />
+                        </div>
+                        <div>
+                            <p className='select-header'> Courses </p>
+                            <Select 
+                                isMulti
+                                className="select-container"
+                                options={options.courses} 
+                            />
+                        </div>
                     </div>
                 )}
 
-                <Link to='/signup' className="next-button" onClick={() => {
+                <Link to={this.state.nextPage} className="next-button" onClick={() => {
                     const err = this.authenticate();
                     if (!err) {
                         this.setState({
-                            stage: 2
+                            stage: 2,
+                            nextPage: '/welcome'
                         })
                     } 
                 }}>
