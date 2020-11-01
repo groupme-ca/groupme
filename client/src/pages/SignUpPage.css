@@ -79,3 +79,23 @@ input:focus {
     margin-top: 11vh;
     margin-left: 12vw;
 }
+
+.select-wrapper {
+    display: flex;
+    margin-bottom: 40vh;
+    margin-left: 12vw;
+}
+
+.select-header {
+    width: 96px;
+    font-weight: 700;
+    margin-bottom: 0.5em;
+    color: #333;
+}
+
+.select-container {
+    width: 20vw;
+    margin-right: 12vw;
+    outline: none;
+}
+
