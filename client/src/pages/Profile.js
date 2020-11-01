@@ -4,9 +4,9 @@ import Select from 'react-select';
 import Slider from "react-slick";
 
 import UserCard from '../components/UserCard';
-import Sidebar from '../components/SideBar';
 import './Recommendations.css';
 import settings from '../utils/CarouselSettings';
+import SideBar from '../components/SideBar';
 
 import logo from '../assets/img/logo.svg';
 import vlad from '../assets/img/vlad2.svg';
@@ -21,10 +21,10 @@ class RecommendationPage extends React.Component {
     render() {
         return (
             <div className='page-container'>
-                <Sidebar></Sidebar>
+                <SideBar></SideBar>
                 <div className='page-content'>
                     <h1 className='header'>
-                        Find people to study with
+                        I'm a profile page WEEEEEEEEEE
                     </h1>
                     <div id='online-count'> 
                         <div className='green-circle'> </div> 

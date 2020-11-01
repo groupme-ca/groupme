@@ -1,0 +1,9 @@
+.sidebar {
+  border-right: 1px solid #dadada;
+  width: 15vw;
+  height: 100vh;
+}
+
+.sidebar-tab {
+  color: black
+}
