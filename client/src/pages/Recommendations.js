@@ -7,6 +7,7 @@ import UserCard from '../components/UserCard';
 import Sidebar from '../components/SideBar';
 import './Recommendations.css';
 import settings from '../utils/CarouselSettings';
+import options from '../utils/SignUpOptions';
 
 import logo from '../assets/img/logo.svg';
 import vlad from '../assets/img/vlad2.svg';
@@ -31,7 +32,30 @@ class RecommendationPage extends React.Component {
                         <p> xxx people currently online </p> 
                     </div>
 
-                    <br/><br/><br/><br/>
+                    <br/><br/>
+                    <p className='select-header'> Filter By: </p>
+                    <div class="filter-section">
+                        <input class="filter-input"></input>
+                      </div>
+                    <div className="filter-section">
+                        <div>
+                            <Select 
+                                isMulti
+                                className="filter-container"
+                                options={options.hobbies} 
+                                placeholder="Hobbies"
+                            />
+                        </div>
+                        <div>
+                            <Select 
+                                isMulti
+                                className="filter-container"
+                                options={options.courses} 
+                                placeholder="Courses"
+                            />
+                        </div>
+                    </div>
+                    <br/><br/>
     
                     <h1 className='header'>
                         Same interests as you
