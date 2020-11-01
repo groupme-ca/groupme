@@ -5,5 +5,15 @@
 }
 
 .sidebar-tab {
-  color: black
+  color: #686868;
+  display: flex;
+  margin-top: 10px;
+}
+
+.sidebar-img {
+  margin-right: 10px;
+}
+
+.sidebar-text {
+  margin-top: 3px;
 }
