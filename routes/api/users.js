@@ -9,6 +9,11 @@ const router = express.Router();
  * @access      public
 */
 router.get('/', async (req, res) => {
+
+	// if there exists email and pass
+	// Query for the specific user
+
+	// else get all
 	await User.find()
 		.then(users => res.json(users));
 });
