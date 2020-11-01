@@ -1,8 +1,9 @@
 import React from 'react';
-import { Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import './SideBar.css';
 import logo from '../assets/img/logo.svg';
+import search from '../assets/img/search-icon.svg';
+import profile from '../assets/img/profile-icon.svg';
 
 class Sidebar extends React.Component {
     constructor(props) {
@@ -20,10 +21,12 @@ class Sidebar extends React.Component {
           </Link>
           <br></br>
           <Link to='/profile'>
-            <div class='sidebar-tab'> Profile Page </div>
+           <div class='sidebar-tab'> <img class='sidebar-img' src={profile} width={32} /> 
+           <span class='sidebar-text'> My Profile </span> </div>
           </Link>
           <Link to='/welcome'>
-            <div class='sidebar-tab'> Recommendation Page </div>
+           <div class='sidebar-tab'> <img class='sidebar-img' src={search} width={32} /> 
+           <span class='sidebar-text'> Search </span> </div>
           </Link>
         </div>
         )
