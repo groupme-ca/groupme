@@ -51,7 +51,7 @@ router.put('/:id', async (req, res) => {
  * @description Sign in using your email and password
  * @access      public
 */
-router.get('/signin', async (req, res) => {
+router.get('/sign_in', async (req, res) => {
 	const user = User.find(req.body, function (err, res) {
 		//if the user doesnt exist
 		if (res == []) {
