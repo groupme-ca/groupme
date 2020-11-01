@@ -43,8 +43,23 @@ router.put('/:id', async (req, res) => {
 						.catch(err => res.status(404).json({success: false}))
 	
 	// updatedUser.save().then(user => res.json(user))
-	
-})
 
+});
+//TODO: cookies or a way to identify user
+/** 
+ * @route       GET api/users/signin
+ * @description Sign in using your email and password
+ * @access      public
+*/
+router.get('/signin', async (req, res) => {
+	const user = User.find(req.body, function (err, res) {
+		//if the user doesnt exist
+		if (res == []) {
+			console.log(res);
+		} 			
+	}).then(user => res.json(user))
+	.catch(err => res.status(404).json({success: false}));
+				
+});
 
 export default router;
