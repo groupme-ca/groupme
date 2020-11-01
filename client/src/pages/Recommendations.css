@@ -1,0 +1,46 @@
+.page-container {
+    display: flex;
+    align-items: flex-start;
+}
+
+.sidebar {
+    border-right: 1px solid #dadada;
+    width: 15vw;
+    height: 100vh;
+}
+
+.header {
+    font-size: 18px;
+    margin-bottom: 0.1em;
+}
+
+.page-content {
+    margin-left: 3vw;
+    height: 100vh;
+    
+}
+
+#online-count {
+    font-size: 14px;
+    margin-top: 0.1em;
+    display: flex;
+    align-items: baseline;
+}
+
+#online-count > p {
+    margin-top: 0.1em;
+}
+
+.green-circle {
+    width: 10px;
+    height: 10px;
+    background: #a9fda1;
+    border-radius: 50%;
+    margin-right: 0.1em;
+    margin-top: 0em;
+}
+
+.int-carousel {
+    display: flex;
+    align-items: center;
+}
