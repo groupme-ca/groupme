@@ -9,13 +9,18 @@ import LandingPage from './pages/Landing';
 import SignUpPage from './pages/SignUp';
 import RecommendationPage from './pages/Recommendations';
 
+import { Provider } from 'react-redux';
+import store from './store';
+
 function App() {
   return (
+    <Provider store={store}>
     <Router>
       <Route path='/' exact render={() => <LandingPage />} />
       <Route path='/signup' exact render={() => <SignUpPage /> } />
       <Route path='/welcome' exact render={() => <RecommendationPage /> } />
     </Router>
+    </Provider>
   );
 }
 
