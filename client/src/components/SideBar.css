@@ -4,6 +4,10 @@
   height: 100vh;
 }
 
+.sidebar-content {
+  margin-left: 2vw;
+}
+
 .sidebar-tab {
   color: #686868;
   display: flex;
