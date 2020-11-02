@@ -31,10 +31,6 @@ class SignUpPage extends React.Component {
         this.setState({
             stage: 1,
             nextPage: '/signup',
-            Name: '',
-            Username: '',
-            Password: '',
-            Email: '',
         });
     }
 
@@ -74,13 +70,11 @@ class SignUpPage extends React.Component {
          *      
          */
         if (
-          true
-          /*
-            this.state.Name ===  'a user' &&           
-            this.state.Username === 'auser' && 
-            this.state.Password === 'apassword' &&
-            this.state.Email === 'auser@mail.utoronto.ca'
-            */
+            1
+            // this.state.Name ===  'a user' &&           
+            // this.state.Username === 'auser' && 
+            // this.state.Password === 'apassword' &&
+            // this.state.Email === 'auser@mail.utoronto.ca'
         ) {
             this.setState({ error: false });
             return 0;
