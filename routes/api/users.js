@@ -10,9 +10,6 @@ const router = express.Router();
 */
 router.get('/', async (req, res) => {
 
-	// if there exists email and pass
-	// Query for the specific user
-
 	// else get all
 	await User.find()
 		.then(users => res.json(users));
@@ -43,13 +40,36 @@ router.delete('/:id', async (req, res) => {
 });
 
 router.put('/:id', async (req, res) => {
-	const updatedUser = User.findByIdAndUpdate(req.params.id, req.body, {new:true})
+	User.findByIdAndUpdate(req.params.id, req.body, {new:true})
 						.then(user => res.json(user))
 						.catch(err => res.status(404).json({success: false}))
 	
-	// updatedUser.save().then(user => res.json(user))
-	
-})
+});
+//TODO: cookies or a way to identify user
+/** 
+ * @route       GET api/users/signin
+ * @description Sign in using your email and password
+ * @access      public
+*/
+router.get('/sign_in', async (req, res) => {
+	User.find(req.body, function (err, res) {
+		//if the user doesnt exist
+		if (res == []) {
+			console.log('User not found.');
+		} 			
+	}).then(user => res.json(user))
+	.catch(err => res.status(404).json({success: false}));			
+});
 
+// If above doesn't work, plagiarize below.
+// router.get('/', async (req, res) => {
+// 	try {
+// 	  const users = await User.find();
+// 	  if (!users) throw Error('No users exist');
+// 	  res.json(users);
+// 	} catch (e) {
+// 	  res.status(400).json({ msg: e.message });
+// 	}
+//   });
 
 export default router;
