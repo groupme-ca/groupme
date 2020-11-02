@@ -32,7 +32,6 @@ class RecommendationPage extends React.Component {
                         <p> xxx people currently online </p> 
                     </div>
 
-                    <br/><br/>
                     <p className='select-header'> Filter By: </p>
                     <div class="filter-section">
                         <input class="filter-input"></input>
@@ -55,7 +54,6 @@ class RecommendationPage extends React.Component {
                             />
                         </div>
                     </div>
-                    <br/><br/>
     
                     <h1 className='header'>
                         Same interests as you
