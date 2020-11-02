@@ -4,10 +4,9 @@ import Select from 'react-select';
 import Slider from "react-slick";
 
 import UserCard from '../components/UserCard';
-import Sidebar from '../components/SideBar';
 import './Recommendations.css';
 import settings from '../utils/CarouselSettings';
-import options from '../utils/SignUpOptions';
+import SideBar from '../components/SideBar';
 
 import logo from '../assets/img/logo.svg';
 import vlad from '../assets/img/vlad2.svg';
@@ -22,40 +21,17 @@ class RecommendationPage extends React.Component {
     render() {
         return (
             <div className='page-container'>
-                <Sidebar></Sidebar>
+                <SideBar></SideBar>
                 <div className='page-content'>
                     <h1 className='header'>
-                        Find people to study with
+                        I'm a profile page WEEEEEEEEEE
                     </h1>
                     <div id='online-count'> 
                         <div className='green-circle'> </div> 
                         <p> xxx people currently online </p> 
                     </div>
 
-                    <br/><br/>
-                    <p className='select-header'> Filter By: </p>
-                    <div class="filter-section">
-                        <input class="filter-input"></input>
-                      </div>
-                    <div className="filter-section">
-                        <div>
-                            <Select 
-                                isMulti
-                                className="filter-container"
-                                options={options.hobbies} 
-                                placeholder="Hobbies"
-                            />
-                        </div>
-                        <div>
-                            <Select 
-                                isMulti
-                                className="filter-container"
-                                options={options.courses} 
-                                placeholder="Courses"
-                            />
-                        </div>
-                    </div>
-                    <br/><br/>
+                    <br/><br/><br/><br/>
     
                     <h1 className='header'>
                         Same interests as you
