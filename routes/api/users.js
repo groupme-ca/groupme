@@ -51,14 +51,28 @@ router.put('/:id', async (req, res) => {
  * @description Sign in using your email and password
  * @access      public
 */
-router.get('/sign_in', async (req, res) => {
+router.post('/sign_in', async (req, res) => {
 	User.find(req.body, function (err, usr) {
 		//if the user doesnt exist
-		if (!usr) {
+		// console.log(usr);
+		if (!Array.isArray(usr) || !usr.length) {
 			console.log('User not found.');
-		} 			
+		} 		
+		// console.log(usr);	
 	}).then(user => res.json(user))
-	.catch(err => res.status(404).json({success: false}));			
+	.catch(err => res.status(404).json({success: false}));
 });
+
+// router.get('/sign_in', async (req, res) => {
+// 	const user = User.find(req.body)
+// 					.catch(err => res.status(404).json({success: false}));
+// 		//if the user doesnt exist
+// 	if (!user) {
+// 		console.log('User not found.');
+// 	}
+// 	else{
+// 		user.then(usr => res.json(usr));
+// 	}		
+// });
 
 export default router;
