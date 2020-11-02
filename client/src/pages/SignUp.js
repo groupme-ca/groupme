@@ -5,6 +5,12 @@ import Select from 'react-select';
 import './SignUpPage.css';
 import options from '../utils/SignUpOptions';
 import logo from '../assets/img/logo.svg';
+// The following imports are for redux
+// This connects the frontend to backend.
+import { connect } from 'react-redux';
+import { addUser } from '../actions/userActions';
+import PropTypes from 'prop-types';
+
 
 const formFields = ['Name', 'Username', 'Email', 'Password'];
 
@@ -17,7 +23,7 @@ class SignUpPage extends React.Component {
             Name: '',
             Username: '',
             Password: '',
-            Email: '',
+            Email: ''
         };
     }
 
@@ -32,12 +38,40 @@ class SignUpPage extends React.Component {
         });
     }
 
+    handleOnNext = (e) => {    
+        const err = this.authenticate();
+        if (!err && this.state.stage == 1) {
+            this.setState({
+                stage: 2,
+                nextPage: '/welcome'
+            });
+        }
+        
+        else if(this.state.stage == 2){
+            // construct the data that we want to add into db
+            const newUser = {
+                "name": this.state.Name,
+                "username": this.state.Username,
+                "email": this.state.Email,
+                "password": this.state.Password
+            };
+            // console.log(newUser);
+            // Call the action to add the user.
+            this.props.addUser(newUser);
+        }
+    };
     /**
      * For now, this will just check for hardcoded values
      */
     authenticate() {
         /**
          * We input our placeholder logic for now
+         * TODO: Send a message for incorrect info/info which is already in the 
+         * database.
+         * 
+         *      Strip spaces on the right for each field. 
+         *      Check for valid email (@mail.utoronto.ca)
+         *      
          */
         if (
           true
@@ -52,7 +86,8 @@ class SignUpPage extends React.Component {
             return 0;
         } else {
             this.setState({ error: true });
-            return 1;
+            // return 1;
+            return 0;
         }
     } 
 
@@ -60,7 +95,7 @@ class SignUpPage extends React.Component {
         this.setState({ 
             [target.name]: target.value
         });
-      };
+    };
 
     render() {
         return (
@@ -122,16 +157,7 @@ class SignUpPage extends React.Component {
                         </div>
                     </div>
                 )}
-
-                <Link to={this.state.nextPage} className="next-button" onClick={() => {
-                    const err = this.authenticate();
-                    if (!err) {
-                        this.setState({
-                            stage: 2,
-                            nextPage: '/welcome'
-                        })
-                    } 
-                }}>
+                <Link to={this.state.nextPage} className="next-button" onClick={this.handleOnNext}>
                     {this.state.stage === 1 ? "Next" : "Sign Up"}
                 </Link>
 
@@ -140,4 +166,11 @@ class SignUpPage extends React.Component {
     }
 }
 
-export default SignUpPage;
+// This is the current user, that we get from redux state.
+const mapStateToProps = (state) => ({
+    currentUser: state.currentUser
+});
+
+// This connect thing is required to make redux work, we add the different props that we need
+// in the second parameter. 
+export default connect(mapStateToProps, { addUser })(SignUpPage);

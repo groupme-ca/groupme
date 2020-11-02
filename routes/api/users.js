@@ -10,9 +10,6 @@ const router = express.Router();
 */
 router.get('/', async (req, res) => {
 
-	// if there exists email and pass
-	// Query for the specific user
-
 	// else get all
 	await User.find()
 		.then(users => res.json(users));
@@ -55,14 +52,13 @@ router.put('/:id', async (req, res) => {
  * @access      public
 */
 router.get('/sign_in', async (req, res) => {
-	User.find(req.body, function (err, res) {
+	User.find(req.body, function (err, usr) {
 		//if the user doesnt exist
-		if (res == []) {
-			console.log(res);
+		if (!usr) {
+			console.log('User not found.');
 		} 			
 	}).then(user => res.json(user))
-	.catch(err => res.status(404).json({success: false}));
-				
+	.catch(err => res.status(404).json({success: false}));			
 });
 
 export default router;
