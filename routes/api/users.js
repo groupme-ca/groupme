@@ -9,6 +9,8 @@ const router = express.Router();
  * @access      public
 */
 router.get('/', async (req, res) => {
+
+	// else get all
 	await User.find()
 		.then(users => res.json(users));
 });
@@ -38,12 +40,10 @@ router.delete('/:id', async (req, res) => {
 });
 
 router.put('/:id', async (req, res) => {
-	const updatedUser = User.findByIdAndUpdate(req.params.id, req.body, {new:true})
+	User.findByIdAndUpdate(req.params.id, req.body, {new:true})
 						.then(user => res.json(user))
 						.catch(err => res.status(404).json({success: false}))
 	
-	// updatedUser.save().then(user => res.json(user))
-
 });
 //TODO: cookies or a way to identify user
 /** 
@@ -52,14 +52,13 @@ router.put('/:id', async (req, res) => {
  * @access      public
 */
 router.get('/sign_in', async (req, res) => {
-	const user = User.find(req.body, function (err, res) {
+	User.find(req.body, function (err, usr) {
 		//if the user doesnt exist
-		if (res == []) {
-			console.log(res);
+		if (!usr) {
+			console.log('User not found.');
 		} 			
 	}).then(user => res.json(user))
-	.catch(err => res.status(404).json({success: false}));
-				
+	.catch(err => res.status(404).json({success: false}));			
 });
 
 export default router;
