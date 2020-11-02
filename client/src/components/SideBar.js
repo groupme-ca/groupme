@@ -28,6 +28,10 @@ class Sidebar extends React.Component {
            <div class='sidebar-tab'> <img class='sidebar-img' src={search} width={32} /> 
            <span class='sidebar-text'> Search </span> </div>
           </Link>
+          <Link to='/'>
+           <div class='sidebar-tab'> <img class='sidebar-img' src={search} width={32} /> 
+           <span class='sidebar-text'> Sign Out </span> </div>
+          </Link>
         </div>
         )
     }

@@ -13,7 +13,7 @@ import vlad from '../assets/img/vlad2.svg';
 import lara from '../assets/img/lara.svg';
 import alick from '../assets/img/alick.svg';
 
-class RecommendationPage extends React.Component {
+class ProfilePage extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -71,4 +71,4 @@ class RecommendationPage extends React.Component {
 
 }
 
-export default RecommendationPage;
+export default ProfilePage;
