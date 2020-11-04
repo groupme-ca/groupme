@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 
-import './SignUpPage.css';
 import logo from '../assets/img/logo.svg';
 // The following imports are for redux
 // This connects the frontend to backend.
@@ -88,8 +87,8 @@ class SignInPage extends React.Component {
                     <img id='logo' src={logo} width={128} /> 
                 </Link>
                 <center>
-                    <h1 className='page-title'>
-                        Welcome Back!
+                    <h1 className='form-title'>
+                        Welcome back!
                     </h1>
                     <pre> {this.state.error ? "Error occurred" : ""}</pre>
                 </center>
@@ -122,7 +121,7 @@ class SignInPage extends React.Component {
                     <br/><br/><br/><br/>
 
                 </div>
-                <Link to={this.state.nextPage} className="next-button" onClick={this.handleOnNext}>
+                <Link to={this.state.nextPage} className="btn primary md form-submit" onClick={this.handleOnNext}>
                     Sign In
                 </Link>
 

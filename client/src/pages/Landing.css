@@ -4,35 +4,21 @@
 
 .L-icon {
     position: absolute;
-    left: 97px;
+    left: 5vw;
     top: 210px;
 }
 
 .ball-icon {
     position: absolute;
-    left: 1279px;
+    left: 88vw;
     top: 270px;
 }
 
 .main-title { 
-    font-family: Poppins;
     font-size: 3em;
-    font-weight: 700;
     margin-bottom: 0.5em;
-    color: #333;
     width: 50%;
     line-height: 1em;
-}
-
-.get-started {
-    background: #ff914e;
-    border-radius: 8px;
-    padding: 16px 56px;
-    color: white;
-    font-size: 0.9em;
-    font-weight: 700;
-    cursor: pointer;
-    text-decoration: none;
 }
 
 .main-header {
@@ -59,4 +45,21 @@
 
 .sub-title-cta:hover {
     cursor: pointer;
+}
+
+@media screen and (max-width: 900px) {
+    .L-icon {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 770px) {
+    .ball-icon {
+        display: none;
+    }
+
+    .main-title {
+        font-size: 2.6rem;
+        width: 75%;
+    }
 }
