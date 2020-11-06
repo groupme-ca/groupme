@@ -118,7 +118,6 @@ class RecommendationPage extends React.Component {
                                 isMulti
                                 className="filter-container"
                                 options={options.hobbies} 
-                                st
                                 placeholder="Hobbies"
                             />
                         </div>
