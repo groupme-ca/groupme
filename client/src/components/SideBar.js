@@ -4,6 +4,7 @@ import './SideBar.css';
 import logo from '../assets/img/logo.svg';
 import search from '../assets/img/search-icon.svg';
 import profile from '../assets/img/profile-icon.svg';
+import dm from '../assets/img/dm-icon.svg';
 
 class Sidebar extends React.Component {
     constructor(props) {
@@ -27,6 +28,10 @@ class Sidebar extends React.Component {
           <Link to='/welcome'>
            <div class='sidebar-tab'> <img class='sidebar-img' src={search} width={32} /> 
            <span class='sidebar-text'> Search </span> </div>
+          </Link>
+          <Link to='/messaging'>
+           <div class='sidebar-tab'> <img class='sidebar-img' src={dm} width={32} /> 
+           <span class='sidebar-text'> Messaging </span> </div>
           </Link>
         </div>
         )

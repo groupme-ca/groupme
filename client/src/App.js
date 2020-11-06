@@ -9,6 +9,7 @@ import LandingPage from './pages/Landing';
 import SignUpPage from './pages/SignUp';
 import RecommendationPage from './pages/Recommendations';
 import ProfilePage from './pages/Profile';
+import Messaging from './pages/Messaging.js'
 
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
       <Route path='/signup' exact render={() => <SignUpPage /> } />
       <Route path='/welcome' exact render={() => <RecommendationPage /> } />
       <Route path='/profile' exact render={() => <ProfilePage /> } />
+      <Route path='/messaging' exact render={() => <Messaging /> } />
     </Router>
   );
 }
