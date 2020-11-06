@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/groupme-ca/groupme#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "concurrently": "^5.3.0",
     "express": "^4.17.1",
     "mongoose": "^5.10.11",
