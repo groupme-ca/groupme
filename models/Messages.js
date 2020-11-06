@@ -6,7 +6,7 @@ const MessageSchema = new Schema({
     message: String,
     name: String,
     timestamp: String,
-    received: Boolean
+    ChatId: String
 });
 
 export default model('messages', MessageSchema);
