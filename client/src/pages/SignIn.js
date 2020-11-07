@@ -62,7 +62,7 @@ class SignInPage extends React.Component {
 				Sign In
 			</Link>
 		) : (
-			<Redirect to={this.state.nextPage} />
+			<Redirect to={"/welcome"} />
 		);
 		return (
 			<div>
@@ -70,7 +70,7 @@ class SignInPage extends React.Component {
 					<img id="logo" src={logo} width={128} alt="Logo" />
 				</Link>
 				<center>
-					<h1 className="form-title">Welcome back!</h1>
+					<h1 className="page-title">Welcome Back!</h1>
 					<pre> {this.state.error ? "Error occurred" : ""}</pre>
 				</center>
 				<div>
