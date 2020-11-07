@@ -1,14 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Select from "react-select";
+import options from '../utils/SignUpOptions';
+import logo from '../assets/img/logo.svg';
 
-import "./SignUpPage.css";
-import options from "../utils/SignUpOptions";
-import logo from "../assets/img/logo.svg";
 // The following imports are for redux
 // This connects the frontend to backend.
-import { connect } from "react-redux";
-import { addUser } from "../actions/userActions";
+import { connect } from 'react-redux';
+import { addUser } from '../actions/userActions';
 import PropTypes from "prop-types";
 
 const formFields = ["Name", "Username", "Email", "Password"];
@@ -101,7 +100,9 @@ class SignUpPage extends React.Component {
                     <img id="logo" src={logo} width={128} alt="Logo" />
                 </Link>
                 <center>
-                    <h1 className="page-title">Create your profile</h1>
+                    <h1 className='form-title'>
+                        Create your profile
+                    </h1>
                     <pre> {this.state.error ? "Error occurred" : ""}</pre>
                 </center>
 
@@ -117,23 +118,20 @@ class SignUpPage extends React.Component {
                                         <label> {field} * </label>
                                         {/* This hooks up the form to the state variable
                                                 also, if it's a password field it gives it the type password*/}
-                                        <input
-                                            type={
-                                                field === "Password"
-                                                    ? "password"
-                                                    : ""
-                                            }
-                                            name={field}
-                                            onChange={this.formEvent}
-                                        />
-                                    </div>
-                                ))}
+                                            <input 
+                                                type={field === "Password" ? "password" : "" } 
+                                                name={field} 
+                                                onChange={this.formEvent} 
+                                            /> 
+                                        </div>
+                                    ))
+                                }
                             </div>
                         </div>
 
                         <div className="bio-container">
                             <label> Bio </label>
-                            <input />
+                            <textarea />
                         </div>
 
                         <br />
@@ -161,11 +159,7 @@ class SignUpPage extends React.Component {
                         </div>
                     </div>
                 )}
-                <Link
-                    to={this.state.nextPage}
-                    className="next-button"
-                    onClick={this.handleOnNext}
-                >
+                <Link to={this.state.nextPage} className="btn primary md form-submit" onClick={this.handleOnNext}>
                     {this.state.stage === 1 ? "Next" : "Sign Up"}
                 </Link>
             </div>

@@ -5,20 +5,19 @@ import {
     Link
 } from "react-router-dom";
 
-import './LandingNavbar.css';
 import logo from '../assets/img/logo.svg';
 
 
 const LandingNavbar = () => {
     return (
-        <div className='navbar-container'>
+        <nav>
             <Link to='/'> <img src={logo} width={128} /> </Link>
-            <div id='about-us'> About us </div>
-            <div className='navbar-controls'>
-                <Link to='/signin' id='sign-in'> Sign in </Link> 
-                <Link to='/signup' id='register'> Register </Link>
+            <a className='navitem'> About us </a>
+            <div className='navitem rightmost'>
+                <Link to='/signin' className='btn secondary sm'> Sign in </Link> 
+                <Link to='/signup' className='btn primary sm'> Register </Link>
             </div>
-        </div>
+        </nav>
     );
 }
 

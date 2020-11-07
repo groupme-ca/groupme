@@ -1,7 +1,13 @@
 .sidebar {
-  border-right: 1px solid #dadada;
+  border-right: 1px solid #cacaca;
   width: 15vw;
   height: 100vh;
+  position: fixed;
+  left: 0;
+}
+
+.sidebar-content {
+  margin-left: 2vw;
 }
 
 .sidebar-tab {

@@ -1,7 +1,6 @@
 import React from "react";
 import { Link, Redirect } from "react-router-dom";
 
-import "./SignUpPage.css";
 import logo from "../assets/img/logo.svg";
 // The following imports are for redux
 // This connects the frontend to backend.

@@ -20,7 +20,7 @@ const LandingPage = () => {
             <header className="main-header">
                 <h1 className="main-title"> Connecting students virtually </h1>
                 <Link
-                    className="get-started"
+                    className="btn primary xl"
                     to='/signup'
                 >
                     Get started
