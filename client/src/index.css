@@ -77,18 +77,12 @@ textarea:focus {
   color: #ff914e;
 }
 
-.xs {
-  padding: 4px 0;
-  font-size: 11px;
-  width: 80px;
-}
-
 .sm {
   padding: 8px 16px;
 }
 
 .md {
-  padding: 16px;
+  padding: 16px 32px;
 }
 
 .xl {
@@ -117,7 +111,7 @@ nav > .navitem {
   font-weight: 700;
 }
 
-nav > .navitem > a {
+nav > a, nav > .navitem > a {
   cursor: pointer;
   margin: 0 8px;
 }
@@ -212,82 +206,6 @@ nav > .navitem > a {
   outline: none;
 }
 
-/** MAIN SITE STYLING **/
-/* This is the styling for the site's content */
-/* ---- subheaders
- * ---- page content right of sidebar
- * ---- search fields
- * ---- 
- */
-
-.page-container {
-  overflow-y: scroll;
-}
-
-.filter-input{
-  width: 40vw;
-  height: 3vh;
-  margin-bottom: 2vh;
-}
-
-.filter-section {
-  display: flex;
-  width: 42vw;
-}
-
-.filter-section > .btn {
-  width: fit-content;
-  height: fit-content;
-}
-
-.filter-container {
-  width: 19vw;
-  margin-right: 1vw;
-  outline: none;
-  margin-bottom: 2vh;
-}
-
-.header {
-  font-size: 18px;
-  margin-bottom: 0.1em;
-}
-
-.page-content {
-  margin-left: 20vw;
-  height: 100vh;
-}
-
-#online-count {
-  font-size: 14px;
-  margin-top: 0.1em;
-  display: flex;
-  align-items: baseline;
-}
-
-#online-count > p {
-  margin-top: 0.1em;
-}
-
-.green-circle {
-  width: 10px;
-  height: 10px;
-  background: #a9fda1;
-  border-radius: 50%;
-  margin-right: 0.1em;
-  margin-top: 0em;
-}
-
-.carousel-wrapper {
-  display: flex;
-  overflow: hidden;
-  width: 70vw;
-  align-items: center;
-}
-
-/** MEDIA QUERIES **/
-/* This is where responsiveness rules are implemented for different screen sizes.
- * Includes stylings for elements on different pages.
- */
 @media screen and (max-width: 900px) {
 
 }
@@ -332,7 +250,7 @@ nav > .navitem > a {
 }
 
 @media screen and (max-width: 560px) {
-  nav > .navitem > a {
+  nav > a, nav > .navitem > a {
     margin: 0 4px;
   }
 
