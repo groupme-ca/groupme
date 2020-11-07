@@ -63,7 +63,7 @@ class SignInPage extends React.Component {
                 Sign In
             </Link>
         ) : (
-            <Redirect to={this.state.nextPage} />
+            <Redirect to={"/welcome"} />
         );
         return (
             <div>
