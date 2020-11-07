@@ -56,7 +56,7 @@ class SignInPage extends React.Component {
 		const SignInLink = !this.props.user.currentUser ? (
 			<Link
 				to="/signin"
-				className="next-button"
+				className="btn primary md form-submit"
 				onClick={this.handleOnNext}
 			>
 				Sign In
