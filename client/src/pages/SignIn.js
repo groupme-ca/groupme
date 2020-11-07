@@ -70,7 +70,7 @@ class SignInPage extends React.Component {
 					<img id="logo" src={logo} width={128} alt="Logo" />
 				</Link>
 				<center>
-					<h1 className="page-title">Welcome Back!</h1>
+					<h1 className="form-title">Welcome Back!</h1>
 					<pre> {this.state.error ? "Error occurred" : ""}</pre>
 				</center>
 				<div>
