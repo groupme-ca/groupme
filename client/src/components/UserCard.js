@@ -21,24 +21,35 @@ class UserCard extends React.Component {
                     <Card.Text> {this.props.bio} </Card.Text>
 
                     <div className='hobbies-field'> 
-                        {this.props.hobbies.map((h, idx) => <div key={idx} className='card-hobby'> {h} </div>)}
+                        {this.props.tags.map((h, idx) => <div key={idx} className='card-hobby'> {h} </div>)}
                     </div>
                     
-                    {this.state.requestSent ? 
-                        <p className='friend-notif'> Request sent! </p> : 
-                        <div 
-                            variant="primary"
-                            className="add-friend-btn"
+                    {<div className='card-buttons'>
+                        
+                        {this.state.requestSent ? 
+                            <p className='friend-notif'> Request sent! </p> : 
+                            <div 
+                                className="btn primary xs"
+                                onClick={(e) => {
+                                    this.setState({
+                                        requestSent: true
+                                    })
+                                }}
+                            >
+                                Add friend
+                            </div>
+                        }
+                            <div 
+                            className="btn secondary xs"
                             onClick={(e) => {
                                 this.setState({
-                                    requestSent: true
+                                    profileView: true
                                 })
                             }}
                         >
-                            Add as a friend!
+                            View profile
                         </div>
-                    }
-                    
+                    </div>}
                 </Card.Body>
             </Card>
         )
