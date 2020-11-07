@@ -4,7 +4,7 @@ const model = mongoose.model;
 
 const MessageSchema = new Schema({
     message: String,
-    name: String,
+    UserId: String,
     timestamp: String,
     ChatId: String
 });
