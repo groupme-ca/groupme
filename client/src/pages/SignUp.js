@@ -1,7 +1,6 @@
-import React from 'react';
+import React from "react";
 import { Link } from "react-router-dom";
-import Select from 'react-select';
-
+import Select from "react-select";
 import options from '../utils/SignUpOptions';
 import logo from '../assets/img/logo.svg';
 
@@ -9,9 +8,9 @@ import logo from '../assets/img/logo.svg';
 // This connects the frontend to backend.
 import { connect } from 'react-redux';
 import { addUser } from '../actions/userActions';
+import PropTypes from "prop-types";
 
-
-const formFields = ['Name', 'Username', 'Email', 'Password'];
+const formFields = ["Name", "Username", "Email", "Password"];
 
 class SignUpPage extends React.Component {
     constructor(props) {
@@ -19,38 +18,36 @@ class SignUpPage extends React.Component {
         this.state = {
             stage: 1,
             error: false,
-            Name: '',
-            Username: '',
-            Password: '',
-            Email: ''
+            errorMsg: "",
+            Name: "",
+            Username: "",
+            Password: "",
+            Email: "",
         };
     }
 
     componentDidMount(props) {
         this.setState({
             stage: 1,
-            nextPage: '/signup',
+            nextPage: "/signup",
         });
     }
 
-    handleOnNext = (e) => {    
+    handleOnNext = (e) => {
         const err = this.authenticate();
-        if (!err && this.state.stage == 1) {
+        if (!err && this.state.stage === 1) {
             this.setState({
                 stage: 2,
-                nextPage: '/welcome'
+                nextPage: "/welcome",
             });
-        }
-        
-        else if(this.state.stage == 2){
+        } else if (this.state.stage === 2) {
             // construct the data that we want to add into db
             const newUser = {
-                "name": this.state.Name,
-                "username": this.state.Username,
-                "email": this.state.Email,
-                "password": this.state.Password
+                name: this.state.Name,
+                username: this.state.Username,
+                email: this.state.Email,
+                password: this.state.Password,
             };
-            // console.log(newUser);
             // Call the action to add the user.
             this.props.addUser(newUser);
         }
@@ -61,40 +58,46 @@ class SignUpPage extends React.Component {
     authenticate() {
         /**
          * We input our placeholder logic for now
-         * TODO: Send a message for incorrect info/info which is already in the 
+         * TODO: Send a message for incorrect info/info which is already in the
          * database.
-         * 
-         *      Strip spaces on the right for each field. 
+         *
+         *      Strip spaces on the right for each field.
          *      Check for valid email (@mail.utoronto.ca)
-         *      
+         *
          */
-        if (
-            1
-            // this.state.Name ===  'a user' &&           
-            // this.state.Username === 'auser' && 
-            // this.state.Password === 'apassword' &&
-            // this.state.Email === 'auser@mail.utoronto.ca'
-        ) {
+        let name = this.state.Name;
+        let username = this.state.Username;
+        let email = this.state.Email;
+        let password = this.state.Password;
+        // Trim the name, username and email but not the password
+        name = name.trim();
+        username = username.trim();
+        email = email.trim();
+
+        /**
+         * Do regex testing
+         */
+
+        if (1) {
             this.setState({ error: false });
             return 0;
         } else {
             this.setState({ error: true });
-            // return 1;
-            return 0;
+            return 1;
         }
-    } 
+    }
 
     formEvent = ({ target }) => {
-        this.setState({ 
-            [target.name]: target.value
+        this.setState({
+            [target.name]: target.value,
         });
     };
 
     render() {
         return (
             <div>
-                <Link to='/'> 
-                    <img id='logo' src={logo} width={128} /> 
+                <Link to="/">
+                    <img id="logo" src={logo} width={128} alt="Logo" />
                 </Link>
                 <center>
                     <h1 className='form-title'>
@@ -105,15 +108,15 @@ class SignUpPage extends React.Component {
 
                 {this.state.stage === 1 ? (
                     <div>
-                        <div className='form-container'>
-                            <div className='PLACEHOLDER-img'> 
+                        <div className="form-container">
+                            <div className="PLACEHOLDER-img">
                                 FEATURE COMING SOON
                             </div>
-                            <div className='form-fields'>
-                                {formFields.map((field)  => (
-                                        <div className='form-row'>
-                                            <label> {field} * </label>
-                                            {/* This hooks up the form to the state variable
+                            <div className="form-fields">
+                                {formFields.map((field) => (
+                                    <div className="form-row">
+                                        <label> {field} * </label>
+                                        {/* This hooks up the form to the state variable
                                                 also, if it's a password field it gives it the type password*/}
                                             <input 
                                                 type={field === "Password" ? "password" : "" } 
@@ -126,30 +129,32 @@ class SignUpPage extends React.Component {
                             </div>
                         </div>
 
-                        <div className='bio-container'>
+                        <div className="bio-container">
                             <label> Bio </label>
                             <textarea />
                         </div>
 
-                        <br/><br/><br/><br/>
-
+                        <br />
+                        <br />
+                        <br />
+                        <br />
                     </div>
                 ) : (
                     <div className="select-wrapper">
                         <div>
-                            <p className='select-header'> Hobbies </p>
-                            <Select 
+                            <p className="select-header"> Hobbies </p>
+                            <Select
                                 isMulti
                                 className="select-container"
-                                options={options.hobbies} 
+                                options={options.hobbies}
                             />
                         </div>
                         <div>
-                            <p className='select-header'> Courses </p>
-                            <Select 
+                            <p className="select-header"> Courses </p>
+                            <Select
                                 isMulti
                                 className="select-container"
-                                options={options.courses} 
+                                options={options.courses}
                             />
                         </div>
                     </div>
@@ -157,17 +162,22 @@ class SignUpPage extends React.Component {
                 <Link to={this.state.nextPage} className="btn primary md form-submit" onClick={this.handleOnNext}>
                     {this.state.stage === 1 ? "Next" : "Sign Up"}
                 </Link>
-
             </div>
         );
     }
 }
 
-// This is the current user, that we get from redux state.
+SignUpPage.propTypes = {
+    addUser: PropTypes.func.isRequired,
+    currentUser: PropTypes.object,
+    error: PropTypes.object,
+};
+
+// This is the user state from the reducer.
 const mapStateToProps = (state) => ({
-    currentUser: state.currentUser
+    user: state.user,
 });
 
 // This connect thing is required to make redux work, we add the different props that we need
-// in the second parameter. 
+// in the second parameter.
 export default connect(mapStateToProps, { addUser })(SignUpPage);
