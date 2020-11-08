@@ -28,9 +28,13 @@ class RecommendationPage extends React.Component {
 
             /** modify later to add support for scrolling */
             interestCurrPage: 1,
-            interestNumPages: Math.ceil(recommendations.hobbies.length / 2),
+            interestNumPages: recommendations.hobbies.length < 3
+                ? 1
+                : 1 + Math.ceil(recommendations.hobbies.length / 2),
             coursesCurrPage: 1,
-            courseNumPages: Math.ceil(recommendations.courses.length / 2),
+            courseNumPages: recommendations.courses.length < 3 
+                ? 1
+                : 1 + Math.ceil(recommendations.courses.length / 2)
         }
     }
 
@@ -58,43 +62,80 @@ class RecommendationPage extends React.Component {
                 coursesHasPrev: true,
             })
         }
+        
+        this.getNextInterest = this.getNextInterest.bind(this);
+        this.getPrevInterest = this.getPrevInterest.bind(this);
     }
 
     initializeChevronState(section, direction) {
 
+        const activeStyle = {
+            background: "#cacaca", 
+            cursor: "pointer"
+        };
+
+        const disabledStyle = {
+            background: "#efefef", 
+            cursor: "unset"
+        };
+
         if (section == 'interests') {
             if (direction == 'right') {
                 return this.state.interestCurrPage < this.state.interestNumPages
-                    ? "#cacaca" 
-                    : "#efefef";
+                    ? activeStyle
+                    : disabledStyle;
             } 
 
             if (direction == 'left') {
                 return this.state.interestCurrPage != 1
-                    ? "#cacaca" 
-                    : "#efefef";
+                    ? activeStyle
+                    : disabledStyle;
             }
         }
 
         if (section == 'courses') {
             if (direction == 'right') {
                 return this.state.coursesCurrPage < this.state.courseNumPages
-                    ? "#cacaca" 
-                    : "#efefef";
+                    ? activeStyle
+                    : disabledStyle;
             } 
 
             if (direction == 'left') {
                 return this.state.coursesCurrPage != 1
-                    ? "#cacaca" 
-                    : "#efefef";
+                    ? activeStyle
+                    : disabledStyle;
             }
+        }
+    }
+
+    getNextInterest() {
+        if (this.state.interestHasNext) {
+            const currPage = this.state.interestCurrPage;
+            const maxPage = this.state.interestNumPages;
+            this.setState({
+                interestCurrPage: currPage + 1,
+                interestHasNext: (currPage + 1) < maxPage,
+                interestHasPrev: true,
+            })
+        }
+    }
+
+    getPrevInterest() {
+        if (this.state.interestHasPrev) {
+            const currPage = this.state.interestCurrPage;
+            const maxPage = this.state.interestNumPages;
+            this.setState({
+                interestCurrPage: currPage - 1,
+                interestHasPrev: (currPage - 1) != 1,
+                interestHasNext: (currPage - 1) < maxPage,
+            })
         }
     }
 
     render() {
         return (
             <div className='page-container'>
-                <Sidebar></Sidebar>
+                <Sidebar activePage='search' />
                 <div className='page-content'>
                     <h1 className='header'>
                         Find people to study with
@@ -139,42 +180,30 @@ class RecommendationPage extends React.Component {
                     <div className='carousel-container'>
                         <div 
                             className='chevron-wrapper'
-                            style={{ background:  this.initializeChevronState('interests', 'left')}}
-                            onClick={(e) => {
-                                if (this.state.interestHasPrev) {
-                                    const p = this.state.interestCurrPage - 1;
-                                    this.setState({
-                                        interestCurrPage: p
-                                    })
-                                }
-                            }}
+                            style={this.initializeChevronState('interests', 'left')}
+                            onClick={this.getPrevInterest}
                         >
                             <ChevronLeftIcon />
                         </div>
 
                         <div className='carousel-wrapper'>
-                            {this.state.recommendHobbies.map((r) => (
-                                <UserCard 
-                                    avatar={r.avatar} 
-                                    title={r.name}
-                                    tags={r.hobbies}
-                                    bio={r.bio}
-                                />
+                            {this.state.recommendHobbies
+                                .slice(this.state.interestCurrPage - 1)
+                                .map((r) => (
+                                    <UserCard 
+                                        avatar={r.avatar} 
+                                        title={r.name}
+                                        tags={r.hobbies}
+                                        bio={r.bio}
+                                    />
                             ))}        
                         </div>
 
 
                         <div 
                             className='chevron-wrapper'
-                            style={{ background:  this.initializeChevronState('interests', 'right')}}
-                            onClick={(e) => {
-                                if (this.state.interestHasNext) {
-                                    const p = this.state.interestCurrPage + 1;
-                                    this.setState({
-                                        interestCurrPage: p
-                                    })
-                                }
-                            }}
+                            style={this.initializeChevronState('interests', 'right')}
+                            onClick={this.getNextInterest}
                         >
                             <ChevronRightIcon />
                         </div>
@@ -188,7 +217,7 @@ class RecommendationPage extends React.Component {
                     <div className='carousel-container'>
                         <div 
                             className='chevron-wrapper'
-                            style={{ background:  this.initializeChevronState('courses', 'left')}}
+                            style={this.initializeChevronState('courses', 'left')}
                         >
                             <ChevronLeftIcon />
                         </div>
@@ -206,7 +235,7 @@ class RecommendationPage extends React.Component {
 
                         <div 
                             className='chevron-wrapper'
-                            style={{ background:  this.initializeChevronState('courses', 'right')}}
+                            style={this.initializeChevronState('courses', 'right')}
                         >
                             <ChevronRightIcon />
                         </div>   

@@ -8,8 +8,19 @@ class UserCard extends React.Component {
         super(props);
         this.state = {
             requestSent: false,
+            profileView: false,
         };
     }
+
+    componentDidMount(props) {
+        const {profileView, requestSent} = this.state;
+        if (profileView || requestSent) {
+            this.setState({
+                requestSent: false,
+                profileView: false,
+            });
+        }
+    } 
 
     render () {
         return (
