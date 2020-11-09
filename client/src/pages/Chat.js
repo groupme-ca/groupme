@@ -1,6 +1,7 @@
 import { Avatar } from "@material-ui/core";
 import React from "react";
 import "./Chat.css"
+<<<<<<< HEAD
 import Sidebar from '../components/SideBar';
 const ChatPage = () => {
     return (
@@ -27,3 +28,18 @@ const ChatPage = () => {
 }   
 
 export default ChatPage; 
+=======
+
+const ChatPage = () => {
+    return (
+        <div className="chat">
+            <div className="chat_header">
+                <Avatar />
+            </div>
+        </div>
+
+    );
+}
+
+export default Chat; 
+>>>>>>> 00fe425 (added chat.js and chat.css)
