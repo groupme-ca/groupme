@@ -60,12 +60,17 @@
   text-transform: uppercase;
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 960px) {
   .hamburger {
     display: unset;
     position: fixed;
-    top: 0;
+    top: 1vh;
     left: 12vw;
+
+    width: 32px;
+    height: 32px;
+    color: #333;
+    cursor: pointer;
   }
 
   .sidebar {

@@ -295,13 +295,6 @@ nav > .navitem > a {
   margin-top: 0em;
 }
 
-.carousel-wrapper {
-  display: flex;
-  overflow: hidden;
-  width: 70vw;
-  align-items: center;
-}
-
 /** MEDIA QUERIES **/
 /* This is where responsiveness rules are implemented for different screen sizes.
  * Includes stylings for elements on different pages.
@@ -313,6 +306,11 @@ nav > .navitem > a {
 
   .filter-container {
     width: 40vw;
+  }
+
+  .page-content {
+    margin-left: 12vw;
+    margin-top: 5vw;
   }
 }
 
