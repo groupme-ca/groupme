@@ -19,7 +19,7 @@ const UserSchema = new Schema({
 	},
 	password: {
 		type: String, 
-		requred: true
+		required: true
 	},
 	bio: {
 		type: String, 
@@ -35,6 +35,10 @@ const UserSchema = new Schema({
 	}, 
 	friends: {
 		type: Array, 
+		default: []
+	},
+	ChatIds: {
+		type: Array,
 		default: []
 	}
 });

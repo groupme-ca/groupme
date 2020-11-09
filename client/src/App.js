@@ -19,17 +19,17 @@ import { useEffect } from "react";
 
 function App() {
 
-  //THIS SEGMENT IS FOR MAKING THE DB REAL TIME
-  // useEffect(() => {
-  //   const pusher = new Pusher('d386d4bf8093a108cca2', {
-  //     cluster: 'us2'
-  //   });
+//  THIS SEGMENT IS FOR MAKING THE DB REAL TIME
+  useEffect(() => {
+    const pusher = new Pusher('d386d4bf8093a108cca2', {
+      cluster: 'us2'
+    });
 
-  //   const channel = pusher.subscribe('messages-channel');
-  //   channel.bind('inserted', function(data) {
-  //     alert(JSON.stringify(data));
-  //   });
-  // }, []);
+    const channel = pusher.subscribe('chats-channel');
+    channel.bind('inserted', (data) => {
+      alert(JSON.stringify(data));
+    });
+  }, []);
 
   return (
     <Provider store={store}>

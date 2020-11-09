@@ -6,7 +6,7 @@ import cors from 'cors';
 
 // Import users from router
 import users from './routes/api/users.js';
-import messages from './routes/api/messages.js';
+import chats from './routes/api/messages.js';
 // Setup database config
 import keys from './config/keys.js';
 
@@ -45,19 +45,23 @@ const db = mongoose.connection;
 db.once("open", () => {
   console.log("db connected");
 
-  const msgCollection = db.collection('messages')
-  const changeStream = msgCollection.watch()
+  const chatCollection = db.collection('chats')
+  const changeStream = chatCollection.watch()
 
   changeStream.on('change', (change)=>{
-    console.log(change);
+    //console.log(change);
 
 
     if (change.operationType === "insert") {
-      const messageDetails = change.fullDocument;
-      pusher.trigger("messages-channel", "inserted",{
-        name: messageDetails.name,
-        message: messageDetails.message,
-      });
+      const chatDetails = change.fullDocument;
+      console.log(change.fullDocument);
+      pusher.trigger("chats-channel", "inserted", 
+      {
+        name: chatDetails.name,
+        participants: chatDetails.participants,
+        messages: chatDetails.messages,
+      }
+      );
     } else {
       console.log('error triggering pusher');
     }
@@ -66,7 +70,7 @@ db.once("open", () => {
 
 // Use Routes 
 app.use('/api/users', users); // anything that goes to 'api/users' should refer to users
-app.use('/api/messages', messages); // anything that goes to 'api/messages' should refer to messages
+app.use('/api/messages', chats); // anything that goes to 'api/messages' should refer to messages
 
 const port = process.env.PORT || 5000;
 

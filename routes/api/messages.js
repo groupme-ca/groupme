@@ -1,5 +1,5 @@
 import express from 'express';
-import Messages from '../../models/Messages.js';
+import chats from '../../models/Messages.js';
 
 const router = express.Router();
 
@@ -9,9 +9,9 @@ const router = express.Router();
  * @access      public
  */
 router.post('/new', (req, res) => {
-    const Message = req.body;
+    const Chat = req.body;
 
-    Messages.create(Message, (err, data) => {
+    chats.create(Chat, (err, data) => {
         if (err) {
             res.status(500).send(err);
         } else {
