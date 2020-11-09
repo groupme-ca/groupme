@@ -3,6 +3,9 @@ const Schema = mongoose.Schema;
 const model = mongoose.model;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 182b7a6 (changed the messages model to a chat model)
 const ChatSchema = new Schema({
     //participants format: [{
     //    userid: string,
@@ -27,6 +30,7 @@ const ChatSchema = new Schema({
 		type: Array,
 		default: []
 	},
+<<<<<<< HEAD
 =======
 const MessageSchema = new Schema({
     message: String,
@@ -34,6 +38,8 @@ const MessageSchema = new Schema({
     timestamp: String,
     ChatId: String
 >>>>>>> 0a997d2 (changed name in the message model to userid)
+=======
+>>>>>>> 182b7a6 (changed the messages model to a chat model)
 });
 
 export default model('chats', ChatSchema);
