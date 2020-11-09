@@ -10,6 +10,7 @@ import SignUpPage from './pages/SignUp';
 import SignInPage from './pages/SignIn';
 import RecommendationPage from './pages/Recommendations';
 import ProfilePage from './pages/Profile';
+import ChatPage from './pages/Chat';
 import Pusher from 'pusher-js';
 
 import { Provider } from 'react-redux';
@@ -38,6 +39,7 @@ function App() {
       <Route path='/signin' exact render={() => <SignInPage /> } />
       <Route path='/welcome' exact render={() => <RecommendationPage /> } />
       <Route path='/profile' exact render={() => <ProfilePage /> } />
+      <Route path='/chat' exact render={() => <ChatPage />} />
     </Router>
     </Provider>
   );
