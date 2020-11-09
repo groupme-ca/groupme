@@ -26,8 +26,10 @@ class Sidebar extends React.Component {
     render () {
         return (
             <div className='sidebar'>
-                <div className='hamburger'> 
-                    <MenuIcon classname='sidebar-img' /> 
+                <div className='hamburger-wrapper'>
+                    <div className='hamburger'> 
+                        <MenuIcon classname='sidebar-img' /> 
+                    </div>
                 </div>
                 <div className='sidebar-head'>
                     <Link to='/'> 
