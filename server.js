@@ -5,15 +5,10 @@ import Pusher from "pusher";
 import cors from "cors";
 
 // Import users from router
-<<<<<<< HEAD
-import users from "./routes/api/users.js";
-import messages from "./routes/api/messages.js";
 import auth from "./routes/api/auth.js";
-
-=======
 import users from './routes/api/users.js';
 import chats from './routes/api/messages.js';
->>>>>>> 182b7a6 (changed the messages model to a chat model)
+
 // Setup database config
 import config from "config";
 
