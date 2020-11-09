@@ -14,6 +14,11 @@
   color: #686868;
   display: flex;
   margin-top: 10px;
+  margin-left: 5px;
+}
+
+.sidebar-tab:hover {
+  background-color: #ededed
 }
 
 .sidebar-img {
