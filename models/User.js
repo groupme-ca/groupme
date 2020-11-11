@@ -8,10 +8,6 @@ const UserSchema = new Schema({
 		type: String,
 		required: true
 	},
-	username: {
-		type: String,
-		required: true
-	},
 	email: {
 		type: String,
 		required: true,
@@ -19,7 +15,7 @@ const UserSchema = new Schema({
 	},
 	password: {
 		type: String, 
-		requred: true
+		required: true
 	},
 	bio: {
 		type: String, 
@@ -35,6 +31,10 @@ const UserSchema = new Schema({
 	}, 
 	friends: {
 		type: Array, 
+		default: []
+	},
+	ChatIds: {
+		type: Array,
 		default: []
 	}
 });
