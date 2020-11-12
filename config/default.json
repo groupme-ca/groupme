@@ -1,0 +1,4 @@
+{
+    "mongoURI": "mongodb+srv://admin:pfwdPJ1l60xBtX4P@groupme-cluster.pxbaa.mongodb.net/GroupMe-DB?retryWrites=true&w=majority",
+    "jwtsecret": "groupme_JwtSecret"
+}
