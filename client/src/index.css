@@ -28,19 +28,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-h1::selection,
-h2::selection,
-h3::selection,
-p::selection,
-div::selection,
-a::selection,
-img::selection,
-input::selection,
-label::selection {
-  background-color: #ff914e;
-  color: white;
-}
-
 h1, h2 {
   font-family: Poppins;
   font-weight: 700;
@@ -246,6 +233,7 @@ nav > .navitem > a {
   width: 40vw;
   height: 3vh;
   margin-bottom: 2vh;
+  text-indent: 0.5em;
 }
 
 .filter-section {

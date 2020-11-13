@@ -9,9 +9,9 @@ import settings from '../utils/CarouselSettings';
 import SideBar from '../components/SideBar';
 
 import logo from '../assets/img/logo.svg';
-import vlad from '../assets/img/vlad2.svg';
-import lara from '../assets/img/lara.svg';
-import alick from '../assets/img/alick.svg';
+import vlad from '../assets/img/vlad.jpg';
+import lara from '../assets/img/lara.jpg';
+import alick from '../assets/img/alick.jpg';
 
 class ProfilePage extends React.Component {
     constructor(props) {
