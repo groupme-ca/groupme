@@ -7,10 +7,10 @@ import logo from "../assets/img/logo.svg";
 // The following imports are for redux
 // This connects the frontend to backend.
 import { connect } from "react-redux";
-import { addUser } from "../actions/userActions";
+import { registerUser } from "../actions/authActions";
 import PropTypes from "prop-types";
 
-const formFields = ["Name", "Username", "Email", "Password"];
+const formFields = ["Name", "Email", "Password"];
 
 class SignUpPage extends React.Component {
 	constructor(props) {
@@ -20,9 +20,11 @@ class SignUpPage extends React.Component {
 			error: false,
 			errorMsg: "",
 			Name: "",
-			Username: "",
 			Password: "",
 			Email: "",
+			bio: "",
+			hobbies: [],
+			courses: [],
 		};
 	}
 
@@ -33,9 +35,19 @@ class SignUpPage extends React.Component {
 		});
 	}
 
+	handleBio = (event) => {
+		this.setState({ bio: event.target.value });
+	};
+	handleOnSelectHobbies = (selectedOptions) => {
+		this.setState({ hobbies: selectedOptions });
+	};
+
+	handleOnSelectCourses = (selectedOptions) => {
+		this.setState({ courses: selectedOptions });
+	};
+
 	handleOnNext = (e) => {
-		const err = this.authenticate();
-		if (!err && this.state.stage === 1) {
+		if (this.state.stage === 1 && !this.authenticate()) {
 			this.setState({
 				stage: 2,
 				nextPage: "/welcome",
@@ -44,12 +56,14 @@ class SignUpPage extends React.Component {
 			// construct the data that we want to add into db
 			const newUser = {
 				name: this.state.Name,
-				username: this.state.Username,
 				email: this.state.Email,
 				password: this.state.Password,
+				bio: this.state.bio,
+				hobbies: this.state.hobbies,
+				courses: this.state.courses,
 			};
 			// Call the action to add the user.
-			this.props.addUser(newUser);
+			this.props.registerUser(newUser);
 		}
 	};
 	/**
@@ -58,31 +72,59 @@ class SignUpPage extends React.Component {
 	authenticate() {
 		/**
 		 * We input our placeholder logic for now
-		 * TODO: Send a message for incorrect info/info which is already in the
-		 * database.
 		 *
 		 *      Strip spaces on the right for each field.
 		 *      Check for valid email (@mail.utoronto.ca)
 		 *
 		 */
 		let name = this.state.Name;
-		let username = this.state.Username;
+		// let username = this.state.Username;
 		let email = this.state.Email;
 		let password = this.state.Password;
-		// Trim the name, username and email but not the password
+		// Trim the name and email but not the password
 		name = name.trim();
-		username = username.trim();
-		email = email.trim();
+		// username = username.trim();
+		email = email.trim().toLowerCase();
 
 		/**
 		 * Do regex testing
 		 */
-
-		if (1) {
-			this.setState({ error: false });
+		// Name, includes upto 3 name fields (First Middle Last):
+		let name_re = /^([A-Za-z]+ ?){1,3}$/;
+		const valid_name = name_re.test(name);
+		// Email, this matches in the form of x(.)(y)@(mail.)utoronto.ca, where everything in a bracket is optional.
+		let email_re = /^[a-z]+\.?[a-z]*@(mail\.)?utoronto\.ca$/;
+		const valid_email = email_re.test(email);
+		// Password, This is regex for at least 8 characters, 1 letter and 1 number.
+		let pass_re = /^(?! )(?=.*\d)(?=.*[A-Z]).{8,}(?<! )$/;
+		const valid_password = pass_re.test(password);
+		if (valid_name && valid_email && valid_password) {
+			this.setState({
+				error: false,
+				Name: name,
+				Email: email,
+				bio: this.state.bio.trim(),
+			});
 			return 0;
 		} else {
 			this.setState({ error: true });
+			if (!valid_name) {
+				this.setState({
+					errorMsg:
+						"Invalid Name... it should be in the form 'FIRST' ('MIDDLE' )'LAST', where things in () is optional.",
+				});
+			} else if (!valid_email) {
+				this.setState({
+					errorMsg:
+						"Invalid Email... it should be in the form 'FIRST'(.'LAST')@(mail.)utoronto.ca",
+				});
+			} else {
+				this.setState({
+					errorMsg:
+						"Invalid Password... it should be at least 8 characters and contain no leading/trailing spaces and at least 1 digit, 1 capital.",
+				});
+			}
+
 			return 1;
 		}
 	}
@@ -101,7 +143,7 @@ class SignUpPage extends React.Component {
 				</Link>
 				<center>
 					<h1 className="form-title">Create your profile</h1>
-					<pre> {this.state.error ? "Error occurred" : ""}</pre>
+					<pre> {this.state.error ? this.state.errorMsg : ""}</pre>
 				</center>
 
 				{this.state.stage === 1 ? (
@@ -132,7 +174,10 @@ class SignUpPage extends React.Component {
 
 						<div className="bio-container">
 							<label> Bio </label>
-							<textarea />
+							<textarea
+								value={this.state.bio}
+								onChange={this.handleBio}
+							/>
 						</div>
 
 						<br />
@@ -148,6 +193,8 @@ class SignUpPage extends React.Component {
 								isMulti
 								className="select-container"
 								options={options.hobbies}
+								value={this.state.hobbies}
+								onChange={this.handleOnSelectHobbies}
 							/>
 						</div>
 						<div>
@@ -156,6 +203,7 @@ class SignUpPage extends React.Component {
 								isMulti
 								className="select-container"
 								options={options.courses}
+								onChange={this.handleOnSelectCourses}
 							/>
 						</div>
 					</div>
@@ -173,16 +221,18 @@ class SignUpPage extends React.Component {
 }
 
 SignUpPage.propTypes = {
-	addUser: PropTypes.func.isRequired,
-	currentUser: PropTypes.object,
-	error: PropTypes.object,
+	registerUser: PropTypes.func.isRequired,
+	user: PropTypes.object,
+	authenticated: PropTypes.object,
+	msg: PropTypes.object,
 };
 
 // This is the user state from the reducer.
 const mapStateToProps = (state) => ({
-	user: state.user,
+	auth: state.auth,
+	error: state.error,
 });
 
 // This connect thing is required to make redux work, we add the different props that we need
 // in the second parameter.
-export default connect(mapStateToProps, { addUser })(SignUpPage);
+export default connect(mapStateToProps, { registerUser })(SignUpPage);
