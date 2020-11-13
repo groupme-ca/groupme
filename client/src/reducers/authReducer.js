@@ -13,7 +13,7 @@ import {
 // Add the curent user and some errors/statuses
 const initialState = {
 	token: localStorage.getItem("token"),
-	currentUser: null,
+	user: null,
 	authenticated: false,
 	loading: false,
 };
@@ -32,7 +32,6 @@ export default function (state = initialState, action) {
 				...state,
 				loading: false,
 				authenticated: true,
-				currentUser: action.payload,
 			};
 		case REGISTER_SUCCESS:
 		case LOGIN_SUCCESS:
@@ -49,7 +48,7 @@ export default function (state = initialState, action) {
 			localStorage.removeItem("token");
 			return {
 				...state,
-				currentUser: null,
+				user: null,
 				token: null,
 				authenticated: false,
 				loading: false,

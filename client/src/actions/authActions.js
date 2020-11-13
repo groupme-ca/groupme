@@ -1,5 +1,5 @@
 import axios from "axios";
-import { returnErrors } from "./errorActions";
+import { returnErrors, clearErrors } from "./errorActions";
 import {
 	USER_LOADED,
 	USER_LOADING,
@@ -50,14 +50,22 @@ const getLoginFailure = () => ({
  */
 export const registerUser = (user) => async (dispatch) => {
 	// Start the register
-	dispatch(getRegisterStart);
+	dispatch(getRegisterStart());
 	await axios
 		.post("/api/auth/register", user)
 		.then((res) => {
+			dispatch(clearErrors());
 			dispatch(getRegisterSuccess(res.data));
+			// console.log("Registered user");
 		})
 		.catch((err) => {
-			dispatch(returnErrors(err.response.data, err.response.status));
+			dispatch(
+				returnErrors(
+					err.response.data,
+					err.response.status,
+					REGISTER_FAILURE
+				)
+			);
 			dispatch(getRegisterFailure());
 		});
 };
@@ -76,10 +84,17 @@ export const loginUser = (user) => async (dispatch) => {
 	await axios
 		.post("/api/auth/login", user)
 		.then((res) => {
+			dispatch(clearErrors());
 			dispatch(getLoginSuccess(res.data));
 		})
 		.catch((err) => {
-			dispatch(returnErrors(err.response.data, err.response.status));
+			dispatch(
+				returnErrors(
+					err.response.data,
+					err.response.status,
+					LOGIN_FAILURE
+				)
+			);
 			dispatch(getLoginFailure());
 		});
 };
@@ -96,14 +111,17 @@ export const loadUser = () => (dispatch, getState) => {
 
 	axios
 		.get("/api/auth/user", tokenConfig(getState))
-		.then((res) =>
+		.then((res) => {
+			dispatch(clearErrors);
 			dispatch({
 				type: USER_LOADED,
 				payload: res.data,
-			})
-		)
+			});
+		})
 		.catch((err) => {
-			dispatch(returnErrors(err.response.data, err.response.status));
+			dispatch(
+				returnErrors(err.response.data, err.response.status, AUTH_ERROR)
+			);
 			dispatch({
 				type: AUTH_ERROR,
 			});

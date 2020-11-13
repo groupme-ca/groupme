@@ -2,13 +2,9 @@
 // This allows us to hookup to the backend and get data from mongo.
 import {
 	GET_USERS,
-	FIND_USER,
 	DELETE_USER,
 	UPDATE_USER,
 	USERS_LOADING,
-	LOGIN_START,
-	LOGIN_SUCCESS,
-	LOGIN_FAILURE,
 } from "../actions/types";
 // Add the users array here.
 const initialState = {

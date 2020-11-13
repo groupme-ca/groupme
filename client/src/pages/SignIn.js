@@ -37,8 +37,9 @@ class SignInPage extends React.Component {
 		 * TODO: If unsuccessful, provide some feedback in react code below
 		 */
 		await this.props.loginUser(user);
+		// CHECK FOR auth,authentication
 		// We can use this error to display something on the front end.
-		const error = this.props.user.error;
+		const error = this.props.error.msg;
 
 		if (error) {
 			this.setState({ error: true });
@@ -53,7 +54,7 @@ class SignInPage extends React.Component {
 	};
 
 	render() {
-		const SignInLink = !this.props.user.currentUser ? (
+		const SignInLink = !this.props.auth.authenticated ? (
 			<Link
 				to="/signin"
 				className="btn primary md form-submit"
@@ -125,7 +126,8 @@ SignInPage.propTypes = {
 
 // This is the current state in the store.
 const mapStateToProps = (state) => ({
-	user: state.user,
+	auth: state.auth,
+	error: state.error,
 });
 
 // This connect thing is required to make redux work, we add the different props that we need

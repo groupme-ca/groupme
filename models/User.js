@@ -1,42 +1,38 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 const model = mongoose.model;
 
-// Create Schema 
+// Create Schema
 const UserSchema = new Schema({
 	name: {
 		type: String,
-		required: true
-	},
-	username: {
-		type: String,
-		required: true
+		required: true,
 	},
 	email: {
 		type: String,
 		required: true,
-		unique: true
+		unique: true,
 	},
 	password: {
-		type: String, 
-		requred: true
+		type: String,
+		requred: true,
 	},
 	bio: {
-		type: String, 
-		default: ""
+		type: String,
+		default: "",
 	},
 	hobbies: {
 		type: Array,
-		default: []
+		default: [],
 	},
 	courses: {
 		type: Array,
-		default: []
-	}, 
+		default: [],
+	},
 	friends: {
-		type: Array, 
-		default: []
-	}
+		type: Array,
+		default: [],
+	},
 });
 
-export default model('User', UserSchema);
+export default model("User", UserSchema);
