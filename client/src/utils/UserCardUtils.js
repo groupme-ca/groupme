@@ -8,10 +8,10 @@ import as from '../assets/img/george.jpg';
 
 const recommendations = {
     hobbies: [
-        {name: "Vladimir Chadweeb", avatar: vlad, hobbies:['Anime', 'Gaming', 'Gamma Radiation & Chill', 'Anime Onesies', 'NOT people lol'], bio: "I wouldn't want to be my friend tbh, cos I like my anime onesie more than actual people, and idk what else to put here to make this bio super long so I can test this card stuff"},
-        {name: "Alick Professorson", avatar: alick, hobbies:['Anime', 'Professing'], bio: "I'm a professor and I love professing"},
-        {name: "Another One ", avatar: p1, hobbies:['Gaming', 'Reading'], bio: "I'm getting tired of writing these"},
-        {name: "Another Two ", avatar: p2, hobbies:['Gaming'], bio: "This app better be worth it I stg"},
+        {name: "Vladimir Chadweeb", avatar: vlad, hobbies:['Anime', 'Gaming', 'Gamma Radiation & Chill', 'Anime Onesies', 'NOT people lol'], bio: "I wouldn't want to be my friend tbh"},
+        {name: "Alick Professorson", avatar: alick, hobbies:['Anime', 'Professing'], bio: "Professor of Communications and Sociology at the University of Toronto"},
+        {name: "Loretta B.", avatar: p1, hobbies:['Gaming', 'Reading'], bio: "Student Leader at someStudentAssocOrSmtg"},
+        {name: "Mike Famli", avatar: p2, hobbies:['Gaming'], bio: "UofT CS 202? | Software Engineer @ GroupMe"},
     ],
     courses: [
         {name: "Lara Ken", avatar: lara, courses:['CSC490', 'CCT110'], bio: "Graphic design is my passion"},
