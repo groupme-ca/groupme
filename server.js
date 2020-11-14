@@ -5,9 +5,10 @@ import Pusher from "pusher";
 import cors from "cors";
 
 // Import users from router
-import auth from "./routes/api/auth.js";
-import users from './routes/api/users.js';
+import users from "./routes/api/users.js";
 import chats from './routes/api/messages.js';
+import auth from "./routes/api/auth.js";
+
 
 // Setup database config
 import config from "config";
