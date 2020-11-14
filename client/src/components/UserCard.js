@@ -25,11 +25,17 @@ class UserCard extends React.Component {
     render () {
         return (
             <Card className='user-card-container'>
-                <Card.Img variant="top" src={this.props.avatar} width={128}/>
-                <Card.Body>
-                    <Card.Title className='card-title'> {this.props.title} </Card.Title>
-                    
-                    <Card.Text> {this.props.bio} </Card.Text>
+
+                <Card.Img 
+                    variant="top" 
+                    src={this.props.avatar} 
+                    height={128}
+                    className="card-profile-pic" 
+                />
+
+                <Card.Body className='card-body'>
+                    <Card.Title className='card-title'> {this.props.title} </Card.Title>                  
+                    <Card.Text className='card-bio'> {this.props.bio} </Card.Text>
 
                     <div className='hobbies-field'> 
                         {this.props.tags.map((h, idx) => <div key={idx} className='card-hobby'> {h} </div>)}
@@ -40,7 +46,7 @@ class UserCard extends React.Component {
                         {this.state.requestSent ? 
                             <p className='friend-notif'> Request sent! </p> : 
                             <div 
-                                className="btn primary xs"
+                                className="btn secondary xs"
                                 onClick={(e) => {
                                     this.setState({
                                         requestSent: true
@@ -50,16 +56,6 @@ class UserCard extends React.Component {
                                 Add friend
                             </div>
                         }
-                            <div 
-                            className="btn secondary xs"
-                            onClick={(e) => {
-                                this.setState({
-                                    profileView: true
-                                })
-                            }}
-                        >
-                            View profile
-                        </div>
                     </div>}
                 </Card.Body>
             </Card>
