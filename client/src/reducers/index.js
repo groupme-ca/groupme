@@ -11,5 +11,3 @@ export default combineReducers({
 	error: errorReducer,
     chats: chatReducer
 });
-
-

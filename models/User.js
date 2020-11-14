@@ -14,8 +14,13 @@ const UserSchema = new Schema({
 		unique: true,
 	},
 	password: {
+<<<<<<< HEAD
 		type: String, 
 		required: true
+=======
+		type: String,
+		requred: true,
+>>>>>>> 952d498 (merge conflicts)
 	},
 	bio: {
 		type: String,

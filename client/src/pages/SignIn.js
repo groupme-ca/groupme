@@ -136,6 +136,8 @@ const mapStateToProps = (state) => ({
 	error: state.error,
 });
 
+
+
 // This connect thing is required to make redux work, we add the different props that we need
 // in the second parameter. 
 export default connect(mapStateToProps, { findUser, getChats, loginUser })(SignInPage);

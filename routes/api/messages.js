@@ -1,4 +1,3 @@
-
 // We can use this middleware in order to restrict sending of messages to people who are logged in.
 // To add this middleware we just have to add it as the SECOND PARAMETER in the requests.
 // On the front end, to make this authentication work, we have to add the token to the header with key=x-auth-token, value = token
