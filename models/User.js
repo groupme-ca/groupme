@@ -33,6 +33,10 @@ const UserSchema = new Schema({
 		type: Array,
 		default: [],
 	},
+	ChatIds: {
+		type: Array,
+		default: []
+	}
 });
 
 export default model("User", UserSchema);
