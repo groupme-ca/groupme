@@ -6,14 +6,7 @@ const model = mongoose.model;
 const UserSchema = new Schema({
 	name: {
 		type: String,
-<<<<<<< HEAD
 		required: true,
-=======
-		required: true
-<<<<<<< HEAD
->>>>>>> 139767c (completed chat front end, changed pusher channel from chat-channel to id of the particpants)
-=======
->>>>>>> 139767c6cccd249eb72f6f9ba63d93198f3f2825
 	},
 	email: {
 		type: String,
@@ -21,16 +14,8 @@ const UserSchema = new Schema({
 		unique: true,
 	},
 	password: {
-<<<<<<< HEAD
 		type: String,
 		requred: true,
-=======
-		type: String, 
-		required: true
-<<<<<<< HEAD
->>>>>>> 182b7a6 (changed the messages model to a chat model)
-=======
->>>>>>> 139767c6cccd249eb72f6f9ba63d93198f3f2825
 	},
 	bio: {
 		type: String,
@@ -47,14 +32,6 @@ const UserSchema = new Schema({
 	friends: {
 		type: Array,
 		default: [],
-	},
-	ChatIds: {
-		type: Array,
-		default: []
-	},
-	ChatIds: {
-		type: Array,
-		default: []
 	},
 	ChatIds: {
 		type: Array,

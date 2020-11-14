@@ -2,16 +2,6 @@ import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 const model = mongoose.model;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 182b7a6 (changed the messages model to a chat model)
-=======
->>>>>>> 139767c (completed chat front end, changed pusher channel from chat-channel to id of the particpants)
-=======
->>>>>>> 139767c6cccd249eb72f6f9ba63d93198f3f2825
 const ChatSchema = new Schema({
     //participants format: [{
     //    userid: string,
@@ -36,22 +26,6 @@ const ChatSchema = new Schema({
 		type: Array,
 		default: []
 	},
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-const MessageSchema = new Schema({
-    message: String,
-    UserId: String,
-    timestamp: String,
-    ChatId: String
->>>>>>> 0a997d2 (changed name in the message model to userid)
-=======
->>>>>>> 182b7a6 (changed the messages model to a chat model)
-=======
->>>>>>> 139767c (completed chat front end, changed pusher channel from chat-channel to id of the particpants)
-=======
->>>>>>> 139767c6cccd249eb72f6f9ba63d93198f3f2825
 });
 
 export default model('chats', ChatSchema);
