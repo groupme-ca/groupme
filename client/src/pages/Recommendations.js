@@ -30,11 +30,11 @@ class RecommendationPage extends React.Component {
             interestCurrPage: 1,
             interestNumPages: recommendations.hobbies.length < 3
                 ? 1
-                : 1 + Math.ceil(recommendations.hobbies.length / 2),
+                : 1 + Math.ceil(recommendations.hobbies.length / 4),
             coursesCurrPage: 1,
             courseNumPages: recommendations.courses.length < 3 
                 ? 1
-                : 1 + Math.ceil(recommendations.courses.length / 2)
+                : 1 + Math.ceil(recommendations.courses.length / 4)
         }
     }
 
