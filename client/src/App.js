@@ -17,8 +17,9 @@ import SignUpPage from './pages/SignUp';
 import SignInPage from './pages/SignIn';
 import RecommendationPage from './pages/Recommendations';
 import ProfilePage from './pages/Profile';
-import ChatPage from './pages/Chat';
+import ChatPage from './pages/ChatPage';
 import Pusher from 'pusher-js';
+<<<<<<< HEAD
 >>>>>>> 4b4798b (added chat.js and chat.css)
 
 class App extends Component {
@@ -36,6 +37,24 @@ class App extends Component {
 	componentDidMount() {
 		store.dispatch(loadUser());
 	}
+=======
+import axios from './axios';
+
+import { Provider } from 'react-redux';
+import store from './store';
+import { useEffect, useState } from "react";
+
+function App() {
+  //maybe move this to after sign-in(most likely the case)
+  //REMEMBER TO CHANGE AXIOS.JS ON RELEASE
+  const [messages, setMessages] = useState([]);
+  useEffect(() => {
+    axios.get('/api/messages/5fa9d504feaffa261495b389 ')
+    .then(response => {
+      setMessages(response.data);
+    });
+  }, []);
+>>>>>>> 139767c (completed chat front end, changed pusher channel from chat-channel to id of the particpants)
 
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -74,11 +93,12 @@ class App extends Component {
     });
 >>>>>>> 182b7a6 (changed the messages model to a chat model)
 
-    const channel = pusher.subscribe('chats-channel');
+    const channel = pusher.subscribe('plzwork');
     channel.bind('inserted', (data) => {
       alert(JSON.stringify(data));
     });
   }, []);
+ // console.log(messages);
 
   return (
     <Provider store={store}>

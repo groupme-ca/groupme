@@ -57,17 +57,21 @@ db.once("open", () => {
   changeStream.on('change', (change)=>{
     //console.log(change);
 
-
+    //TODO: MAKE A CHANNEL FOR EVERY USER 
     if (change.operationType === "insert") {
       const chatDetails = change.fullDocument;
-      console.log(change.fullDocument);
-      pusher.trigger("chats-channel", "inserted", 
+      // console.log(change.fullDocument);
+      const participants = Object.entries(chatDetails.participants);
+      participants.forEach(([key, value]) => {
+        console.log(value.cid);
+        pusher.trigger(value.cid, "inserted", 
       {
         name: chatDetails.name,
         participants: chatDetails.participants,
         messages: chatDetails.messages,
       }
       );
+      });
     } else {
       console.log('error triggering pusher');
     }
