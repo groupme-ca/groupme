@@ -26,7 +26,6 @@ const ChatSchema = new Schema({
 		type: Array,
 		default: []
 	},
-
 });
 
 export default model('chats', ChatSchema);
