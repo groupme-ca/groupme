@@ -17,7 +17,7 @@ const recommendations = {
         {name: "Mike Famli", avatar: p2, hobbies:['Gaming'], bio: "UofT CS 202? | Software Engineer @ GroupMe"},
     ],
     courses: [
-        {name: "Lara Ken", avatar: lara, courses:['CSC490', 'CCT110'], bio: "Graphic design is my passion"},
+        {name: "Lara", avatar: lara, courses:['CSC490', 'CCT110'], bio: "Graphic design is my passion"},
         {name: "George Kensington", avatar: as, courses:['CSC490', 'ART123'], bio: "Art and design is my entire personality"},
     ]
 };
