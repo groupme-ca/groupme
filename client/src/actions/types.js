@@ -1,4 +1,5 @@
 // These are just constants that we export
+<<<<<<< HEAD
 export const GET_USERS = "GET_USERS";
 export const FIND_USER = "FIND_USER";
 export const DELETE_USER = "DELETE_USER";
@@ -16,3 +17,13 @@ export const AUTH_ERROR = "AUTH_ERROR";
 export const LOGOUT = "LOGOUT";
 export const GET_ERRORS = "GET_ERRORS";
 export const CLEAR_ERRORS = "CLEAR_ERRORS";
+=======
+export const GET_USERS = 'GET_USERS';
+export const FIND_USER = 'FIND_USER';
+export const ADD_USER = 'ADD_USER';
+export const DELETE_USER = 'DELETE_USER';
+export const UPDATE_USER = 'UPDATE_USER';
+export const USERS_LOADING = 'USERS_LOADING';
+export const GET_CHATS = 'GET_CHATS';
+export const NEW_MESSAGE = 'NEW_MESSAGE';
+>>>>>>> 139767c (completed chat front end, changed pusher channel from chat-channel to id of the particpants)

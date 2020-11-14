@@ -6,7 +6,11 @@ const model = mongoose.model;
 const UserSchema = new Schema({
 	name: {
 		type: String,
+<<<<<<< HEAD
 		required: true,
+=======
+		required: true
+>>>>>>> 139767c (completed chat front end, changed pusher channel from chat-channel to id of the particpants)
 	},
 	email: {
 		type: String,

@@ -47,6 +47,7 @@ router.post('/new', (req, res) => {
  * @description send messages
  * @access      public
  */
+<<<<<<< HEAD
 router.get("/sync", (req, res) => {
 	Messages.find((err, data) => {
 		if (err) {
@@ -56,5 +57,20 @@ router.get("/sync", (req, res) => {
 		}
 	});
 });
+=======
+router.get('/:id', (req, res) => {
+    chats.find(req.body, (err, data) => {
+        if (err) {
+            res.status(500).send(err);
+        } else {
+            res.status(200).send(data);
+        }
+    })
+})
+
+
+
+
+>>>>>>> 139767c (completed chat front end, changed pusher channel from chat-channel to id of the particpants)
 
 export default router;
