@@ -5,18 +5,11 @@ import Pusher from "pusher";
 import cors from "cors";
 
 // Import users from router
-<<<<<<< HEAD
 import users from "./routes/api/users.js";
-import messages from "./routes/api/messages.js";
+import chats from './routes/api/messages.js';
 import auth from "./routes/api/auth.js";
 
-=======
-import users from './routes/api/users.js';
-import chats from './routes/api/messages.js';
-<<<<<<< HEAD
->>>>>>> 182b7a6 (changed the messages model to a chat model)
-=======
->>>>>>> 139767c6cccd249eb72f6f9ba63d93198f3f2825
+
 // Setup database config
 import config from "config";
 
@@ -84,10 +77,7 @@ db.once("open", () => {
 // Use Routes 
 app.use('/api/users', users); // anything that goes to 'api/users' should refer to users
 app.use('/api/messages', chats); // anything that goes to 'api/messages' should refer to messages
-<<<<<<< HEAD
 app.use("/api/auth", auth); // anything that goes to 'api/auth' should refer to auth
-=======
->>>>>>> 139767c6cccd249eb72f6f9ba63d93198f3f2825
 
 const port = process.env.PORT || 5000;
 
