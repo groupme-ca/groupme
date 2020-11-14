@@ -2,7 +2,6 @@ import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 const model = mongoose.model;
 
-<<<<<<< HEAD
 const ChatSchema = new Schema({
     //participants format: [{
     //    userid: string,
@@ -27,13 +26,6 @@ const ChatSchema = new Schema({
 		type: Array,
 		default: []
 	},
-=======
-const MessageSchema = new Schema({
-    message: String,
-    UserId: String,
-    timestamp: String,
-    ChatId: String
->>>>>>> 00fe425d47b9339d541fd09b105d66e3c588e25d
 });
 
 export default model('chats', ChatSchema);

@@ -7,6 +7,9 @@
 }
 
 .sidebar {
+/*   display: flex;
+  flex-direction: column;
+  flex: 0.35; */
   border-right: 1px solid #cacaca;
   width: 15vw;
   height: 100vh;

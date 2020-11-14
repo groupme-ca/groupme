@@ -5,3 +5,5 @@ export const ADD_USER = 'ADD_USER';
 export const DELETE_USER = 'DELETE_USER';
 export const UPDATE_USER = 'UPDATE_USER';
 export const USERS_LOADING = 'USERS_LOADING';
+export const GET_CHATS = 'GET_CHATS';
+export const NEW_MESSAGE = 'NEW_MESSAGE';

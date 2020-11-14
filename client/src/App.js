@@ -10,14 +10,24 @@ import SignUpPage from './pages/SignUp';
 import SignInPage from './pages/SignIn';
 import RecommendationPage from './pages/Recommendations';
 import ProfilePage from './pages/Profile';
-import ChatPage from './pages/Chat';
+import ChatPage from './pages/ChatPage';
 import Pusher from 'pusher-js';
+import axios from './axios';
 
 import { Provider } from 'react-redux';
 import store from './store';
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 function App() {
+  //maybe move this to after sign-in(most likely the case)
+  //REMEMBER TO CHANGE AXIOS.JS ON RELEASE
+  const [messages, setMessages] = useState([]);
+  useEffect(() => {
+    axios.get('/api/messages/5fa9d504feaffa261495b389 ')
+    .then(response => {
+      setMessages(response.data);
+    });
+  }, []);
 
 //  THIS SEGMENT IS FOR MAKING THE DB REAL TIME
   useEffect(() => {
@@ -25,11 +35,12 @@ function App() {
       cluster: 'us2'
     });
 
-    const channel = pusher.subscribe('chats-channel');
+    const channel = pusher.subscribe('plzwork');
     channel.bind('inserted', (data) => {
       alert(JSON.stringify(data));
     });
   }, []);
+ // console.log(messages);
 
   return (
     <Provider store={store}>
