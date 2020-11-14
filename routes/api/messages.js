@@ -8,7 +8,10 @@ import Messages from "../../models/Messages.js";
 =======
 import express from 'express';
 import chats from '../../models/Messages.js';
+<<<<<<< HEAD
 >>>>>>> 182b7a6 (changed the messages model to a chat model)
+=======
+>>>>>>> 139767c6cccd249eb72f6f9ba63d93198f3f2825
 
 const router = express.Router();
 
@@ -48,6 +51,7 @@ router.post('/new', (req, res) => {
  * @access      public
  */
 <<<<<<< HEAD
+<<<<<<< HEAD
 router.get("/sync", (req, res) => {
 	Messages.find((err, data) => {
 		if (err) {
@@ -58,6 +62,8 @@ router.get("/sync", (req, res) => {
 	});
 });
 =======
+=======
+>>>>>>> 139767c6cccd249eb72f6f9ba63d93198f3f2825
 router.get('/:id', (req, res) => {
     chats.find(req.body, (err, data) => {
         if (err) {

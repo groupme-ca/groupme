@@ -250,4 +250,7 @@ const mapStateToProps = (state) => ({
 // This connect thing is required to make redux work, we add the different props that we need
 // in the second parameter. 
 export default connect(mapStateToProps, { findUser, getChats })(SignInPage);
+<<<<<<< HEAD
 >>>>>>> 139767c (completed chat front end, changed pusher channel from chat-channel to id of the particpants)
+=======
+>>>>>>> 139767c6cccd249eb72f6f9ba63d93198f3f2825

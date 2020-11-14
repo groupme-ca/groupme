@@ -26,4 +26,7 @@ export const UPDATE_USER = 'UPDATE_USER';
 export const USERS_LOADING = 'USERS_LOADING';
 export const GET_CHATS = 'GET_CHATS';
 export const NEW_MESSAGE = 'NEW_MESSAGE';
+<<<<<<< HEAD
 >>>>>>> 139767c (completed chat front end, changed pusher channel from chat-channel to id of the particpants)
+=======
+>>>>>>> 139767c6cccd249eb72f6f9ba63d93198f3f2825

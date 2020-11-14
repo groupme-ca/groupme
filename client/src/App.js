@@ -20,6 +20,7 @@ import ProfilePage from './pages/Profile';
 import ChatPage from './pages/ChatPage';
 import Pusher from 'pusher-js';
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 4b4798b (added chat.js and chat.css)
 
 class App extends Component {
@@ -38,6 +39,8 @@ class App extends Component {
 		store.dispatch(loadUser());
 	}
 =======
+=======
+>>>>>>> 139767c6cccd249eb72f6f9ba63d93198f3f2825
 import axios from './axios';
 
 import { Provider } from 'react-redux';
@@ -54,6 +57,7 @@ function App() {
       setMessages(response.data);
     });
   }, []);
+<<<<<<< HEAD
 >>>>>>> 139767c (completed chat front end, changed pusher channel from chat-channel to id of the particpants)
 
 <<<<<<< HEAD
@@ -86,12 +90,18 @@ function App() {
   //     cluster: 'us2'
   //   });
 =======
+=======
+
+>>>>>>> 139767c6cccd249eb72f6f9ba63d93198f3f2825
 //  THIS SEGMENT IS FOR MAKING THE DB REAL TIME
   useEffect(() => {
     const pusher = new Pusher('d386d4bf8093a108cca2', {
       cluster: 'us2'
     });
+<<<<<<< HEAD
 >>>>>>> 182b7a6 (changed the messages model to a chat model)
+=======
+>>>>>>> 139767c6cccd249eb72f6f9ba63d93198f3f2825
 
     const channel = pusher.subscribe('plzwork');
     channel.bind('inserted', (data) => {

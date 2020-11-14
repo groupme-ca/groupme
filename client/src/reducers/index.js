@@ -19,5 +19,9 @@ import chatReducer from './chatReducer';
 export default combineReducers({
     user: userReducer,
     chats: chatReducer
+<<<<<<< HEAD
 })
 >>>>>>> 139767c (completed chat front end, changed pusher channel from chat-channel to id of the particpants)
+=======
+})
+>>>>>>> 139767c6cccd249eb72f6f9ba63d93198f3f2825
