@@ -37,6 +37,10 @@ h3 {
   font-weight: 700;
 }
 
+a {
+  text-decoration: none;
+}
+
 input {
   border-radius: 4px;
   border: 1.5px solid #afafaf;
@@ -191,6 +195,7 @@ nav > .navitem > a {
 .form-submit {
   margin-top: 11vh;
   margin-left: 12vw;
+  padding: 16px 32px;
 }
 
 .select-wrapper {
@@ -228,6 +233,7 @@ nav > .navitem > a {
   width: 40vw;
   height: 3vh;
   margin-bottom: 2vh;
+  text-indent: 0.5em;
 }
 
 .filter-section {
@@ -277,19 +283,23 @@ nav > .navitem > a {
   margin-top: 0em;
 }
 
-.carousel-wrapper {
-  display: flex;
-  overflow: hidden;
-  width: 70vw;
-  align-items: center;
-}
-
 /** MEDIA QUERIES **/
 /* This is where responsiveness rules are implemented for different screen sizes.
  * Includes stylings for elements on different pages.
  */
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 960px) {
+  .filter-section {
+    flex-direction: column;
+  }
 
+  .filter-container {
+    width: 40vw;
+  }
+
+  .page-content {
+    margin-left: 12vw;
+    margin-top: 10vw;
+  }
 }
 
 @media screen and (max-width: 760px) {
