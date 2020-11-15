@@ -78,12 +78,10 @@ class SignUpPage extends React.Component {
 		 *
 		 */
 		let name = this.state.Name;
-		// let username = this.state.Username;
 		let email = this.state.Email;
 		let password = this.state.Password;
 		// Trim the name and email but not the password
 		name = name.trim();
-		// username = username.trim();
 		email = email.trim().toLowerCase();
 
 		/**
@@ -95,7 +93,7 @@ class SignUpPage extends React.Component {
 		// Email, this matches in the form of x(.)(y)@(mail.)utoronto.ca, where everything in a bracket is optional.
 		let email_re = /^[a-z]+\.?[a-z]*@(mail\.)?utoronto\.ca$/;
 		const valid_email = email_re.test(email);
-		// Password, This is regex for at least 8 characters, 1 letter and 1 number.
+		// Password, This is regex for at least 8 characters, 1 capital letter and 1 number.
 		let pass_re = /^(?! )(?=.*\d)(?=.*[A-Z]).{8,}(?<! )$/;
 		const valid_password = pass_re.test(password);
 		if (valid_name && valid_email && valid_password) {
@@ -121,7 +119,7 @@ class SignUpPage extends React.Component {
 			} else {
 				this.setState({
 					errorMsg:
-						"Invalid Password... it should be at least 8 characters and contain no leading/trailing spaces and at least 1 digit, 1 capital.",
+						"Invalid Password... it should be at least 8 characters and contain no leading/trailing spaces and at least 1 digit, 1 capital letter.",
 				});
 			}
 
