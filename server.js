@@ -6,8 +6,9 @@ import cors from "cors";
 
 // Import users from router
 import users from "./routes/api/users.js";
-import messages from "./routes/api/messages.js";
+import chats from './routes/api/messages.js';
 import auth from "./routes/api/auth.js";
+
 
 // Setup database config
 import config from "config";
@@ -44,29 +45,38 @@ const db = mongoose.connection;
 
 //listening to the db the messages collection
 db.once("open", () => {
-	console.log("db connected");
+  console.log("db connected");
 
-	const msgCollection = db.collection("messages");
-	const changeStream = msgCollection.watch();
+  const chatCollection = db.collection('chats')
+  const changeStream = chatCollection.watch()
 
-	changeStream.on("change", (change) => {
-		console.log(change);
+  changeStream.on('change', (change)=>{
+    //console.log(change);
 
-		if (change.operationType === "insert") {
-			const messageDetails = change.fullDocument;
-			pusher.trigger("messages-channel", "inserted", {
-				name: messageDetails.name,
-				message: messageDetails.message,
-			});
-		} else {
-			console.log("error triggering pusher");
-		}
-	});
+    //TODO: MAKE A CHANNEL FOR EVERY USER 
+    if (change.operationType === "insert") {
+      const chatDetails = change.fullDocument;
+      // console.log(change.fullDocument);
+      const participants = Object.entries(chatDetails.participants);
+      participants.forEach(([key, value]) => {
+        console.log(value.cid);
+        pusher.trigger(value.cid, "inserted", 
+      {
+        name: chatDetails.name,
+        participants: chatDetails.participants,
+        messages: chatDetails.messages,
+      }
+      );
+      });
+    } else {
+      console.log('error triggering pusher');
+    }
+  });
 });
 
-// Use Routes
-app.use("/api/users", users); // anything that goes to 'api/users' should refer to users
-app.use("/api/messages", messages); // anything that goes to 'api/messages' should refer to messages
+// Use Routes 
+app.use('/api/users', users); // anything that goes to 'api/users' should refer to users
+app.use('/api/messages', chats); // anything that goes to 'api/messages' should refer to messages
 app.use("/api/auth", auth); // anything that goes to 'api/auth' should refer to auth
 
 const port = process.env.PORT || 5000;

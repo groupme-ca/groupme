@@ -14,6 +14,11 @@ import './Recommendations.css';
 import recommendations from '../utils/UserCardUtils';
 import options from '../utils/SignUpOptions';
 
+import Pusher from 'pusher-js';
+import axios from '../axios';
+import { useEffect, useState } from "react";
+
+
 class RecommendationPage extends React.Component {
     constructor(props) {
         super(props);
@@ -131,8 +136,32 @@ class RecommendationPage extends React.Component {
             })
         }
     }
+//figure out where to put this in here
+            //maybe move this to after sign-in(most likely the case)
+        //REMEMBER TO CHANGE AXIOS.JS ON RELEASE
+        // const [messages, setMessages] = useState([]);
+        // useEffect(() => {
+        //     axios.get('/api/messages/5fa9d504feaffa261495b389 ')
+        //     .then(response => {
+        //     setMessages(response.data);
+        //     });
+        // }, []);
+
+        // //  THIS SEGMENT IS FOR MAKING THE DB REAL TIME
+        // useEffect(() => {
+        //     const pusher = new Pusher('d386d4bf8093a108cca2', {
+        //     cluster: 'us2'
+        //     });
+
+        //     const channel = pusher.subscribe('chats-channel');
+        //     channel.bind('inserted', (data) => {
+        //     alert(JSON.stringify(data));
+        //     });
+        // }, []);
+        // // console.log(messages);
 
     render() {
+
         return (
             <div className='page-container'>
                 <Sidebar activePage='search' />

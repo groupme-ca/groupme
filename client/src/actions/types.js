@@ -16,3 +16,5 @@ export const AUTH_ERROR = "AUTH_ERROR";
 export const LOGOUT = "LOGOUT";
 export const GET_ERRORS = "GET_ERRORS";
 export const CLEAR_ERRORS = "CLEAR_ERRORS";
+export const GET_CHATS = 'GET_CHATS';
+export const NEW_MESSAGE = 'NEW_MESSAGE';

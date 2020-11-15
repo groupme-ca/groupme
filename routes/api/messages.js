@@ -29,8 +29,8 @@ router.post("/new", (req, res) => {
  * @description send messages
  * @access      public
  */
-router.get("/sync", (req, res) => {
-	Messages.find((err, data) => {
+router.get("/:id", (req, res) => {
+	Messages.findById(req.params.id, (err, data) => {
 		if (err) {
 			res.status(500).send(err);
 		} else {
