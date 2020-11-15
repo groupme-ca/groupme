@@ -120,7 +120,6 @@ class SignInPage extends React.Component {
 
 SignInPage.propTypes = {
 	loginUser: PropTypes.func.isRequired,
-	currentUser: PropTypes.object,
 	error: PropTypes.object,
 };
 
