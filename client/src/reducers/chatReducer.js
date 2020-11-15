@@ -13,7 +13,7 @@ export default function(state = initialState, action){
         case GET_CHATS:
             return {
                 ...state, 
-                chats: [action.payload, ...state.chats], 
+                chats: [ ...state.chats, action.payload], 
                 loading: false
             };
         default: 
