@@ -6,7 +6,6 @@ import './Recommendations.css';
 import SideBar from '../components/SideBar';
 
 const formFields = ['Name', 'Username', 'Email'];
-// const fixed = ['Name', 'Username', 'Email', 'Change Password'];
 
 class ProfilePage extends React.Component {
     constructor(props) {

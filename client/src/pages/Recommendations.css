@@ -3,6 +3,13 @@
     align-items: center;
 }
 
+.carousel-wrapper {
+    display: flex;
+    overflow: hidden;
+    width: 70vw;
+    align-items: center;
+}
+
 .chevron-wrapper {
     display: flex;
     border-radius: 50%;
@@ -12,4 +19,18 @@
 
 .chevron-wrapper > * {
     color: white;
+}
+
+@media screen and (max-width: 960px) {
+
+    .chevron-wrapper {
+        display: none;
+    }
+
+    .carousel-wrapper {
+        display: flex;
+        overflow: scroll;
+        width: 100vw;
+        align-items: center;
+    }
 }
