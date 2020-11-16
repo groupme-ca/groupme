@@ -199,12 +199,6 @@ nav > .navitem > a {
   padding: 16px 32px;
 }
 
-.select-wrapper {
-  display: flex;
-  margin-bottom: 40vh;
-  margin-left: 12vw;
-}
-
 .select-header {
   width: 96px;
   font-weight: 700;
@@ -260,6 +254,7 @@ nav > .navitem > a {
   margin-right: 1vw;
   outline: none;
   margin-bottom: 2vh;
+  min-width: 300px;
 }
 
 .header {
@@ -295,6 +290,29 @@ nav > .navitem > a {
   border-radius: 50%;
   margin-right: 0.1em;
   margin-top: 0em;
+}
+
+.margin-left {
+  margin-left: 12vw;
+}
+
+.edit-img-overlay {
+  position: absolute; 
+  bottom: 0; 
+  background: rgb(0, 0, 0);
+  background: rgba(0, 0, 0, 0.5); /* Black see-through */
+  color: #f1f1f1; 
+  width: 100%;
+  transition: .5s ease;
+  opacity:0;
+  color: white;
+  font-size: 20px;
+  padding: 20px;
+  text-align: center;
+}
+
+.edit-img-overlay:hover {
+  opacity:1;
 }
 
 /** MEDIA QUERIES **/

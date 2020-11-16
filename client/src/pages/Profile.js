@@ -31,8 +31,10 @@ class ProfilePage extends React.Component {
                 </h1>
                 <div>
                         <div className='form-container'>
-                            <div className='PLACEHOLDER-img'> 
-                            </div>
+                          <div class="container">
+                            <img class="card-img-top card-profile-pic" src="/static/media/vlad.58e00b26.jpg" height="128"></img>
+                            <div class="edit-img-overlay">Edit</div>
+                          </div>
                             <div className='form-fields'>
                                 {formFields.map((field)  => (
                                         <div className='form-row'>
@@ -62,12 +64,12 @@ class ProfilePage extends React.Component {
                             <textarea />
                         </div>
                         
-                        <div className="select-wrapper">
+                        <div className="filter-section margin-left">
                             <div>
                                 <p className='select-header'> Hobbies </p>
                                 <Select 
                                     isMulti
-                                    className="select-container-profile"
+                                    className="filter-container"
                                     options={options.hobbies} 
                                 />
                             </div>
@@ -75,7 +77,7 @@ class ProfilePage extends React.Component {
                                 <p className='select-header'> Courses </p>
                                 <Select 
                                     isMulti
-                                    className="select-container-profile"
+                                    className="filter-container"
                                     options={options.courses} 
                                 />
                             </div>
