@@ -5,7 +5,7 @@ import options from '../utils/SignUpOptions';
 import './Recommendations.css';
 import SideBar from '../components/SideBar';
 
-const formFields = ['Name', 'Username', 'Email'];
+const formFields = ['Name'];
 
 class ProfilePage extends React.Component {
     constructor(props) {
@@ -41,13 +41,21 @@ class ProfilePage extends React.Component {
                                             <label> {field} </label>
                                             {/* This hooks up the form to the state variable
                                                 also, if it's a password field it gives it the type password*/}
-                                            <input 
+                                            <input
                                                 name={field} 
                                                 onChange={this.formEvent} 
                                             /> 
                                         </div>
                                     ))
                                 }
+                                <div className='form-row'>
+                                    <label> Email </label>
+                                    <input 
+                                        readOnly
+                                        name="Email"
+                                        onChange={this.formEvent} 
+                                    /> 
+                                </div>
                                 <div className='form-row'>
                                   <label> New Password </label>
                                   <input type="password" name="newPassword" onChange={this.formEvent} />
