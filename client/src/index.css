@@ -199,6 +199,12 @@ nav > .navitem > a {
   padding: 16px 32px;
 }
 
+.select-wrapper {
+  display: flex;
+  margin-bottom: 40vh;
+  margin-left: 12vw;
+}
+
 .select-header {
   width: 96px;
   font-weight: 700;
