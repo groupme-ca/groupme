@@ -315,6 +315,18 @@ nav > .navitem > a {
   opacity:1;
 }
 
+.profile-btn {
+  position: absolute;
+  top: 0px;
+  right: 16px;
+  border-radius: 50%;
+  border: 0.5px solid #f0f0f0;
+}
+
+.profile-btn:hover {
+  cursor: pointer;
+}
+
 /** MEDIA QUERIES **/
 /* This is where responsiveness rules are implemented for different screen sizes.
  * Includes stylings for elements on different pages.
