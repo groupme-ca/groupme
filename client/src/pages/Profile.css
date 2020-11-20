@@ -16,10 +16,7 @@
 .profile-info-field {
     border: none;
     border-radius: 0;
-}
-
-.profile-info-field {
-
+    font-family: Roboto;
 }
 
 .rw-field {

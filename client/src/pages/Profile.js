@@ -122,7 +122,10 @@ class ProfilePage extends React.Component {
 
                         <div className='bio-container'>
                             <label> Bio </label>
-                            <textarea />
+                            <textarea 
+                                className="profile-info-field" 
+                                defaultValue="I wouldn't want to be my friend tbh"
+                            />
                         </div>
                         
                         <div className="filter-section margin-left">
