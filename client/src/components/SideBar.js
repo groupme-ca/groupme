@@ -50,20 +50,21 @@ class Sidebar extends React.Component {
 				</div>
 				<div className="sidebar-content">
 					<Link to="/profile">
-						<div class="sidebar-tab">
+						<div 
+							class="sidebar-tab"
+							style={{
+								fontWeight:
+									this.state.activePage === "profile"
+										? "700"
+										: "400",
+								color:
+									this.state.activePage === "profile"
+										? "#333"
+										: "",
+							}}
+						>
 							<AccountCircleIcon className="sidebar-img" />
-							<a
-								style={{
-									fontWeight:
-										this.state.activePage === "profile"
-											? "700"
-											: "400",
-									color:
-										this.state.activePage === "profile"
-											? "#333"
-											: "",
-								}}
-							>
+							<a>
 								My Profile
 							</a>
 						</div>

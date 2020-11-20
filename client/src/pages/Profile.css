@@ -1,0 +1,39 @@
+.change-password:active {
+    font-weight: 700;
+} 
+
+.change-password {
+    color: #ff914e;
+    cursor: pointer;
+}
+
+.profile-info-field:active,
+.profile-info-field:focus {
+    background: inherit;
+    border-radius: 4px;
+}
+
+.profile-info-field {
+    border: none;
+    border-radius: 0;
+}
+
+.profile-info-field {
+
+}
+
+.rw-field {
+    border-bottom: 1.2px dotted #ccc;
+    width: fit-content !important;
+}
+
+.rw-field:active,
+.rw-field:focus {
+    text-indent: 4px;
+}
+
+.ro-field:active,
+.ro-field:focus {
+    border: none;
+    cursor: default;
+}

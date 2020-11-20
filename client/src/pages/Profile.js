@@ -5,27 +5,36 @@ import options from '../utils/SignUpOptions';
 import './Recommendations.css';
 import SideBar from '../components/SideBar';
 
-const formFields = ['Name'];
+import './Profile.css';
 
+const formFields = ['Name'];
 
 class ProfilePage extends React.Component {
     constructor(props) {
        super(props);
        this.state = {
         newPassword: "",
+        
+        changePassword: false,
        }
     }
 
     formEvent = ({ target }) => {
         this.setState({ 
-            [target.name]: target.value
+            [target.name]: target.value,
         });
     };
+
+    saveState = () => {
+        this.setState({
+            changePassword: false,
+        })
+    }
 
     render() {
         return (
             <div className='page-container'>
-                <SideBar></SideBar>
+                <SideBar activePage="profile" />
                 <div className='page-content'>
                 <h1 className='page-title'>
                       User Profile
@@ -45,6 +54,8 @@ class ProfilePage extends React.Component {
                                             <input
                                                 name={field} 
                                                 onChange={this.formEvent} 
+                                                className="profile-info-field rw-field"
+                                                defaultValue="Vladimir Chadweeb" // change this when possible
                                             /> 
                                         </div>
                                     ))
@@ -54,16 +65,57 @@ class ProfilePage extends React.Component {
                                     <input 
                                         readOnly
                                         name="Email"
+                                        className="profile-info-field ro-field"
+                                        defaultValue="vlad.chadweeb69@mail.utoronto.ca"
                                         onChange={this.formEvent} 
                                     /> 
                                 </div>
                                 <div className='form-row'>
-                                  <label> New Password </label>
-                                  <input type="password" name="newPassword" onChange={this.formEvent} />
+                                    {this.state.changePassword ? (
+                                        <>
+                                            <label> New Password </label>
+                                            <input 
+                                                type="password" 
+                                                name="newPassword" 
+                                                onChange={this.formEvent} 
+                                                onKeyPress={(e) => {
+                                                    if (e.key == "Enter") {
+                                                        this.saveState();
+                                                    }
+                                                }}
+                                            />
+                                        </>
+                                    ) : (
+                                        <> 
+                                            <a 
+                                                className='change-password'
+                                                onClick={() => {
+                                                    this.setState({
+                                                        changePassword: true
+                                                    })
+                                                }}
+                                            > 
+                                                Change password
+                                            </a>
+                                        </>
+                                    )}
                                 </div>
-                                <div className={this.state.newPassword.length > 0 ? 'form-row' : 'form-row hide'} name="confirmPasswordDiv">
+                                <div 
+                                    className={(this.state.newPassword.length > 0 && this.state.changePassword)
+                                            ? 'form-row' : 'form-row hide'} 
+                                    name="confirmPasswordDiv"
+                                >
                                   <label> Confirm Password </label>
-                                  <input type="password" name="oldPassword" onChange={this.formEvent} />
+                                  <input 
+                                        type="password" 
+                                        name="oldPassword" 
+                                        onChange={this.formEvent} 
+                                        onKeyPress={(e) => {
+                                            if (e.key == "Enter") {
+                                                this.saveState();
+                                            }
+                                        }}
+                                    />
                                 </div>
                             </div>
                         </div>

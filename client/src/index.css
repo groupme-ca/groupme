@@ -269,7 +269,7 @@ nav > .navitem > a {
 }
 
 .page-title {
-  margin-left: 41vh;
+  margin-left: 25vw;
   font-size: 32px;
 }
 
@@ -327,6 +327,9 @@ nav > .navitem > a {
   right: 16px;
   border-radius: 50%;
   border: 0.5px solid #f0f0f0;
+  margin: 32px 48px;
+  width: 48px !important;
+  height: auto;
 }
 
 .profile-btn:hover {
