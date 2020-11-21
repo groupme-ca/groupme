@@ -44,6 +44,7 @@ a {
 input {
   border-radius: 4px;
   border: 1.5px solid #afafaf;
+  cursor: text;
 }
 
 input:focus {
@@ -162,7 +163,7 @@ nav > .navitem > a {
 }
 
 .form-row > label {
-  width: 8em;
+  width: 9em;
 }
 
 /* We need to make sure to change this later */
@@ -213,7 +214,15 @@ nav > .navitem > a {
 
 .select-container {
   width: 20vw;
-  margin-right: 12vw;
+  min-width: 300px;
+  margin-right: 40px;
+  outline: none;
+}
+
+.select-container-profile {
+  width: 20vw;
+  min-width: 300px;
+  margin-right: 40px;
   outline: none;
 }
 
@@ -251,11 +260,17 @@ nav > .navitem > a {
   margin-right: 1vw;
   outline: none;
   margin-bottom: 2vh;
+  min-width: 300px;
 }
 
 .header {
   font-size: 18px;
   margin-bottom: 0.1em;
+}
+
+.page-title {
+  margin-left: 41vh;
+  font-size: 32px;
 }
 
 .page-content {
@@ -281,6 +296,41 @@ nav > .navitem > a {
   border-radius: 50%;
   margin-right: 0.1em;
   margin-top: 0em;
+}
+
+.margin-left {
+  margin-left: 12vw;
+}
+
+.edit-img-overlay {
+  position: absolute; 
+  bottom: 0; 
+  background: rgb(0, 0, 0);
+  background: rgba(0, 0, 0, 0.5); /* Black see-through */
+  color: #f1f1f1; 
+  width: 100%;
+  transition: .5s ease;
+  opacity:0;
+  color: white;
+  font-size: 20px;
+  padding: 20px;
+  text-align: center;
+}
+
+.edit-img-overlay:hover {
+  opacity:1;
+}
+
+.profile-btn {
+  position: absolute;
+  top: 0px;
+  right: 16px;
+  border-radius: 50%;
+  border: 0.5px solid #f0f0f0;
+}
+
+.profile-btn:hover {
+  cursor: pointer;
 }
 
 /** MEDIA QUERIES **/
@@ -355,3 +405,7 @@ nav > .navitem > a {
     padding: 16px 24px;
   }
 }
+
+  .hide {
+    display: none !important;
+  }

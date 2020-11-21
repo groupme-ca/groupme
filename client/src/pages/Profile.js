@@ -1,70 +1,100 @@
 import React from 'react';
-import { Link } from "react-router-dom";
 import Select from 'react-select';
-import Slider from "react-slick";
+import options from '../utils/SignUpOptions';
 
-import UserCard from '../components/UserCard';
 import './Recommendations.css';
-import settings from '../utils/CarouselSettings';
 import SideBar from '../components/SideBar';
 
-import logo from '../assets/img/logo.svg';
-import vlad from '../assets/img/vlad.jpg';
-import lara from '../assets/img/lara.jpg';
-import alick from '../assets/img/alick.jpg';
+const formFields = ['Name'];
+
 
 class ProfilePage extends React.Component {
     constructor(props) {
-        super(props);
+       super(props);
+       this.state = {
+        newPassword: "",
+       }
     }
+
+    formEvent = ({ target }) => {
+        this.setState({ 
+            [target.name]: target.value
+        });
+    };
 
     render() {
         return (
             <div className='page-container'>
                 <SideBar></SideBar>
                 <div className='page-content'>
-                    <h1 className='header'>
-                        I'm a profile page WEEEEEEEEEE
-                    </h1>
-                    <div id='online-count'> 
-                        <div className='green-circle'> </div> 
-                        <p> xxx people currently online </p> 
-                    </div>
+                <h1 className='page-title'>
+                      User Profile
+                </h1>
+                <div>
+                        <div className='form-container'>
+                          <div class="container">
+                            <img class="card-img-top card-profile-pic" src="/static/media/vlad.58e00b26.jpg" height="128"></img>
+                            <div class="edit-img-overlay">Edit</div>
+                          </div>
+                            <div className='form-fields'>
+                                {formFields.map((field)  => (
+                                        <div className='form-row'>
+                                            <label> {field} </label>
+                                            {/* This hooks up the form to the state variable
+                                                also, if it's a password field it gives it the type password*/}
+                                            <input
+                                                name={field} 
+                                                onChange={this.formEvent} 
+                                            /> 
+                                        </div>
+                                    ))
+                                }
+                                <div className='form-row'>
+                                    <label> Email </label>
+                                    <input 
+                                        readOnly
+                                        name="Email"
+                                        onChange={this.formEvent} 
+                                    /> 
+                                </div>
+                                <div className='form-row'>
+                                  <label> New Password </label>
+                                  <input type="password" name="newPassword" onChange={this.formEvent} />
+                                </div>
+                                <div className={this.state.newPassword.length > 0 ? 'form-row' : 'form-row hide'} name="confirmPasswordDiv">
+                                  <label> Confirm Password </label>
+                                  <input type="password" name="oldPassword" onChange={this.formEvent} />
+                                </div>
+                            </div>
+                        </div>
 
-                    <br/><br/><br/><br/>
-    
-                    <h1 className='header'>
-                        Same interests as you
-                    </h1>
-                    <div className='int-carousel'>
-                        <UserCard 
-                            avatar={vlad} 
-                            title="Vladimir Chadweeb"
-                            hobbies={['Anime', 'Gaming']}
-                            bio="I wouldn't want to be my friend tbh"
-                        />   
-                       <UserCard 
-                            avatar={alick} 
-                            title="Alick Professorson"
-                            hobbies={['Anime']}
-                            bio="I'm a professor and I love professoring"
-                        />                       
-                    </div>
+                        <div className='bio-container'>
+                            <label> Bio </label>
+                            <textarea />
+                        </div>
+                        
+                        <div className="filter-section margin-left">
+                            <div>
+                                <p className='select-header'> Hobbies </p>
+                                <Select 
+                                    isMulti
+                                    className="filter-container"
+                                    options={options.hobbies} 
+                                />
+                            </div>
+                            <div>
+                                <p className='select-header'> Courses </p>
+                                <Select 
+                                    isMulti
+                                    className="filter-container"
+                                    options={options.courses} 
+                                />
+                            </div>
+                        </div>
+                        <br/><br/><br/><br/>
 
-                    <h1 className='header'>
-                        Same courses as you
-                    </h1>
-                    <div className='int-carousel'> 
-                        <UserCard 
-                            avatar={lara} 
-                            title="Lara Ken"
-                            hobbies={['CSC490', 'CCT110']}
-                            bio="Graphic design is my passion"
-                        />                         
                     </div>
-
                 </div>
-
             </div>
         )
     }
