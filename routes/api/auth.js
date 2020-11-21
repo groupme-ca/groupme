@@ -105,7 +105,14 @@ router.post("/login", async (req, res) => {
 router.get("/user", auth, async (req, res) => {
 	await User.findById(req.user.id)
 		.select("-password")
-		.then((user) => res.json(user));
+		.then((user) => {
+			// If the user does not exist.
+			if (!user) {
+				return res.status(400).json({ msg: "User does not exist." });
+			}
+
+			return res.status(200).json(user);
+		});
 });
 
 export default router;
