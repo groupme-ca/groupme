@@ -7,14 +7,14 @@ import PowerSettingsNewIcon from "@material-ui/icons/PowerSettingsNew";
 import MenuIcon from "@material-ui/icons/Menu";
 import SettingsIcon from "@material-ui/icons/Settings";
 import NotificationsIcon from "@material-ui/icons/Notifications";
+import { connect } from "react-redux";
+import { logoutUser } from "../actions/authActions";
+import PropTypes from "prop-types";
 import AddIcon from "@material-ui/icons/Add";
-
 import "./SideBar.css";
 import logo from "../assets/img/logo.svg";
-import { connect } from "react-redux";
 //added these 2 actions to refresh the chat page
-import { startSwitch, endSwitch } from "../actions/chatActions"
-import { logoutUser } from "../actions/authActions"
+import { startSwitch, endSwitch } from "../actions/chatActions";
 
 class Sidebar extends React.Component {
 	constructor(props) {
@@ -25,16 +25,21 @@ class Sidebar extends React.Component {
 			rooms: ["fakeRoom"],
 			chats: ["Alick Professorson"],
 		};
-	};
+	}
 
 	handleOnLogout = (e) => {
-				// Logout the user
+		// Logout the user
 		this.props.logoutUser();
 	};
 
 	clickHandler() {
 		this.props.startSwitch();
 		this.props.endSwitch();
+	}
+
+	handleOnLogout = (e) => {
+		// Logout the user
+		this.props.logoutUser();
 	};
 
 	render() {
@@ -46,7 +51,7 @@ class Sidebar extends React.Component {
 					</div>
 				</div>
 				<div className="sidebar-head">
-					<Link to="/" >
+					<Link to="/">
 						<img src={logo} width={56} />
 					</Link>
 
@@ -110,46 +115,66 @@ class Sidebar extends React.Component {
 					</Link>
 
 					<div className="sidebar-header"> Rooms </div>
-						{this.props.chats.chat.map((cht) => {
-							if (cht.name !== '' ){
-								return <Link to={`/chat/${cht._id}`} onClick={this.clickHandler.bind(this)}>
-								<div>
-									<div className="sidebar-tab">
-										<a> {cht.name} </a>
+					{this.props.chats.chat.map((cht) => {
+						if (cht.name !== "") {
+							return (
+								<Link
+									to={`/chat/${cht._id}`}
+									onClick={this.clickHandler.bind(this)}
+								>
+									<div>
+										<div className="sidebar-tab">
+											<a> {cht.name} </a>
+										</div>
 									</div>
-								</div>
 								</Link>
-							
-						}})}
+							);
+						}
+					})}
 
 					<div className="sidebar-header"> Messages </div>
-						{this.props.chats.chat.map((cht) => {
-							if (cht.name === '' ){
-								return <Link to={`/chat/${cht._id}`} onClick={this.clickHandler.bind(this)}>
-								<div>
-									<div className="sidebar-tab">
-										<a> {cht.participants[0].name === this.props.auth.user.name ? cht.participants[1].name : cht.participants[0].name} </a>
+					{this.props.chats.chat.map((cht) => {
+						if (cht.name === "") {
+							return (
+								<Link
+									to={`/chat/${cht._id}`}
+									onClick={this.clickHandler.bind(this)}
+								>
+									<div>
+										<div className="sidebar-tab">
+											<a>
+												{" "}
+												{cht.participants[0].name ===
+												this.props.auth.user.name
+													? cht.participants[1].name
+													: cht.participants[0]
+															.name}{" "}
+											</a>
+										</div>
 									</div>
-								</div>
 								</Link>
-							
-						}})}
-					
+							);
+						}
+					})}
 				</div>
 			</div>
 		);
 	}
 }
 
-
 // This is the current state in the store.
 const mapStateToProps = (state) => ({
 	auth: state.auth,
 	error: state.error,
-	chats: state.chats
+	chats: state.chats,
 });
 
 // This connect thing is required to make redux work, we add the different props that we need
 // in the second parameter.
-export default connect(mapStateToProps, {startSwitch, endSwitch, logoutUser})(Sidebar);
+export default connect(mapStateToProps, { startSwitch, endSwitch, logoutUser })(
+	Sidebar
+);
 
+Sidebar.propTypes = {
+	logoutUser: PropTypes.func.isRequired,
+};
