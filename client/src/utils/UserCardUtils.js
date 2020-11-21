@@ -64,6 +64,7 @@ const recommendations = {
             name: "Lara Ken", 
             avatar: lara, 
             courses:['CSC490', 'CCT110'], 
+            hobbies: ['Art', 'Design', 'Drawing', 'Photography'],
             bio: "Graphic design is my passion"
         },
 

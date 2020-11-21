@@ -22,8 +22,8 @@
     
     position: absolute;
     top: 4vw;
-    left: calc(50vw - 40vw);
-    width: 80vw;
+    left: 20vw;
+    width: 60vw;
 }
 
 .modal-head {
@@ -40,7 +40,7 @@
 }
 
 .modal-close-btn {
-    margin-left: 70vw;
+    margin-left: 50vw;
     width: 1.3em !important;
     height: 1.3em !important;
     color: #888;
