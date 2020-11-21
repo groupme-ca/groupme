@@ -14,6 +14,9 @@ import AddIcon from "@material-ui/icons/Add";
 
 import "./SideBar.css";
 import logo from "../assets/img/logo.svg";
+import { connect } from "react-redux";
+//added these 2 actions to refresh the chat page
+import { startSwitch, endSwitch } from "../actions/chatActions"
 
 class Sidebar extends React.Component {
 	constructor(props) {
@@ -24,7 +27,12 @@ class Sidebar extends React.Component {
 			rooms: ["fakeRoom"],
 			chats: ["Alick Professorson"],
 		};
-	}
+	};
+
+	clickHandler() {
+		this.props.startSwitch();
+		this.props.endSwitch();
+	};
 
 	handleOnLogout = (e) => {
 		// Logout the user
@@ -102,13 +110,16 @@ class Sidebar extends React.Component {
 					</div>
 
 					<div className="sidebar-header"> Messages </div>
-					<div>
-						{this.state.chats.map((chat) => (
+					{this.props.chats.chat.map((cht) => (
+						<Link to={`/chat/${cht._id}`} onClick={this.clickHandler.bind(this)}>
+						<div>
 							<div className="sidebar-tab">
-								<a> {chat} </a>
+								<a> {cht.name} </a>
 							</div>
-						))}
-					</div>
+						</div>
+						</Link>
+					))}
+					
 				</div>
 			</div>
 		);
@@ -120,6 +131,12 @@ Sidebar.propTypes = {
 };
 
 // This is the current state in the store.
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({
+	auth: state.auth,
+	error: state.error,
+	chats: state.chats
+});
 
-export default connect(mapStateToProps, { logoutUser })(Sidebar);
+// This connect thing is required to make redux work, we add the different props that we need
+// in the second parameter.
+export default connect(mapStateToProps, {startSwitch, endSwitch, logoutUser})(Sidebar);

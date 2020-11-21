@@ -10,10 +10,7 @@ import { Provider } from "react-redux";
 import store from "./store";
 import { Component } from "react";
 import LiveChat from "./utils/LiveChat"
-<<<<<<< HEAD
 import ChatPage from './pages/Chat';
-=======
->>>>>>> ea94fbd (completed fetching chat, displaying chat, and sending messages to chat)
 
 
 class App extends Component {
@@ -30,11 +27,7 @@ class App extends Component {
 					<Route path="/signin" exact render={() => <SignInPage />} />
 					<Route path="/welcome" exact render={() => <RecommendationPage />}/>
 					<Route path="/profile" exact render={() => <ProfilePage />}/>
-<<<<<<< HEAD
-          <Route path="/chat/:id" exact render={() => <ChatPage path='d'/>}/>
-=======
-          			<Route path="/chat" exact render={() => <ChatPage />}/>
->>>>>>> ea94fbd (completed fetching chat, displaying chat, and sending messages to chat)
+         			<Route path="/chat/:id" exact render={() => <ChatPage path='d'/>}/>
         		</Router>
 				<LiveChat />
 			</Provider>

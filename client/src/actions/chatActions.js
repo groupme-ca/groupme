@@ -1,5 +1,5 @@
 import axios from '../axios';
-import { GET_CHATS } from './types';
+import { GET_CHATS, START_SWITCH, END_SWITCH } from './types';
 
 
 // const getChatSuccess = (chats) => ({
@@ -7,9 +7,16 @@ import { GET_CHATS } from './types';
 // 	payload: chats,
 // });
 
-// const getChatStart = () => ({
-// 	type: CHAT_START,
-// });
+export const startSwitch = () => {
+	return {
+		type: START_SWITCH,
+	};
+};
+export const endSwitch = () => {
+	return {
+		type: END_SWITCH,
+	};
+};
 
 export const getChats = (id) => (dispatch) => {
     // dispatch(getChatStart());
