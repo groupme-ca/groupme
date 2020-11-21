@@ -31,6 +31,7 @@ class SignInPage extends React.Component {
 		};
 		// Check for authentication
 		this.authenticate(newUser);
+
 	};
 
 	async authenticate(user) {
@@ -46,8 +47,18 @@ class SignInPage extends React.Component {
 		if (error) {
 			this.setState({ error: true });
 			// console.log("Unsuccessful login");
-		}
+		} 
 	}
+
+	handleOnLoad() {
+		const chatIds = this.props.auth.user.ChatIds;
+		// chatIds.forEach(id => {
+		// 	console.log(id);
+		chatIds.forEach(id => {
+			this.props.getChats(id);			
+		});
+		// });
+	};
 
 	formEvent = ({ target }) => {
 		this.setState({
@@ -65,7 +76,8 @@ class SignInPage extends React.Component {
 				Sign In
 			</Link>
 		) : (
-			<Redirect to={"/welcome"} />
+			<Redirect to={"/welcome"} onload={this.handleOnLoad()} /> 
+			
 		);
 		return (
 			<div>
@@ -134,6 +146,7 @@ const mapStateToProps = (state) => ({
 	chats: state.chats,
 	auth: state.auth,
 	error: state.error,
+	chats: state.chats
 });
 
 

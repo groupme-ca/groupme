@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+=======
+import express from "express";
+import chats from "../../models/Messages.js";
+>>>>>>> ea94fbd (completed fetching chat, displaying chat, and sending messages to chat)
 // We can use this middleware in order to restrict sending of messages to people who are logged in.
 // To add this middleware we just have to add it as the SECOND PARAMETER in the requests.
 // On the front end, to make this authentication work, we have to add the token to the header with key=x-auth-token, value = token
@@ -26,7 +31,7 @@ router.post('/new', (req, res) => {
 });
 
 /**
- * @route       GET api/messages/sync
+ * @route       GET api/messages/:id
  * @description send messages
  * @access      public
  */
@@ -43,5 +48,17 @@ router.get('/:id', (req, res) => {
 
 
 
+
+
+/**
+ * @route       PUT api/messages/:id
+ * @description Update message content of chat with :id
+ * @access      public
+ */
+router.put("/:id", async (req, res) => {
+	chats.findByIdAndUpdate(req.params.id, req.body, { new: true })
+		.then((chat) => res.json(chat))
+		.catch((err) => res.status(404).json({ success: false }));
+});
 
 export default router;
