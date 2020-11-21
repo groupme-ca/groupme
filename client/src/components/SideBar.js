@@ -7,6 +7,9 @@ import PowerSettingsNewIcon from "@material-ui/icons/PowerSettingsNew";
 import MenuIcon from "@material-ui/icons/Menu";
 import SettingsIcon from "@material-ui/icons/Settings";
 import NotificationsIcon from "@material-ui/icons/Notifications";
+import { connect } from "react-redux";
+import { logoutUser } from "../actions/authActions";
+import PropTypes from "prop-types";
 import AddIcon from "@material-ui/icons/Add";
 
 import "./SideBar.css";
@@ -22,6 +25,11 @@ class Sidebar extends React.Component {
 			chats: ["Alick Professorson"],
 		};
 	}
+
+	handleOnLogout = (e) => {
+		// Logout the user
+		this.props.logoutUser();
+	};
 
 	render() {
 		return (
@@ -88,7 +96,7 @@ class Sidebar extends React.Component {
 						</div>
 					</Link>
 
-					<Link to="/">
+					<Link to="/" onClick={this.handleOnLogout}>
 						<div class="sidebar-tab">
 							<PowerSettingsNewIcon className="sidebar-img" />
 							<a> Sign out </a>
@@ -118,4 +126,11 @@ class Sidebar extends React.Component {
 	}
 }
 
-export default Sidebar;
+Sidebar.propTypes = {
+	logoutUser: PropTypes.func.isRequired,
+};
+
+// This is the current state in the store.
+const mapStateToProps = (state) => ({});
+
+export default connect(mapStateToProps, { logoutUser })(Sidebar);
