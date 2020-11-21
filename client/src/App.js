@@ -37,7 +37,7 @@ class App extends Component {
 					<Route path="/signin" exact render={() => <SignInPage />} />
 					<Route path="/welcome" exact render={() => <RecommendationPage />}/>
 					<Route path="/profile" exact render={() => <ProfilePage />}/>
-          			<Route path="/chat" exact render={() => <ChatPage />}/>
+          			<Route path="/chat/:id" exact render={() => <ChatPage path='d'/>}/>
         		</Router>
 				<LiveChat />
 			</Provider>

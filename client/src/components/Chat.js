@@ -4,29 +4,39 @@ import { sendMessage } from "../actions/chatActions";
 import React from "react";
 import "./Chat.css";
 import { connect } from "react-redux";
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 
 
 const Chat = (state) => {
+    const id = window.location.pathname.slice(6);
     const [input, setInput] = useState("");
+    // useEffect(() => {
+    //     console.log(window.location.pathname);
+    // }, [state.chats]);
+    var curChat;
+    state.chats.chat.forEach(cht => {
+        if (cht._id === id) {
+            curChat = cht;
+        }
+    });
     const onClickHandler = (e) => {
-      e.preventDefault();
-      var date = new Date();
-      var time = date.getHours() + ":" + date.getMinutes();
+        e.preventDefault();
+        var date = new Date();
+        var time = date.getHours() + ":" + date.getMinutes();
 
-      const newMessages = state.chats.chat[0].messages.concat([{
-          "sender": state.auth.user.name,
-          "content": input,
-          "timestamp": time
-      }]);
+        const newMessages = curChat.messages.concat([{
+        "sender": state.auth.user.name,
+        "content": input,
+        "timestamp": time
+        }]);
 
-      const newChat = {
-          "_id": state.chats.chat[0]._id,
-          "messages": newMessages 
-      }
+        const newChat = {
+        "_id": curChat._id,
+        "messages": newMessages 
+        }
 
-     state.sendMessage(newChat)
+        state.sendMessage(newChat)
 
     };
     return (
@@ -52,7 +62,7 @@ const Chat = (state) => {
                 </div>
             </div>
             <div className="chat-body">
-                {state.chats.chat[0].messages.map((message) => (
+                {curChat.messages.map((message) => (
                     <p className={message.sender === state.auth.user.name ? "chat-message" : "chat-receiver"}>
                         <span className="chat-name">{message.sender}</span>
                         {message.content}
@@ -75,10 +85,11 @@ const Chat = (state) => {
 }   
 
 // This is the current state in the store.
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state, path) => ({
 	auth: state.auth,
 	error: state.error,
-	chats: state.chats
+    chats: state.chats,
+    props: path
 });
 
 // This connect thing is required to make redux work, we add the different props that we need

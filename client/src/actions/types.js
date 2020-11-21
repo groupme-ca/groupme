@@ -17,3 +17,5 @@ export const LOGOUT = "LOGOUT";
 export const GET_ERRORS = "GET_ERRORS";
 export const CLEAR_ERRORS = "CLEAR_ERRORS";
 export const GET_CHATS = 'GET_CHATS';
+export const START_SWITCH = 'START_SWITCH';
+export const END_SWITCH = 'END_SWITCH';
