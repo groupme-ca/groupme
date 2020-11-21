@@ -10,7 +10,7 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import UserCard from '../components/UserCard';
 import Sidebar from '../components/SideBar';
 import UserModal from '../components/UserModal';
-
+import ProfileButton from '../components/ProfileButton';
 import './Recommendations.css';
 
 import recommendations from '../utils/UserCardUtils';
@@ -161,6 +161,7 @@ class RecommendationPage extends React.Component {
     render() {
         return (
             <div className='page-container'>
+                <ProfileButton />
                 <Sidebar activePage='search' />
                 <div className='page-content'>
 
