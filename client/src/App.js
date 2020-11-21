@@ -6,11 +6,10 @@ import SignInPage from "./pages/SignIn";
 import RecommendationPage from "./pages/Recommendations";
 import ProfilePage from "./pages/Profile";
 import ChatPage from './pages/ChatPage';
-import Pusher from "pusher-js";
 import { Provider } from "react-redux";
 import store from "./store";
-import { useEffect, Component, useState } from "react";
-import axios from './axios';
+import { Component } from "react";
+import LiveChat from "./utils/LiveChat"
 
 
 class App extends Component {
@@ -38,8 +37,9 @@ class App extends Component {
 					<Route path="/signin" exact render={() => <SignInPage />} />
 					<Route path="/welcome" exact render={() => <RecommendationPage />}/>
 					<Route path="/profile" exact render={() => <ProfilePage />}/>
-          <Route path="/chat" exact render={() => <ChatPage />}/>
-        </Router>
+          			<Route path="/chat" exact render={() => <ChatPage />}/>
+        		</Router>
+				<LiveChat />
 			</Provider>
 		);
 	}

@@ -1,10 +1,34 @@
 import { Avatar, IconButton } from "@material-ui/core";
-import { AttachFile, MoreVert, SearchOutlined } from "@material-ui/icons";
+import { AttachFile, MoreVert, SearchOutlined, Today } from "@material-ui/icons";
+import { sendMessage } from "../actions/chatActions";
 import React from "react";
 import "./Chat.css";
+import { connect } from "react-redux";
+import { useState } from "react"
 
 
-const Chat = () => {
+
+const Chat = (state) => {
+    const [input, setInput] = useState("");
+    const onClickHandler = (e) => {
+      e.preventDefault();
+      var date = new Date();
+      var time = date.getHours() + ":" + date.getMinutes();
+
+      const newMessages = state.chats.chat[0].messages.concat([{
+          "sender": state.auth.user.name,
+          "content": input,
+          "timestamp": time
+      }]);
+
+      const newChat = {
+          "_id": state.chats.chat[0]._id,
+          "messages": newMessages 
+      }
+
+     state.sendMessage(newChat)
+
+    };
     return (
         <div className="chat">
             <div className="chat-header">
@@ -28,39 +52,20 @@ const Chat = () => {
                 </div>
             </div>
             <div className="chat-body">
-                <p className="chat-message">
-                    <span className="chat-name">Mohammed</span>
-                    This is a message
-                    <span className="chat-timestamp">{new 
-                    Date().toUTCString()}</span>
-                </p>
-
-                <p className="chat-receiver">
-                    <span className="chat-name">Mohammed</span>
-                    This is a message
-                    <span className="chat-timestamp">{new 
-                    Date().toUTCString()}</span>
-                </p>
-
-                <p className="chat-message">
-                    <span className="chat-name">Mohammed</span>
-                    This is a message
-                    <span className="chat-timestamp">{new 
-                    Date().toUTCString()}</span>
-                </p>
-                <p className="chat-message">
-                    <span className="chat-name">Mohammed</span>
-                    This is a message
-                    <span className="chat-timestamp">{new 
-                    Date().toUTCString()}</span>
-                </p>
+                {state.chats.chat[0].messages.map((message) => (
+                    <p className={message.sender === state.auth.user.name ? "chat-message" : "chat-receiver"}>
+                        <span className="chat-name">{message.sender}</span>
+                        {message.content}
+                        <span className="chat-timestamp">{message.timestamp}</span>
+                    </p>
+                ))}
             </div>
 
             <div className="chat-footer">
                 <form>
-                    <input placeholder="Type a message"
+                    <input value={input} onChange={e => setInput(e.target.value)} placeholder="Type a message"
                         type="text" />
-                    <button type="submit">Send a message
+                    <button onClick={onClickHandler} type="submit">Send a message
                     </button>
                 </form>
             </div>
@@ -69,4 +74,13 @@ const Chat = () => {
     );
 }   
 
-export default Chat; 
+// This is the current state in the store.
+const mapStateToProps = (state) => ({
+	auth: state.auth,
+	error: state.error,
+	chats: state.chats
+});
+
+// This connect thing is required to make redux work, we add the different props that we need
+// in the second parameter.
+export default connect(mapStateToProps, { sendMessage })(Chat);

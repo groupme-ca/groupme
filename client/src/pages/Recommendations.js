@@ -15,8 +15,9 @@ import recommendations from '../utils/UserCardUtils';
 import options from '../utils/SignUpOptions';
 
 import Pusher from 'pusher-js';
-import axios from '../axios';
-import { useEffect, useState } from "react";
+import { getChats } from "../actions/chatActions";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
 
 class RecommendationPage extends React.Component {
@@ -67,6 +68,7 @@ class RecommendationPage extends React.Component {
                 coursesHasPrev: true,
             })
         }
+
         
         this.getNextInterest = this.getNextInterest.bind(this);
         this.getPrevInterest = this.getPrevInterest.bind(this);
@@ -149,14 +151,7 @@ class RecommendationPage extends React.Component {
 
         // //  THIS SEGMENT IS FOR MAKING THE DB REAL TIME
         // useEffect(() => {
-        //     const pusher = new Pusher('d386d4bf8093a108cca2', {
-        //     cluster: 'us2'
-        //     });
-
-        //     const channel = pusher.subscribe('chats-channel');
-        //     channel.bind('inserted', (data) => {
-        //     alert(JSON.stringify(data));
-        //     });
+            
         // }, []);
         // // console.log(messages);
 
@@ -276,4 +271,18 @@ class RecommendationPage extends React.Component {
 
 }
 
-export default RecommendationPage;
+RecommendationPage.propTypes = {
+	getChats: PropTypes.func.isRequired,
+	error: PropTypes.object,
+};
+
+// This is the current state in the store.
+const mapStateToProps = (state) => ({
+	auth: state.auth,
+	error: state.error,
+	chats: state.chats
+});
+
+// This connect thing is required to make redux work, we add the different props that we need
+// in the second parameter.
+export default connect(mapStateToProps, { getChats })(RecommendationPage);

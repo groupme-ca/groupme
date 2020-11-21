@@ -6,6 +6,7 @@ import logo from "../assets/img/logo.svg";
 // This connects the frontend to backend.
 import { connect } from "react-redux";
 import { loginUser } from "../actions/authActions";
+import { getChats } from "../actions/chatActions";
 import PropTypes from "prop-types";
 
 const formFields = ["Email", "Password"];
@@ -29,6 +30,7 @@ class SignInPage extends React.Component {
 		};
 		// Check for authentication
 		this.authenticate(newUser);
+
 	};
 
 	async authenticate(user) {
@@ -44,8 +46,18 @@ class SignInPage extends React.Component {
 		if (error) {
 			this.setState({ error: true });
 			// console.log("Unsuccessful login");
-		}
+		} 
 	}
+
+	handleOnLoad() {
+		const chatIds = this.props.auth.user.ChatIds;
+		// chatIds.forEach(id => {
+		// 	console.log(id);
+		chatIds.forEach(id => {
+			this.props.getChats(id);			
+		});
+		// });
+	};
 
 	formEvent = ({ target }) => {
 		this.setState({
@@ -63,7 +75,8 @@ class SignInPage extends React.Component {
 				Sign In
 			</Link>
 		) : (
-			<Redirect to={"/welcome"} />
+			<Redirect to={"/welcome"} onload={this.handleOnLoad()} /> 
+			
 		);
 		return (
 			<div>
@@ -120,6 +133,7 @@ class SignInPage extends React.Component {
 
 SignInPage.propTypes = {
 	loginUser: PropTypes.func.isRequired,
+	getChats: PropTypes.func.isRequired,
 	currentUser: PropTypes.object,
 	error: PropTypes.object,
 };
@@ -128,8 +142,9 @@ SignInPage.propTypes = {
 const mapStateToProps = (state) => ({
 	auth: state.auth,
 	error: state.error,
+	chats: state.chats
 });
 
 // This connect thing is required to make redux work, we add the different props that we need
 // in the second parameter.
-export default connect(mapStateToProps, { loginUser })(SignInPage);
+export default connect(mapStateToProps, { loginUser, getChats })(SignInPage);

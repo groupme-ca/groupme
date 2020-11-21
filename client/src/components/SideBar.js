@@ -49,7 +49,7 @@ class Sidebar extends React.Component {
 					</div>
 				</div>
 				<div className="sidebar-content">
-					<Link to="/profile">
+					<Link to="/chat">
 						<div class="sidebar-tab">
 							<AccountCircleIcon className="sidebar-img" />
 							<a

@@ -12,7 +12,6 @@ import auth from "./routes/api/auth.js";
 
 // Setup database config
 import config from "config";
-
 const app = express();
 app.disable("x-powered-by");
 // Body parser
@@ -54,20 +53,22 @@ db.once("open", () => {
     //console.log(change);
 
     //TODO: MAKE A CHANNEL FOR EVERY USER 
-    if (change.operationType === "insert") {
-      const chatDetails = change.fullDocument;
-      // console.log(change.fullDocument);
-      const participants = Object.entries(chatDetails.participants);
-      participants.forEach(([key, value]) => {
-        console.log(value.cid);
-        pusher.trigger(value.cid, "inserted", 
-      {
-        name: chatDetails.name,
-        participants: chatDetails.participants,
-        messages: chatDetails.messages,
-      }
-      );
-      });
+    // console.log(change.operationType);
+    if (change.operationType === "update") {
+      const chatDetails = change.documentKey;
+     
+      pusher.trigger("5fadebd82dcd4128989707ba", 'updated', chatDetails._id);
+      // const participants = Object.entries(chatDetails.participants);
+      // participants.forEach(([key, value]) => {
+      //   console.log(value.cid);
+      //   pusher.trigger(value.cid, "updated", 
+      // {
+      //   name: chatDetails.name,
+      //   participants: chatDetails.participants,
+      //   messages: chatDetails.messages,
+      //   id: chatDetails._id,
+      // }
+      // );
     } else {
       console.log('error triggering pusher');
     }
