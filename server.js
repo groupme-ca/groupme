@@ -21,6 +21,13 @@ app.use(express.json());
 //IF WE EVER DO SECURITY THIS MUST BE REMOVED
 app.use(cors());
 
+if (process.env.NODE_ENV === 'production') {
+	app.use(express.static('client/build'));
+	app.get('*', (req, res) => {
+		res.sendFile('./client/build/index.html');
+	})
+}
+
 //pusher setup
 const pusher = new Pusher({
 	appId: "1102380",
