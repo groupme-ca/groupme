@@ -104,24 +104,30 @@ class Sidebar extends React.Component {
 					</Link>
 
 					<div className="sidebar-header"> Rooms </div>
-					<div>
-						{this.state.rooms.map((room) => (
-							<div className="sidebar-tab">
-								<a> {room} </a>
-							</div>
-						))}
-					</div>
+						{this.props.chats.chat.map((cht) => {
+							if (cht.name !== '' ){
+								return <Link to={`/chat/${cht._id}`} onClick={this.clickHandler.bind(this)}>
+								<div>
+									<div className="sidebar-tab">
+										<a> {cht.name} </a>
+									</div>
+								</div>
+								</Link>
+							
+						}})}
 
 					<div className="sidebar-header"> Messages </div>
-					{this.props.chats.chat.map((cht) => (
-						<Link to={`/chat/${cht._id}`} onClick={this.clickHandler.bind(this)}>
-						<div>
-							<div className="sidebar-tab">
-								<a> {cht.name} </a>
-							</div>
-						</div>
-						</Link>
-					))}
+						{this.props.chats.chat.map((cht) => {
+							if (cht.name === '' ){
+								return <Link to={`/chat/${cht._id}`} onClick={this.clickHandler.bind(this)}>
+								<div>
+									<div className="sidebar-tab">
+										<a> {cht.participants[0].name === this.props.auth.user.name ? cht.participants[1].name : cht.participants[0].name} </a>
+									</div>
+								</div>
+								</Link>
+							
+						}})}
 					
 				</div>
 			</div>
