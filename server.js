@@ -28,13 +28,12 @@ app.use("/api/messages", messages); // anything that goes to 'api/messages' shou
 app.use("/api/auth", auth); // anything that goes to 'api/auth' should refer to auth
 
 if (process.env.NODE_ENV === 'production') {
-	console.log('hello');
 	app.use(express.static('client/build'));
-	console.log('there');
-	app.get('*', (req, res) => {
-		res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
-	});
 }
+
+app.get('*', (req, res) => {
+	res.sendFile(path.resolve(__dirname, 'client/build', 'index.html'));
+});
 
 //pusher setup
 const pusher = new Pusher({
