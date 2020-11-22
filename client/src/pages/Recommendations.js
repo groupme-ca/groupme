@@ -15,7 +15,6 @@ import './Recommendations.css';
 
 import recommendations from '../utils/UserCardUtils';
 import options from '../utils/SignUpOptions';
-
 import Pusher from 'pusher-js';
 import { getChats } from "../actions/chatActions";
 import PropTypes from "prop-types";
@@ -77,7 +76,6 @@ class RecommendationPage extends React.Component {
                 coursesHasPrev: true,
             })
         }
-
         
         this.getNextInterest = this.getNextInterest.bind(this);
         this.getPrevInterest = this.getPrevInterest.bind(this);
@@ -147,22 +145,6 @@ class RecommendationPage extends React.Component {
             })
         }
     }
-//figure out where to put this in here
-            //maybe move this to after sign-in(most likely the case)
-        //REMEMBER TO CHANGE AXIOS.JS ON RELEASE
-        // const [messages, setMessages] = useState([]);
-        // useEffect(() => {
-        //     axios.get('/api/messages/5fa9d504feaffa261495b389 ')
-        //     .then(response => {
-        //     setMessages(response.data);
-        //     });
-        // }, []);
-
-        // //  THIS SEGMENT IS FOR MAKING THE DB REAL TIME
-        // useEffect(() => {
-            
-        // }, []);
-        // // console.log(messages);
 
     showProfileModal(avatar, name, courses, hobbies, bio) {
         this.setState({
@@ -182,7 +164,6 @@ class RecommendationPage extends React.Component {
     }
 
     render() {
-
         return (
             <div className='page-container'>
                 <ProfileButton />

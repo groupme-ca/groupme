@@ -65,8 +65,20 @@ class Sidebar extends React.Component {
 					</div>
 				</div>
 				<div className="sidebar-content">
-					<Link to="/chat">
-						<div class="sidebar-tab">
+					<Link to="/profile">
+						<div 
+							class="sidebar-tab"
+							style={{
+								fontWeight:
+									this.state.activePage === "profile"
+										? "700"
+										: "400",
+								color:
+									this.state.activePage === "profile"
+										? "#333"
+										: "",
+							}}
+						>
 							<AccountCircleIcon className="sidebar-img" />
 							<a>
 								My Profile
@@ -146,3 +158,4 @@ const mapStateToProps = (state) => ({
 // This connect thing is required to make redux work, we add the different props that we need
 // in the second parameter.
 export default connect(mapStateToProps, {startSwitch, endSwitch, logoutUser})(Sidebar);
+

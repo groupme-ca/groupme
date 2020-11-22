@@ -6,9 +6,13 @@ import logo from "../assets/img/logo.svg";
 // This connects the frontend to backend.
 import { connect } from "react-redux";
 import { loginUser } from "../actions/authActions";
+<<<<<<< HEAD
 import { findUser } from '../actions/userActions';
 import { getChats } from '../actions/chatActions';
 import PropTypes from 'prop-types';
+=======
+import PropTypes from "prop-types";
+>>>>>>> a6fd56f (cloned main into this branch)
 
 const formFields = ["Email", "Password"];
 
@@ -31,7 +35,10 @@ class SignInPage extends React.Component {
 		};
 		// Check for authentication
 		this.authenticate(newUser);
+<<<<<<< HEAD
 
+=======
+>>>>>>> a6fd56f (cloned main into this branch)
 	};
 
 	async authenticate(user) {
@@ -47,6 +54,7 @@ class SignInPage extends React.Component {
 		if (error) {
 			this.setState({ error: true });
 			// console.log("Unsuccessful login");
+<<<<<<< HEAD
 		} 
 	}
 
@@ -60,6 +68,11 @@ class SignInPage extends React.Component {
 		// });
 	};
 
+=======
+		}
+	}
+
+>>>>>>> a6fd56f (cloned main into this branch)
 	formEvent = ({ target }) => {
 		this.setState({
 			[target.name]: target.value,
@@ -76,8 +89,12 @@ class SignInPage extends React.Component {
 				Sign In
 			</Link>
 		) : (
+<<<<<<< HEAD
 			<Redirect to={"/welcome"} onload={this.handleOnLoad()} /> 
 			
+=======
+			<Redirect to={"/welcome"} />
+>>>>>>> a6fd56f (cloned main into this branch)
 		);
 		return (
 			<div>
