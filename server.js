@@ -21,6 +21,19 @@ app.use(express.json());
 //IF WE EVER DO SECURITY THIS MUST BE REMOVED
 app.use(cors());
 
+// Use Routes
+app.use("/api/users", users); // anything that goes to 'api/users' should refer to users
+app.use("/api/messages", messages); // anything that goes to 'api/messages' should refer to messages
+app.use("/api/auth", auth); // anything that goes to 'api/auth' should refer to auth
+
+if (process.env.NODE_ENV === 'production') {
+	app.use(express.static('client/build'));
+}
+
+app.get('*', (req, res) => {
+	res.sendFile('client/build/index.html', { root: '.' });
+});
+
 //pusher setup
 const pusher = new Pusher({
 	appId: "1102380",
@@ -63,11 +76,6 @@ db.once("open", () => {
 		}
 	});
 });
-
-// Use Routes
-app.use("/api/users", users); // anything that goes to 'api/users' should refer to users
-app.use("/api/messages", messages); // anything that goes to 'api/messages' should refer to messages
-app.use("/api/auth", auth); // anything that goes to 'api/auth' should refer to auth
 
 const port = process.env.PORT || 5000;
 
