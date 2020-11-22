@@ -12,7 +12,6 @@ import auth from "./routes/api/auth.js";
 // Setup database config
 import config from "config";
 
-const path = require('path');
 const app = express();
 app.disable("x-powered-by");
 // Body parser
@@ -32,7 +31,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 app.get('*', (req, res) => {
-	res.sendFile(path.resolve(__dirname, 'client/build', 'index.html'));
+	res.sendFile('client/build/index.html', { root: '.' });
 });
 
 //pusher setup
