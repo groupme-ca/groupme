@@ -13,17 +13,6 @@ import LiveChat from "./utils/LiveChat"
 
 
 class App extends Component {
-	//THIS SEGMENT IS FOR MAKING THE DB REAL TIME
-	// useEffect(() => {
-	//   const pusher = new Pusher('d386d4bf8093a108cca2', {
-	//     cluster: 'us2'
-	//   });
-
-	//   const channel = pusher.subscribe('messages-channel');
-	//   channel.bind('inserted', function(data) {
-	//     alert(JSON.stringify(data));
-	//   });
-	// }, []);
 	componentDidMount() {
 		store.dispatch(loadUser());
 	}
