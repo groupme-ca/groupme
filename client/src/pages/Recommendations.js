@@ -13,16 +13,10 @@ import './Recommendations.css';
 
 import recommendations from '../utils/UserCardUtils';
 import options from '../utils/SignUpOptions';
-import Pusher from 'pusher-js';
 import { getChats } from "../actions/chatActions";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
-
-import Pusher from 'pusher-js';
-import { getChats } from "../actions/chatActions";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
 
 
 class RecommendationPage extends React.Component {

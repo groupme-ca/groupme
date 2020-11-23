@@ -57,10 +57,7 @@ class SignInPage extends React.Component {
 			this.props.getChats(id);			
 		});
 		// });
-	};
-
-		} 
-	}
+	}; 
 
 	handleOnLoad() {
 		const chatIds = this.props.auth.user.ChatIds;

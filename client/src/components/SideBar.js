@@ -14,6 +14,7 @@ import logo from "../assets/img/logo.svg";
 import { connect } from "react-redux";
 //added these 2 actions to refresh the chat page
 import { startSwitch, endSwitch } from "../actions/chatActions"
+import { logoutUser } from "../actions/authActions"
 
 class Sidebar extends React.Component {
 	constructor(props) {

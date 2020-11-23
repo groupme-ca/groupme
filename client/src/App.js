@@ -10,10 +10,6 @@ import { Provider } from "react-redux";
 import store from "./store";
 import { Component } from "react";
 import LiveChat from "./utils/LiveChat"
-<<<<<<< HEAD
-import ChatPage from './pages/Chat';
-=======
->>>>>>> 683e846 (added the updated files from local chat repo)
 
 
 class App extends Component {
@@ -30,11 +26,7 @@ class App extends Component {
 					<Route path="/signin" exact render={() => <SignInPage />} />
 					<Route path="/welcome" exact render={() => <RecommendationPage />}/>
 					<Route path="/profile" exact render={() => <ProfilePage />}/>
-<<<<<<< HEAD
          			<Route path="/chat/:id" exact render={() => <ChatPage path='d'/>}/>
-=======
-          			<Route path="/chat/:id" exact render={() => <ChatPage path='d'/>}/>
->>>>>>> 683e846 (added the updated files from local chat repo)
         		</Router>
 				<LiveChat />
 			</Provider>
