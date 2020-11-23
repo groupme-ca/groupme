@@ -13,16 +13,16 @@ const router = express.Router();
  * @description send messages
  * @access      public
  */
-router.post('/new', (req, res) => {
-    const Chat = req.body;
+router.post("/new", (req, res) => {
+	const chat = req.body;
 
-    chats.create(Chat, (err, data) => {
-        if (err) {
-            res.status(500).send(err);
-        } else {
-            res.status(201).send(data);
-        }
-    });
+	chats.create(chat, (err, data) => {
+		if (err) {
+			res.status(500).send(err);
+		} else {
+			res.status(201).send(data);
+		}
+	});
 });
 
 /**
@@ -30,19 +30,15 @@ router.post('/new', (req, res) => {
  * @description send messages
  * @access      public
  */
-router.get('/:id', (req, res) => {
-    chats.find(req.body, (err, data) => {
-        if (err) {
-            res.status(500).send(err);
-        } else {
-            res.status(200).send(data);
-        }
-    })
-})
-
-
-
-
+router.get("/:id", (req, res) => {
+	chats.findById(req.params.id, (err, data) => {
+		if (err) {
+			res.status(500).send(err);
+		} else {
+			res.status(200).send(data);
+		}
+	});
+});
 
 
 /**

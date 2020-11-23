@@ -6,13 +6,9 @@ import logo from "../assets/img/logo.svg";
 // This connects the frontend to backend.
 import { connect } from "react-redux";
 import { loginUser } from "../actions/authActions";
-<<<<<<< HEAD
 import { findUser } from '../actions/userActions';
 import { getChats } from '../actions/chatActions';
 import PropTypes from 'prop-types';
-=======
-import PropTypes from "prop-types";
->>>>>>> a6fd56f (cloned main into this branch)
 
 const formFields = ["Email", "Password"];
 
@@ -35,10 +31,6 @@ class SignInPage extends React.Component {
 		};
 		// Check for authentication
 		this.authenticate(newUser);
-<<<<<<< HEAD
-
-=======
->>>>>>> a6fd56f (cloned main into this branch)
 	};
 
 	async authenticate(user) {
@@ -54,7 +46,6 @@ class SignInPage extends React.Component {
 		if (error) {
 			this.setState({ error: true });
 			// console.log("Unsuccessful login");
-<<<<<<< HEAD
 		} 
 	}
 
@@ -68,11 +59,19 @@ class SignInPage extends React.Component {
 		// });
 	};
 
-=======
-		}
+		} 
 	}
 
->>>>>>> a6fd56f (cloned main into this branch)
+	handleOnLoad() {
+		const chatIds = this.props.auth.user.ChatIds;
+		// chatIds.forEach(id => {
+		// 	console.log(id);
+		chatIds.forEach(id => {
+			this.props.getChats(id);			
+		});
+		// });
+	};
+
 	formEvent = ({ target }) => {
 		this.setState({
 			[target.name]: target.value,
@@ -89,12 +88,8 @@ class SignInPage extends React.Component {
 				Sign In
 			</Link>
 		) : (
-<<<<<<< HEAD
 			<Redirect to={"/welcome"} onload={this.handleOnLoad()} /> 
 			
-=======
-			<Redirect to={"/welcome"} />
->>>>>>> a6fd56f (cloned main into this branch)
 		);
 		return (
 			<div>
@@ -151,10 +146,10 @@ class SignInPage extends React.Component {
 
 SignInPage.propTypes = {
 	loginUser: PropTypes.func.isRequired,
+	getChats: PropTypes.func.isRequired,
+	currentUser: PropTypes.object,
 	error: PropTypes.object,
 	findUser: PropTypes.func.isRequired,
-    getChats: PropTypes.func.isRequired,
-    currentUser: PropTypes.object.isRequired
 
 };
 // This is the current state in the store.

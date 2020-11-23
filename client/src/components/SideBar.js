@@ -7,9 +7,6 @@ import PowerSettingsNewIcon from "@material-ui/icons/PowerSettingsNew";
 import MenuIcon from "@material-ui/icons/Menu";
 import SettingsIcon from "@material-ui/icons/Settings";
 import NotificationsIcon from "@material-ui/icons/Notifications";
-import { connect } from "react-redux";
-import { logoutUser } from "../actions/authActions";
-import PropTypes from "prop-types";
 import AddIcon from "@material-ui/icons/Add";
 
 import "./SideBar.css";
@@ -34,9 +31,9 @@ class Sidebar extends React.Component {
 		this.props.endSwitch();
 	};
 
-	handleOnLogout = (e) => {
-		// Logout the user
-		this.props.logoutUser();
+	clickHandler() {
+		this.props.startSwitch();
+		this.props.endSwitch();
 	};
 
 	render() {
@@ -65,22 +62,21 @@ class Sidebar extends React.Component {
 					</div>
 				</div>
 				<div className="sidebar-content">
-					<Link to="/profile">
-						<div 
-							class="sidebar-tab"
-							style={{
-								fontWeight:
-									this.state.activePage === "profile"
-										? "700"
-										: "400",
-								color:
-									this.state.activePage === "profile"
-										? "#333"
-										: "",
-							}}
-						>
+					<Link to="/chat">
+						<div class="sidebar-tab">
 							<AccountCircleIcon className="sidebar-img" />
-							<a>
+							<a
+								style={{
+									fontWeight:
+										this.state.activePage === "profile"
+											? "700"
+											: "400",
+									color:
+										this.state.activePage === "profile"
+											? "#333"
+											: "",
+								}}
+							>
 								My Profile
 							</a>
 						</div>
@@ -105,7 +101,7 @@ class Sidebar extends React.Component {
 						</div>
 					</Link>
 
-					<Link to="/" onClick={this.handleOnLogout}>
+					<Link to="/">
 						<div class="sidebar-tab">
 							<PowerSettingsNewIcon className="sidebar-img" />
 							<a> Sign out </a>
@@ -144,9 +140,6 @@ class Sidebar extends React.Component {
 	}
 }
 
-Sidebar.propTypes = {
-	logoutUser: PropTypes.func.isRequired,
-};
 
 // This is the current state in the store.
 const mapStateToProps = (state) => ({
