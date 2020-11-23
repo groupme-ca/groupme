@@ -37,6 +37,7 @@ const Chat = (state) => {
         }
 
         state.sendMessage(newChat)
+        setInput('');
 
     };
     return (
