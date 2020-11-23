@@ -201,6 +201,7 @@ class SignUpPage extends React.Component {
 								isMulti
 								className="select-container"
 								options={options.courses}
+								value={this.state.courses}
 								onChange={this.handleOnSelectCourses}
 							/>
 						</div>
