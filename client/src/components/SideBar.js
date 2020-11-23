@@ -68,7 +68,7 @@ class Sidebar extends React.Component {
 					</div>
 				</div>
 				<div className="sidebar-content">
-					<Link to="/chat">
+					<Link to="/profile">
 						<div class="sidebar-tab">
 							<AccountCircleIcon className="sidebar-img" />
 							<a
