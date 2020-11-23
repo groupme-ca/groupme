@@ -14,8 +14,8 @@ const UserSchema = new Schema({
 		unique: true,
 	},
 	password: {
-		type: String,
-		requred: true,
+		type: String, 
+		required: true
 	},
 	bio: {
 		type: String,
@@ -36,7 +36,7 @@ const UserSchema = new Schema({
 	ChatIds: {
 		type: Array,
 		default: []
-	}
+	},
 });
 
 export default model("User", UserSchema);

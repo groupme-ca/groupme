@@ -6,8 +6,9 @@ import logo from "../assets/img/logo.svg";
 // This connects the frontend to backend.
 import { connect } from "react-redux";
 import { loginUser } from "../actions/authActions";
-import { getChats } from "../actions/chatActions";
-import PropTypes from "prop-types";
+import { findUser } from '../actions/userActions';
+import { getChats } from '../actions/chatActions';
+import PropTypes from 'prop-types';
 
 const formFields = ["Email", "Password"];
 
@@ -136,15 +137,20 @@ SignInPage.propTypes = {
 	getChats: PropTypes.func.isRequired,
 	currentUser: PropTypes.object,
 	error: PropTypes.object,
-};
+	findUser: PropTypes.func.isRequired,
 
+};
 // This is the current state in the store.
 const mapStateToProps = (state) => ({
+    user: state.user,
+	chats: state.chats,
 	auth: state.auth,
 	error: state.error,
 	chats: state.chats
 });
 
+
+
 // This connect thing is required to make redux work, we add the different props that we need
-// in the second parameter.
-export default connect(mapStateToProps, { loginUser, getChats })(SignInPage);
+// in the second parameter. 
+export default connect(mapStateToProps, { findUser, getChats, loginUser })(SignInPage);

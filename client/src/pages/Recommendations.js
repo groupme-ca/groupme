@@ -9,10 +9,17 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 
 import UserCard from '../components/UserCard';
 import Sidebar from '../components/SideBar';
+import UserModal from '../components/UserModal';
+import ProfileButton from '../components/ProfileButton';
 import './Recommendations.css';
 
 import recommendations from '../utils/UserCardUtils';
 import options from '../utils/SignUpOptions';
+import { getChats } from "../actions/chatActions";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+
+
 
 import Pusher from 'pusher-js';
 import { getChats } from "../actions/chatActions";
@@ -34,14 +41,20 @@ class RecommendationPage extends React.Component {
 
             /** modify later to add support for scrolling */
             interestCurrPage: 1,
-            interestNumPages: recommendations.hobbies.length < 3
+            interestNumPages: recommendations.hobbies.length < 4
                 ? 1
                 : 1 + Math.ceil(recommendations.hobbies.length / 4),
             coursesCurrPage: 1,
-            courseNumPages: recommendations.courses.length < 3 
+            courseNumPages: recommendations.courses.length < 4 
                 ? 1
-                : 1 + Math.ceil(recommendations.courses.length / 4)
+                : Math.ceil(recommendations.courses.length / 4),
+
+            showProfile: false,
+            profileCourses: [],
+            profileHobbies: [],
         }
+        this.showProfileModal = this.showProfileModal.bind(this);
+        this.hideProfileModal = this.hideProfileModal.bind(this);
     }
 
     componentDidMount(props) {
@@ -138,29 +151,39 @@ class RecommendationPage extends React.Component {
             })
         }
     }
-//figure out where to put this in here
-            //maybe move this to after sign-in(most likely the case)
-        //REMEMBER TO CHANGE AXIOS.JS ON RELEASE
-        // const [messages, setMessages] = useState([]);
-        // useEffect(() => {
-        //     axios.get('/api/messages/5fa9d504feaffa261495b389 ')
-        //     .then(response => {
-        //     setMessages(response.data);
-        //     });
-        // }, []);
-
-        // //  THIS SEGMENT IS FOR MAKING THE DB REAL TIME
-        // useEffect(() => {
-            
-        // }, []);
-        // // console.log(messages);
+    
+    showProfileModal(avatar, name, courses, hobbies, bio) {
+        this.setState({
+            showProfile: true,
+            profilePicture: avatar,
+            profileName: name,
+            profileCourses: courses,
+            profileHobbies: hobbies,
+            profileBio: bio, 
+        })
+    }
+    hideProfileModal() {
+        this.setState({
+            showProfile: false
+        })
+    }
 
     render() {
 
         return (
             <div className='page-container'>
+                <ProfileButton />
                 <Sidebar activePage='search' />
-                <div className='page-content'>
+                <div className='page-content'>     
+                    <UserModal 
+                        picture={this.state.profilePicture}
+                        title={this.state.profileName}
+                        courses={this.state.profileCourses}
+                        hobbies={this.state.profileHobbies}
+                        bio={this.state.profileBio}
+                        showModal={this.state.showProfile} 
+                        hideModal={this.hideProfileModal}
+                    />
                     <h1 className='header'>
                         Find people to study with
                     </h1>
@@ -218,7 +241,10 @@ class RecommendationPage extends React.Component {
                                         avatar={r.avatar} 
                                         title={r.name}
                                         tags={r.hobbies}
+                                        courses={r.courses}
+                                        hobbies={r.hobbies}
                                         bio={r.bio}
+                                        showProfileModal={this.showProfileModal}
                                     />
                             ))}        
                         </div>
@@ -252,7 +278,10 @@ class RecommendationPage extends React.Component {
                                     avatar={r.avatar} 
                                     title={r.name}
                                     tags={r.courses}
+                                    courses={r.courses}
+                                    hobbies={r.hobbies}
                                     bio={r.bio}
+                                    showProfileModal={this.showProfileModal}
                                 />
                             ))}              
                         </div>
