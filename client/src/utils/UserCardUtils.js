@@ -61,7 +61,7 @@ const recommendations = {
 
     courses: [
         {
-            name: "Lara Ken", 
+            name: "Lara", 
             avatar: lara, 
             courses:['CSC490', 'CCT110'], 
             hobbies: ['Art', 'Design', 'Drawing', 'Photography'],

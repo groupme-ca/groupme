@@ -15,6 +15,12 @@ import './Recommendations.css';
 
 import recommendations from '../utils/UserCardUtils';
 import options from '../utils/SignUpOptions';
+import { getChats } from "../actions/chatActions";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+
+
+
 
 class RecommendationPage extends React.Component {
     constructor(props) {
@@ -42,7 +48,6 @@ class RecommendationPage extends React.Component {
             profileCourses: [],
             profileHobbies: [],
         }
-
         this.showProfileModal = this.showProfileModal.bind(this);
         this.hideProfileModal = this.hideProfileModal.bind(this);
     }
@@ -71,6 +76,7 @@ class RecommendationPage extends React.Component {
                 coursesHasPrev: true,
             })
         }
+
         
         this.getNextInterest = this.getNextInterest.bind(this);
         this.getPrevInterest = this.getPrevInterest.bind(this);
@@ -140,7 +146,7 @@ class RecommendationPage extends React.Component {
             })
         }
     }
-
+    
     showProfileModal(avatar, name, courses, hobbies, bio) {
         this.setState({
             showProfile: true,
@@ -151,7 +157,6 @@ class RecommendationPage extends React.Component {
             profileBio: bio, 
         })
     }
-
     hideProfileModal() {
         this.setState({
             showProfile: false
@@ -159,12 +164,12 @@ class RecommendationPage extends React.Component {
     }
 
     render() {
+
         return (
             <div className='page-container'>
                 <ProfileButton />
                 <Sidebar activePage='search' />
-                <div className='page-content'>
-
+                <div className='page-content'>     
                     <UserModal 
                         picture={this.state.profilePicture}
                         title={this.state.profileName}
@@ -174,7 +179,6 @@ class RecommendationPage extends React.Component {
                         showModal={this.state.showProfile} 
                         hideModal={this.hideProfileModal}
                     />
-
                     <h1 className='header'>
                         Find people to study with
                     </h1>
@@ -291,4 +295,18 @@ class RecommendationPage extends React.Component {
 
 }
 
-export default RecommendationPage;
+RecommendationPage.propTypes = {
+	getChats: PropTypes.func.isRequired,
+	error: PropTypes.object,
+};
+
+// This is the current state in the store.
+const mapStateToProps = (state) => ({
+	auth: state.auth,
+	error: state.error,
+	chats: state.chats
+});
+
+// This connect thing is required to make redux work, we add the different props that we need
+// in the second parameter.
+export default connect(mapStateToProps, { getChats })(RecommendationPage);
