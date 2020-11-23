@@ -27,9 +27,9 @@ class Sidebar extends React.Component {
 		};
 	};
 
-	clickHandler() {
-		this.props.startSwitch();
-		this.props.endSwitch();
+	handleOnLogout = (e) => {
+				// Logout the user
+		this.props.logoutUser();
 	};
 
 	clickHandler() {
@@ -46,7 +46,7 @@ class Sidebar extends React.Component {
 					</div>
 				</div>
 				<div className="sidebar-head">
-					<Link to="/">
+					<Link to="/" >
 						<img src={logo} width={56} />
 					</Link>
 
@@ -63,7 +63,7 @@ class Sidebar extends React.Component {
 					</div>
 				</div>
 				<div className="sidebar-content">
-					<Link to="/chat">
+					<Link to="/profile">
 						<div class="sidebar-tab">
 							<AccountCircleIcon className="sidebar-img" />
 							<a
@@ -102,7 +102,7 @@ class Sidebar extends React.Component {
 						</div>
 					</Link>
 
-					<Link to="/">
+					<Link to="/" onClick={this.handleOnLogout}>
 						<div class="sidebar-tab">
 							<PowerSettingsNewIcon className="sidebar-img" />
 							<a> Sign out </a>
