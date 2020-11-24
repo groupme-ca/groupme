@@ -46,7 +46,10 @@ class UserCard extends React.Component {
 
                 <Card.Body className='card-body'>
                     <Card.Title className='card-title'> {this.props.title} </Card.Title>                  
-                    <Card.Text className='card-bio'> {this.props.bio} </Card.Text>
+                    <Card.Text className='card-bio'> 
+                        {this.props.bio.length < 48
+                            ? this.props.bio : this.props.bio.slice(0,45) + '...'} 
+                    </Card.Text>
 
                     <div className='hobbies-field'> 
                         {this.props.tags.map((h, idx) => <div key={idx} className='card-hobby'> {h} </div>)}
