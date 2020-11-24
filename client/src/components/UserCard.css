@@ -1,3 +1,8 @@
+.user-card-container:hover {
+    transform: scale(1.01);
+    cursor: pointer;
+}
+
 .user-card-container {
     height: 25rem;
     display: flex;
@@ -10,11 +15,11 @@
     border: 0.5px solid #f0f0f0;
 
     background: linear-gradient(180deg, #fff3e2, transparent);
-    box-shadow: -1px -1px 1px rgba(0,0,0, 0.1);    
 }
 
 .card-title:hover {
     cursor: pointer;
+    text-decoration: underline;
 }
 
 .card-title {

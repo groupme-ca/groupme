@@ -24,22 +24,24 @@ class UserCard extends React.Component {
 
     render () {
         return (
-            <Card className='user-card-container'>
+            <Card 
+                className='user-card-container'
+                onClick={() => {
+                    this.props.showProfileModal(
+                        this.props.avatar,
+                        this.props.title,
+                        this.props.courses,
+                        this.props.hobbies,
+                        this.props.bio
+                    )
+                }}
+            >
 
                 <Card.Img 
                     variant="top" 
                     src={this.props.avatar} 
                     height={128}
                     className="card-profile-pic" 
-                    onClick={() => {
-                        this.props.showProfileModal(
-                            this.props.avatar,
-                            this.props.title,
-                            this.props.courses,
-                            this.props.hobbies,
-                            this.props.bio
-                        )
-                    }}
                 />
 
                 <Card.Body className='card-body'>
