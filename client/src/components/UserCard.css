@@ -74,6 +74,25 @@
     margin-top: 2px;
 }
 
+.matching-score {
+    color: white;
+    font-weight: 700;
+}
+
+.great {
+    background: #00914e;
+}
+
+.good {
+    background: #004ea1;
+}
+
+.fair {
+    background: rgb(219, 180, 53);
+    color: #333;
+    display: none;
+}
+
 .card-buttons {
     display: flex;
     align-items: center;
@@ -88,7 +107,7 @@
     padding: 0.5em;
     font-size: 0.85em;
     border-radius: 80px;
-    width: 100%;
+    width: 128px;
 }
 
 .friend-notif {

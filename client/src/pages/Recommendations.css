@@ -10,6 +10,13 @@
     align-items: center;
 }
 
+.carousel-empty {
+    display: flex;
+    overflow: hidden;
+    width: 70vw;
+    align-items: center;
+}
+
 .chevron-wrapper {
     display: flex;
     border-radius: 50%;
