@@ -112,7 +112,8 @@ class Sidebar extends React.Component {
 							<PowerSettingsNewIcon className="sidebar-img" />
 							<> Sign out </>
 						</div>
-					</Link>			
+					</Link>
+					
 					<div className="sidebar-header"> 
 						Rooms
 						<AddIcon className='add-icon'/> 
