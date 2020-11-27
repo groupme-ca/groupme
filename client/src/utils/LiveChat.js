@@ -1,13 +1,13 @@
 import React from "react";
 import Pusher from "pusher-js";
-import { getChats } from "../actions/chatActions";
+import { newMessage } from "../actions/messageActions";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { useState, useEffect } from "react";
 
 const LiveChat = (state) => {
 	// TODO: figure out how to unscubscribe later
-	const [channels, setChannels] = useState([]);
+	const [cid, setCid] = useState([]);
 	const [pusher, setPusher] = useState({});
 
 	useEffect(() => {
@@ -19,18 +19,30 @@ const LiveChat = (state) => {
 	}, []);
 
 	useEffect(() => {
-		var channel;
-		const newChannel = [];
+		var channel;		
 		if (state.auth.user !== null) {
 			state.auth.user.ChatIds.forEach((id) => {
-				channel = pusher.subscribe(id);
-				newChannel.push(channel);
-				channel.bind("updated", (data) => {
-					state.getChats(data);
-				});
+				console.log(0);
+				if (!(cid.includes(id))) {
+					console.log(1);
+					channel = pusher.subscribe(id);
+					channel.bind("inserted", (data) => {
+						console.log(2);
+						state.newMessage(data);
+					});
+					setCid([...cid, id]);
+				};
 			});
+			console.log(pusher.allChannels(), 'pus');
 			// console.log(newChannel, 'newchannel');
-			setChannels(newChannel);
+			// channels.forEach(ch =>{
+			// 	ch.unbind_all();
+			// 	ch.unsubscribe();
+			// })
+			// console.log("channel", channels);
+			// setChannels(newChannel);
+			// console.log("new", newChannel);
+
 
 			// console.log('channels', channels, channels.length);
 		}
@@ -56,6 +68,7 @@ const mapStateToProps = (state) => ({
 	auth: state.auth,
 	error: state.error,
 	chats: state.chats,
+	messages: state.messages
 });
 
-export default connect(mapStateToProps, { getChats })(LiveChat);
+export default connect(mapStateToProps, { newMessage })(LiveChat);

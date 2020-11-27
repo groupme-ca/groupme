@@ -14,7 +14,7 @@ import AddIcon from "@material-ui/icons/Add";
 import "./SideBar.css";
 import logo from "../assets/img/logo.svg";
 //added these 2 actions to refresh the chat page
-import { startSwitch, endSwitch } from "../actions/chatActions";
+import { startSwitch, endSwitch } from "../actions/messageActions";
 
 class Sidebar extends React.Component {
 	constructor(props) {

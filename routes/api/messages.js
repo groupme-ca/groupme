@@ -1,6 +1,6 @@
-
 import express from "express";
-import chats from "../../models/Messages.js";
+import Chat from "../../models/Chat.js";
+import Message from '../../models/Message.js'
 // We can use this middleware in order to restrict sending of messages to people who are logged in.
 // To add this middleware we just have to add it as the SECOND PARAMETER in the requests.
 // On the front end, to make this authentication work, we have to add the token to the header with key=x-auth-token, value = token
@@ -9,14 +9,32 @@ import chats from "../../models/Messages.js";
 const router = express.Router();
 
 /**
- * @route       POST api/messages/new
- * @description send messages
+ * @route       POST api/messages/new_chat
+ * @description creat a new chat
  * @access      public
  */
-router.post("/new", (req, res) => {
+router.post("/new_chat", (req, res) => {
 	const chat = req.body;
 
-	chats.create(chat, (err, data) => {
+	Chat.create(chat, (err, data) => {
+		if (err) {
+			res.status(500).send(err);
+		} else {
+			res.status(201).send(data);
+		}
+	});
+});
+
+
+/**
+ * @route       POST api/messages/new_msg
+ * @description send a message
+ * @access      public
+ */
+router.put("/new_msg", (req, res) => {
+	const message = req.body;
+
+	Message.create(message, (err, data) => {
 		if (err) {
 			res.status(500).send(err);
 		} else {
@@ -27,11 +45,11 @@ router.post("/new", (req, res) => {
 
 /**
  * @route       GET api/messages/:id
- * @description send messages
+ * @description get messages with chatId :id
  * @access      public
  */
 router.get("/:id", (req, res) => {
-	chats.findById(req.params.id, (err, data) => {
+	Message.find({chatId: req.params.id}, (err, data) => {
 		if (err) {
 			res.status(500).send(err);
 		} else {
@@ -42,14 +60,20 @@ router.get("/:id", (req, res) => {
 
 
 /**
- * @route       PUT api/messages/:id
- * @description Update message content of chat with :id
+ * @route       GET api/messages/chat/:id
+ * @description get messages with chatId :id
  * @access      public
  */
-router.put("/:id", async (req, res) => {
-	chats.findByIdAndUpdate(req.params.id, req.body, { new: true })
-		.then((chat) => res.json(chat))
-		.catch((err) => res.status(404).json({ success: false }));
+router.get("/get_chat/:id", (req, res) => {
+	Chat.findById(req.params.id, (err, data) => {
+		if (err) {
+			res.status(500).send(err);
+		} else {
+			res.status(200).send(data);
+		}
+	});
 });
+
+
 
 export default router;
