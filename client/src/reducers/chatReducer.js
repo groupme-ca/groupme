@@ -16,16 +16,7 @@ export default function(state = initialState, action){
                 chat: [...state.chat, action.payload].filter(cht => cht._id !== action.payload._id).concat([action.payload]), 
                 loading: false
             };
-        case START_SWITCH:
-            return {
-                ...state,
-                loading: true
-            };
-        case END_SWITCH:
-            return {
-                ...state,
-                loading: false
-            };
+
 
         // case UPDATE_CHAT:
         //     return {

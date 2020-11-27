@@ -6,7 +6,7 @@ import cors from "cors";
 
 // Import users from router
 import users from "./routes/api/users.js";
-import chats from './routes/api/messages.js';
+import messages from './routes/api/messages.js';
 import auth from "./routes/api/auth.js";
 
 
@@ -46,18 +46,16 @@ const db = mongoose.connection;
 db.once("open", () => {
   console.log("db connected");
 
-  const chatCollection = db.collection('chats')
+  const chatCollection = db.collection('messages')
   const changeStream = chatCollection.watch()
 
   changeStream.on('change', (change)=>{
-    //console.log(change);
 
     //TODO: MAKE A CHANNEL FOR EVERY USER 
     // console.log(change.operationType);
-    if (change.operationType === "update") {
-      const chatDetails = change.documentKey;
-     
-      pusher.trigger(String(chatDetails._id), 'updated', chatDetails._id);
+    if (change.operationType === "insert") {
+      const chatDetails = change.fullDocument;
+      pusher.trigger(String(chatDetails.chatId), 'inserted', chatDetails);
       // const participants = Object.entries(chatDetails.participants);
       // participants.forEach(([key, value]) => {
       //   console.log(value.cid);
@@ -77,7 +75,7 @@ db.once("open", () => {
 
 // Use Routes 
 app.use('/api/users', users); // anything that goes to 'api/users' should refer to users
-app.use('/api/messages', chats); // anything that goes to 'api/messages' should refer to messages
+app.use('/api/messages', messages); // anything that goes to 'api/messages' should refer to messages
 app.use("/api/auth", auth); // anything that goes to 'api/auth' should refer to auth
 
 const port = process.env.PORT || 5000;
