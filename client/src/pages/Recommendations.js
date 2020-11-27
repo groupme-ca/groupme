@@ -62,7 +62,7 @@ class RecommendationPage extends React.Component {
         this.getNextCourse = this.getNextCourse.bind(this);
         this.getPrevCourse = this.getPrevCourse.bind(this);
 
-        this.generateRecommendations();
+        //this.generateRecommendations();
 
     }
 
@@ -284,7 +284,7 @@ class RecommendationPage extends React.Component {
                                                 tags={r.hobbies}
                                                 courses={r.courses}
                                                 hobbies={r.hobbies}
-                                                rScore={r.rScore}
+                                                rScore={(Math.random() * 100) > 50 ? 95 : 75}
                                                 bio={r.bio}
                                                 showProfileModal={this.showProfileModal}
                                             />
@@ -331,7 +331,7 @@ class RecommendationPage extends React.Component {
                                         tags={r.courses}
                                         courses={r.courses}
                                         hobbies={r.hobbies}
-                                        rScore={r.rScore}
+                                        rScore={Math.random() * 100 > 50 ? 95 : 65}
                                         bio={r.bio}
                                         key={idx}
                                         showProfileModal={this.showProfileModal}
