@@ -9,8 +9,10 @@ import { loginUser } from "../actions/authActions";
 import { findUser } from "../actions/userActions";
 import { getChats } from "../actions/chatActions";
 import PropTypes from "prop-types";
-
 import bgImage from "../assets/img/Untitled\ design.png";
+import { getMessages } from "../actions/messageActions";
+
+const formFields = ["Email", "Password"];
 
 class SignInPage extends React.Component {
 	constructor(props) {
@@ -55,6 +57,7 @@ class SignInPage extends React.Component {
 		// 	console.log(id);
 		chatIds.forEach((id) => {
 			this.props.getChats(id);
+			this.props.getMessages(id);
 		});
 		// });
 	}
@@ -160,11 +163,12 @@ const mapStateToProps = (state) => ({
 	user: state.user,
 	chats: state.chats,
 	auth: state.auth,
+	messages: state.messages,
 	error: state.error,
 });
 
 // This connect thing is required to make redux work, we add the different props that we need
 // in the second parameter.
-export default connect(mapStateToProps, { findUser, getChats, loginUser })(
+export default connect(mapStateToProps, { getMessages, findUser, getChats, loginUser })(
 	SignInPage
 );

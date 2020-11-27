@@ -19,3 +19,8 @@ export const CLEAR_ERRORS = "CLEAR_ERRORS";
 export const GET_CHATS = 'GET_CHATS';
 export const START_SWITCH = 'START_SWITCH';
 export const END_SWITCH = 'END_SWITCH';
+export const SEND_MESSAGE = 'SEND_MESSAGE';
+export const NEW_MESSAGE = 'NEW_MESSAGE';
+
+
+

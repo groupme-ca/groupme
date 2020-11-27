@@ -10,7 +10,7 @@ const ChatPage = () => {
     return (
         <div className="chatpage">
             <div className="chatpage-body">
-                <Sidebar />
+                <Sidebar activePage={window.location.pathname.slice(6)} />
                 <Chat />
             </div>
 
