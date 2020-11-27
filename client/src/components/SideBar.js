@@ -114,7 +114,10 @@ class Sidebar extends React.Component {
 						</div>
 					</Link>
 
-					<div className="sidebar-header"> Rooms </div>
+					<div className="sidebar-header"> 
+						<div> Rooms  </div>
+						<AddIcon />
+					</div>
 					{this.props.chats.chat.map((cht) => {
 						if (cht.name !== "") {
 							return (
