@@ -21,6 +21,11 @@ class ProfilePage extends React.Component {
 	}
 	componentDidMount() {
 		this.setState({ user: this.props.auth.user });
+		console.log(
+			this.props.auth.user,
+			this.props.auth,
+			this.state
+		)
 	}
 
 	formEvent = ({ target }) => {

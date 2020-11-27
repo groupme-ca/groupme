@@ -57,7 +57,7 @@ const UserModal = (props) => {
                     </div>
                 </div>
 
-                <div class="btn primary modal-btn">
+                <div className="btn primary modal-btn">
                     Add friend
                 </div> 
             </Modal>

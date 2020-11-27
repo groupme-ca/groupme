@@ -57,7 +57,7 @@ db.once("open", () => {
     if (change.operationType === "update") {
       const chatDetails = change.documentKey;
      
-      pusher.trigger(String(chatDetails._id), 'updated', chatDetails._id);
+      // pusher.trigger(String(chatDetails._id), 'updated', chatDetails._id);
       // const participants = Object.entries(chatDetails.participants);
       // participants.forEach(([key, value]) => {
       //   console.log(value.cid);
