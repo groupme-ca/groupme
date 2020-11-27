@@ -22,9 +22,8 @@ class Sidebar extends React.Component {
 		this.state = {
 			activePage: this.props.activePage,
 			notifOpen: false,
-			rooms: ["fakeRoom"],
-			chats: ["Alick Professorson"],
 		};
+		this.clickHandler.bind(this);
 	}
 
 	handleOnLogout = (e) => {
@@ -32,7 +31,8 @@ class Sidebar extends React.Component {
 		this.props.logoutUser();
 	};
 
-	clickHandler() {
+	clickHandler(id) { 
+		this.setState({activePage: id});
 		this.props.startSwitch();
 		this.props.endSwitch();
 	}
@@ -113,49 +113,66 @@ class Sidebar extends React.Component {
 							<a> Sign out </a>
 						</div>
 					</Link>
-
-					<div className="sidebar-header"> Rooms </div>
-					{this.props.chats.chat.map((cht) => {
-						if (cht.name !== "") {
-							return (
-								<Link
-									to={`/chat/${cht._id}`}
-									onClick={this.clickHandler.bind(this)}
-								>
-									<div>
-										<div className="sidebar-tab">
-											<a> {cht.name} </a>
+					
+					<div className="sidebar-header"> 
+						Rooms
+						<AddIcon className='add-icon'/> 
+					
+					</div>
+					<div className="chat-div">	
+						{this.props.chats.chat.map((cht) => {
+							if (cht.name !== "") {
+								return (
+									<Link
+										to={`/chat/${cht._id}`}
+										onClick={(id) => this.clickHandler(cht._id)}
+									>
+										<div>
+											<div className="sidebar-tab">
+												<a 
+													style={{color: cht._id === this.state.activePage ?  "#222" : "",
+															fontWeight:	this.state.activePage === cht._id ? "700" : "400",
+													}}> {cht.name} </a>
+											</div>
 										</div>
-									</div>
-								</Link>
-							);
-						}
-					})}
+									</Link>
+								);
+							}
+						})}
+					</div>
+				
 
-					<div className="sidebar-header"> Messages </div>
-					{this.props.chats.chat.map((cht) => {
-						if (cht.name === "") {
-							return (
-								<Link
-									to={`/chat/${cht._id}`}
-									onClick={this.clickHandler.bind(this)}
-								>
-									<div>
-										<div className="sidebar-tab">
-											<a>
-												{" "}
-												{cht.participants[0].name ===
-												this.props.auth.user.name
-													? cht.participants[1].name
-													: cht.participants[0]
-															.name}{" "}
-											</a>
+					<div className="sidebar-header"> 
+						Messages 
+						<AddIcon className='add-icon'/> 
+					</div>
+					<div className="chat-div">
+						{this.props.chats.chat.map((cht) => {
+							if (cht.name === "") {
+								return (
+									<Link
+										to={`/chat/${cht._id}`}
+										onClick={(id) => this.clickHandler(cht._id)}
+									>
+										<div>
+											<div className="sidebar-tab">
+												<a style={{color: cht._id === this.state.activePage ?  "#222" : "",
+															fontWeight:	this.state.activePage === cht._id ? "700" : "400",
+													}}>
+													{" "}
+													{cht.participants[0].name ===
+													this.props.auth.user.name
+														? cht.participants[1].name
+														: cht.participants[0]
+																.name}{" "}
+												</a>
+											</div>
 										</div>
-									</div>
-								</Link>
-							);
-						}
-					})}
+									</Link>
+								);
+							}
+						})}
+					</div>
 				</div>
 			</div>
 		);
