@@ -179,17 +179,19 @@ nav > .navitem > a {
 .onboarding-bg {
   position: absolute;
   z-index: -99;
-  width: 1920px;
 }
 
 .sign-in-bg {
   bottom: 0;
+  top: 0;
   right: -28vw;
+  width: 150vw;
 }
 
 .sign-up-bg {
   right: -15vw;
   bottom: 0;
+  width: 120vw;
 }
 
 .onboarding-err {
@@ -410,6 +412,11 @@ nav > .navitem > a {
  * Includes stylings for elements on different pages.
  */
 @media screen and (max-width: 960px) {
+
+  .onboarding-bg {
+    display: none;
+  }
+
   .filter-section {
     flex-direction: column;
   }
