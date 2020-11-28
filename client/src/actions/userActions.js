@@ -38,6 +38,9 @@ export const deleteUser = (id) => async (dispatch) => {
 	);
 };
 
+export const addFriend = (id, friendId) => async (dispatch) => {
+	// await ax
+};
 /**
  * TODO: Complete this
  */
