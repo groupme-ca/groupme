@@ -427,7 +427,7 @@ class RecommendationPage extends React.Component {
 		this.foo();
 	}
 
-	async foo() {
+	async addFriend() {
 		await this.props.getUsers();
 		const users = this.props.user.users;
 		console.log(users);
