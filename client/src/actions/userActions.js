@@ -7,10 +7,10 @@ import {
 	USERS_LOADING,
 } from "../actions/types";
 
-export const getUsers = () => (dispatch) => {
+export const getUsers = () => async (dispatch) => {
 	dispatch(setItemsLoading());
 	// This makes a GET request to our api route.
-	axios.get("/api/users").then((res) =>
+	await axios.get("/api/users").then((res) =>
 		dispatch({
 			type: GET_USERS,
 			payload: res.data,
