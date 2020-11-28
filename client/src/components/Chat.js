@@ -8,7 +8,7 @@ import { useState, useEffect } from "react"
 
 
 
-const Chat = (state) => {
+const Chat = (state) => {    
     const days = ['sun', 'mon','tue', 'wed', 'thu', 'fri', 'sat' ]
     const id = window.location.pathname.slice(6);
     const [input, setInput] = useState("");
@@ -27,6 +27,16 @@ const Chat = (state) => {
             msgs = msgs.concat([msg]);
         }
     })
+    const scrollToBottom = () => {
+        var element = document.getElementById("chat-body"); 
+        if(element !==null && element !== undefined){
+            element.scrollTop = element.scrollHeight;
+        };
+    }
+
+    useEffect(() => {
+        scrollToBottom();
+    }, [state.messages.loading])
 
     const onClickHandler = (e) => {
         e.preventDefault();
@@ -40,11 +50,10 @@ const Chat = (state) => {
             "timestamp": time
         };
 
-    
 
         state.sendMessage(newMessage)
         setInput('');
-
+        
     };
     return (
         <div className="chat">
@@ -68,7 +77,7 @@ const Chat = (state) => {
 
                 </div>
             </div>
-            <div className="chat-body">
+            <div id="chat-body" className="chat-body" >
                 {msgs.map((message) => (
                     <p className={message.sender === state.auth.user.name ? "chat-message" : "chat-receiver"}>
                         <span className="chat-name">{message.sender}</span>
@@ -80,7 +89,7 @@ const Chat = (state) => {
 
             <div className="chat-footer">
                 <form>
-                    <input value={input} onChange={e => setInput(e.target.value)} placeholder="Type a message"
+                    <input value={input} onChange={e => setInput(e.target.value)}  placeholder="Type a message"
                         type="text" />
                     <button onClick={onClickHandler} type="submit">Send a message
                     </button>
