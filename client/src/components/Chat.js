@@ -36,7 +36,7 @@ const Chat = (state) => {
 
     useEffect(() => {
         scrollToBottom();
-    }, [state.messages.loading])
+    }, [])
 
     const onClickHandler = (e) => {
         e.preventDefault();
@@ -77,7 +77,7 @@ const Chat = (state) => {
 
                 </div>
             </div>
-            <div id="chat-body" className="chat-body" >
+            <div id="chat-body" className="chat-body" onLoad={scrollToBottom()}>
                 {msgs.map((message) => (
                     <p className={message.sender === state.auth.user.name ? "chat-message" : "chat-receiver"}>
                         <span className="chat-name">{message.sender}</span>
