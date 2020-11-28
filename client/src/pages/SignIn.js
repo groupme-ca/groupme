@@ -96,7 +96,7 @@ class SignInPage extends React.Component {
 							<div className="form-row">
 								<label> Email </label>
 								<input 
-									name="email" 
+									name="Email" 
 									onChange={this.formEvent} 
 									onKeyPress={(e) => {
 										if (e.key === 'Enter') {
@@ -109,7 +109,7 @@ class SignInPage extends React.Component {
 							<div className="form-row">
 								<label> Password </label>
 								<input 
-									name="password"
+									name="Password"
 									type="password" 
 									onChange={this.formEvent} 
 									onKeyPress={(e) => {
