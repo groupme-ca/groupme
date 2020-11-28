@@ -9,7 +9,9 @@ import { loginUser } from "../actions/authActions";
 import { findUser } from "../actions/userActions";
 import { getChats } from "../actions/chatActions";
 import PropTypes from "prop-types";
+import bgImage from "../assets/img/Untitled\ design.png";
 import { getMessages } from "../actions/messageActions";
+
 const formFields = ["Email", "Password"];
 
 class SignInPage extends React.Component {
@@ -44,7 +46,7 @@ class SignInPage extends React.Component {
 		const error = this.props.error.msg;
 
 		if (error) {
-			this.setState({ error: true });
+			this.setState({ error: "Invalid username or password" });
 			// console.log("Unsuccessful login");
 		}
 	}
@@ -79,50 +81,68 @@ class SignInPage extends React.Component {
 			<Redirect to={"/welcome"} onload={this.handleOnLoad()} />
 		);
 		return (
-			<div>
+			<div className="onboarding-container">
+				<img src={bgImage} className="onboarding-bg sign-in-bg" />
 				<Link to="/">
 					<img id="logo" src={logo} width={128} alt="Logo" />
 				</Link>
 				<center>
-					<h1 className="form-title">Welcome Back!</h1>
-					<pre> {this.state.error ? "Error occurred" : ""}</pre>
+					<h1 className="form-title">Welcome back!</h1>
 				</center>
 				<div>
 					<div className="form-container">
 						<div className="form-fields">
-							{formFields.map((field) => (
-								<div className="form-row">
-									<label> {field} * </label>
-									{/* This hooks up the form to the state variable
-                                            also, if it's a password field it gives it the type password*/}
-									<input
-										type={
-											field === "Password"
-												? "password"
-												: ""
+
+							<div className="form-row">
+								<label> Email </label>
+								<input 
+									name="email" 
+									onChange={this.formEvent} 
+									onKeyPress={(e) => {
+										if (e.key === 'Enter') {
+											this.handleOnNext()
 										}
-										name={field}
-										onChange={this.formEvent}
-									/>
-								</div>
-							))}
+									}}
+								/> 
+							</div>
+
+							<div className="form-row">
+								<label> Password </label>
+								<input 
+									name="password"
+									type="password" 
+									onChange={this.formEvent} 
+									onKeyPress={(e) => {
+										if (e.key === 'Enter') {
+											this.handleOnNext()
+										}
+									}}
+								/> 
+							</div>
+
+							<div>
+								<Link 
+									to={this.state.forgotPassword} 
+									onClick={this.handleForgotPassword}
+								>
+									I forgot my password
+								</Link>
+							</div>
+
+							<div className='onboarding-err'>
+								<br/> <br/>
+								{(this.state.error) ?
+									(<label> {this.state.error} </label>) : ''
+								}
+							</div>
 						</div>
 					</div>
-					{/* TODO: Add the forgotPassword link after Moh A. leaves
-                    <div>
-                        <Link to={this.state.forgotPassword} onClick={this.handleForgotPassword}>
-                                Forgot Password?
-                        </Link>    
-                            
-                    </div>     */}
+					{/*TODO: Add the forgotPassword link after Moh A. leaves
+                         }
 					{/* TODO: Add this to the right when Moh A. leaves
                     <div className='PLACEHOLDER-img'> 
                             FEATURE COMING SOON
                         </div> */}
-					<br />
-					<br />
-					<br />
-					<br />
 				</div>
 
 				{SignInLink}

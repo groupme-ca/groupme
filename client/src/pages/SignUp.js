@@ -9,6 +9,7 @@ import logo from "../assets/img/logo.svg";
 import { connect } from "react-redux";
 import { registerUser } from "../actions/authActions";
 import PropTypes from "prop-types";
+import bgImage from "../assets/img/blob_right_bottom_1.png";
 
 const formFields = ["Name", "Email", "Password"];
 
@@ -18,13 +19,18 @@ class SignUpPage extends React.Component {
 		this.state = {
 			stage: 1,
 			error: false,
-			errorMsg: "",
+			errState: "",
 			Name: "",
 			Password: "",
 			Email: "",
 			bio: "",
 			hobbies: [],
 			courses: [],
+
+			NameError: false,
+			MailError: false,
+			PasswordError: false,
+			loading: false,
 		};
 	}
 
@@ -47,6 +53,9 @@ class SignUpPage extends React.Component {
 	};
 
 	handleOnNext = (e) => {
+
+		this.setState({ loading: true });
+
 		if (this.state.stage === 1 && !this.authenticate()) {
 			this.setState({
 				stage: 2,
@@ -65,6 +74,12 @@ class SignUpPage extends React.Component {
 			// Call the action to add the user.
 			this.props.registerUser(newUser);
 		}
+
+		setTimeout(() => {
+			this.setState({
+				loading: false
+			})
+		}, 500);
 	};
 	/**
 	 * For now, this will just check for hardcoded values
@@ -105,23 +120,24 @@ class SignUpPage extends React.Component {
 			});
 			return 0;
 		} else {
-			this.setState({ error: true });
-			if (!valid_name) {
-				this.setState({
-					errorMsg:
-						"Invalid Name... it should be in the form 'FIRST' ('MIDDLE' )'LAST', where things in () is optional.",
-				});
-			} else if (!valid_email) {
-				this.setState({
-					errorMsg:
-						"Invalid Email... it should be in the form 'FIRST'(.'LAST')@(mail.)utoronto.ca",
-				});
-			} else {
-				this.setState({
-					errorMsg:
-						"Invalid Password... it should be at least 8 characters and contain no leading/trailing spaces and at least 1 digit, 1 capital letter.",
-				});
-			}
+			
+			if (!valid_name)
+				this.setState({ NameError: true });
+			else this.setState({ NameError: false });
+
+			if (!valid_email)
+				this.setState({ MailError : true });
+			else this.setState({ MailError : false });
+
+			if (!valid_password)
+				this.setState({ PasswordError : true });
+			else this.setState({ PasswordError : true });
+
+			this.setState({ error: (
+				this.state.PasswordError ||
+				this.state.MailError ||
+				this.state.NameError
+			) });
 
 			return 1;
 		}
@@ -133,6 +149,35 @@ class SignUpPage extends React.Component {
 		});
 	};
 
+	printErrorMsg(field) {
+
+		if (field === "Name" && this.state.NameError) {
+			return (
+				<div className="onboarding-err"> 
+					Invalid name
+				</div>
+			);
+		}
+
+		if (field === "Email" && this.state.MailError) {
+			return (
+				<div className="onboarding-err"> 
+					Please enter a valid UTORmail
+				</div>
+			);
+		}
+
+		if (field === "Password" && this.state.PasswordError) {
+			return (
+				<div className="onboarding-err"> 
+					Please enter a secure password
+				</div>
+			);
+		}
+
+		return null;
+	}
+
 	render() {
 		return (
 			<div>
@@ -141,32 +186,42 @@ class SignUpPage extends React.Component {
 				</Link>
 				<center>
 					<h1 className="form-title">Create your profile</h1>
-					<pre> {this.state.error ? this.state.errorMsg : ""}</pre>
 				</center>
-
 				{this.state.stage === 1 ? (
-					<div>
+					<div style={{ height: '70vh'}}>
+						<img src={bgImage} className="onboarding-bg sign-up-bg" />
 						<div className="form-container">
-							<div className="PLACEHOLDER-img">
-								FEATURE COMING SOON
-							</div>
 							<div className="form-fields">
 								{formFields.map((field) => (
 									<div className="form-row">
-										<label> {field} * </label>
-										{/* This hooks up the form to the state variable
-                                                also, if it's a password field it gives it the type password*/}
+										<label> {field} </label>
 										<input
 											type={
 												field === "Password"
 													? "password"
 													: ""
 											}
+											style={{
+												border: `1px solid ${this.printErrorMsg(field) ? "red" : "#afafaf"}`,
+												outline: 'none'
+											}}
 											name={field}
 											onChange={this.formEvent}
+											onKeyPress={(e) => {
+												if (e.key === 'Enter') {
+													this.handleOnNext();
+												}
+											}}
 										/>
+										<div>
+											{this.printErrorMsg(field)}
+										</div>
 									</div>
 								))}
+							</div>
+
+							<div className="upload-img">
+								{"Upload a profile picture \n (Coming Soon)"}
 							</div>
 						</div>
 
@@ -207,13 +262,17 @@ class SignUpPage extends React.Component {
 						</div>
 					</div>
 				)}
-				<Link
-					to={this.state.nextPage}
-					className="btn primary md form-submit"
-					onClick={this.handleOnNext}
-				>
-					{this.state.stage === 1 ? "Next" : "Sign Up"}
-				</Link>
+				{this.state.loading ? (
+						<div className="loading-wheel" />
+					) : (
+						<Link
+							to={this.state.nextPage}
+							className="btn primary md form-submit"
+							onClick={this.handleOnNext}
+						>
+							{this.state.stage === 1 ? "Next" : "Sign Up"}
+						</Link>
+					)}
 			</div>
 		);
 	}

@@ -45,11 +45,14 @@ input {
   border-radius: 4px;
   border: 1.5px solid #afafaf;
   cursor: text;
+  caret-color: #333;
+  font-size: .87em;
+  text-indent: .5em;
 }
 
 input:focus {
   outline: none;
-  border: 1.5px solid #ff914e;
+  border: 1.8px solid #ff914e;
 }
 
 textarea {
@@ -146,6 +149,7 @@ nav > .navitem > a {
 .form-container {
   margin-left: 12vw;
   margin-top: 10vh;
+  margin-bottom: 5vh;
   overflow-y: auto;
   display: flex;
   align-items: center;
@@ -154,27 +158,71 @@ nav > .navitem > a {
 .form-fields {
   align-items: center;
   justify-content: right;
-  margin-left: 2vw;
 }
 
 .form-row {
   display: flex;
-  margin: 1em 0;
+  flex-direction: column;
+  margin-bottom: 1em;
 }
 
 .form-row > label {
   width: 9em;
+  font-weight: 700;
+  margin-bottom: 0.3em;
+}
+
+.onboarding-container {
+  height: 55vh;
+}
+
+.onboarding-bg {
+  position: absolute;
+  z-index: -99;
+  width: 1920px;
+}
+
+.sign-in-bg {
+  margin-left: -5vw;
+  margin-top: -5vw;
+}
+
+.sign-up-bg {
+  margin-left: -8vw;
+  bottom: 0;
+}
+
+.onboarding-err {
+  margin-bottom: 0.3em;
+  color: #e1143e;
+}
+
+.onboarding-demo {
+  margin-left: 12vw;
+  height: 45vh;
 }
 
 /* We need to make sure to change this later */
-.PLACEHOLDER-img {
+.upload-img {
   width: 128px;
   height: 128px;
-  border: 1px solid #333;
-  background: #f0f0f0;
+  border: 1px solid #f0f0f0;
+  background: linear-gradient(27deg, #f0f0f0, #e0e0e0);
+  margin-left: 10vw;
+  font-size: .75em;
+  font-weight: 700;
+  color: #333;
+  padding: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
 
-  font-size: 11px;
-  color: #111;
+.upload-img:hover {
+  color: white;
+  background:linear-gradient(27deg, #888, #656565);
+  cursor: pointer;
 }
 
 .form-row > input {
@@ -188,9 +236,30 @@ nav > .navitem > a {
   flex-direction: column;
 }
 
+.bio-container > label {
+  font-weight: 700;
+  margin-bottom: .3em;
+}
+
 .bio-container > textarea {
   width: 40em;
   height: 10em;
+  font-family: Roboto;
+  text-indent: .87em;
+}
+
+.loading-wheel {
+  border: 5px solid #fff;
+  border-left: 5px solid #ff914e;
+  border-radius: 50%;
+  width: 50px; height: 50px;
+  animation: spin 2s linear infinite;
+  margin-left: 12vw;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 .form-submit {

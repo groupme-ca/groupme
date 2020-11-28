@@ -1,7 +1,6 @@
 import React from 'react';
-import { Link } from "react-router-dom";
 import Select from 'react-select';
-import Slider from "react-slick";
+import _ from 'lodash';
 
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
@@ -16,15 +15,16 @@ import './Recommendations.css';
 import recommendations from '../utils/UserCardUtils';
 import options from '../utils/SignUpOptions';
 import { getChats } from "../actions/chatActions";
+import { getUsers } from "../actions/userActions";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
-
-
+import Recommender from '../utils/RecommenderSystem';
+import img_default from '../assets/img/default.png';
 
 class RecommendationPage extends React.Component {
     constructor(props) {
-        super(props);
+        super(props);        
         this.state = {
             recommendHobbies: recommendations.hobbies, // modify this later to read from DB
             recommendCourses: recommendations.courses, // modify this later to read from DB
@@ -45,41 +45,57 @@ class RecommendationPage extends React.Component {
                 : Math.ceil(recommendations.courses.length / 4),
 
             showProfile: false,
+            userInfo : this.props.auth.user,
             profileCourses: [],
             profileHobbies: [],
+
+            loading: true,
         }
         this.showProfileModal = this.showProfileModal.bind(this);
         this.hideProfileModal = this.hideProfileModal.bind(this);
     }
 
     componentDidMount(props) {
-        if (this.state.interestCurrPage < this.state.interestNumPages) {
-            this.setState({
-                interestHasNext: true,
-            })
-        }
 
-        if (this.state.coursesCurrPage < this.state.courseNumPages) {
-            this.setState({
-                coursesHasNext: true,
-            })
-        }
-
-        if (this.state.interestCurrPage != 1) {
-            this.setState({
-                interestHasPrev: true,
-            })
-        }
-
-        if (this.state.coursesCurrPage != 1) {
-            this.setState({
-                coursesHasPrev: true,
-            })
-        }
-
-        
         this.getNextInterest = this.getNextInterest.bind(this);
         this.getPrevInterest = this.getPrevInterest.bind(this);
+        this.getNextCourse = this.getNextCourse.bind(this);
+        this.getPrevCourse = this.getPrevCourse.bind(this);
+
+        this.generateRecommendations();
+
+    }
+
+    async generateRecommendations() {
+        await this.props.getUsers();
+        this.recommender = new Recommender({ 
+                hobbies: this.props.auth.user.hobbies,
+                courses: this.props.auth.user.courses,
+                email: this.props.auth.user.email,
+            }, this.props.user.users
+        );
+
+        const recommendHobbies = this.recommender.generateRecommendations('hobbies');
+        const recommendCourses = this.recommender.generateRecommendations('courses');
+
+        this.setState({
+            recommendHobbies,
+            recommendCourses,
+
+            interestCurrPage: 1,
+            interestNumPages: recommendHobbies.length > 4
+                ? recommendHobbies.length - 3
+                : 1,
+            coursesCurrPage: 1,
+            courseNumPages: recommendCourses.length > 4
+                ? recommendCourses.length - 3
+                : 1,
+
+            interestHasNext: recommendHobbies.length > 4,
+            interestHasPrev: false,
+            coursesHasNext: recommendCourses.length > 4,
+            coursesHasPrev: false,
+        })
     }
 
     initializeChevronState(section, direction) {
@@ -146,6 +162,30 @@ class RecommendationPage extends React.Component {
             })
         }
     }
+
+    getNextCourse() {
+        if (this.state.coursesHasNext) {
+            const currPage = this.state.coursesCurrPage;
+            const maxPage = this.state.courseNumPages;
+            this.setState({
+                coursesCurrPage: currPage + 1,
+                coursesHasNext: (currPage + 1) < maxPage,
+                coursesHasPrev: true,
+            })
+        }
+    }
+
+    getPrevCourse() {
+        if (this.state.coursesHasPrev) {
+            const currPage = this.state.coursesCurrPage;
+            const maxPage = this.state.courseNumPages;
+            this.setState({
+                coursesCurrPage: currPage - 1,
+                coursesHasPrev: (currPage - 1) != 1,
+                coursesHasNext: (currPage - 1) < maxPage,
+            })
+        }
+    }
     
     showProfileModal(avatar, name, courses, hobbies, bio) {
         this.setState({
@@ -157,6 +197,7 @@ class RecommendationPage extends React.Component {
             profileBio: bio, 
         })
     }
+
     hideProfileModal() {
         this.setState({
             showProfile: false
@@ -188,10 +229,10 @@ class RecommendationPage extends React.Component {
                     </div>
 
                     
-                    <div class="filter-section">
+                    <div className="filter-section">
                         <input 
                             placeholder='Search'
-                            class="filter-input"
+                            className="filter-input"
                         />
                     </div>
                     <p className='select-header'> Filter By: </p>
@@ -212,48 +253,60 @@ class RecommendationPage extends React.Component {
                                 placeholder="Courses"
                             />
                         </div>
-                        <div className='btn primary sm'> Filter </div>
+                        <div className='btn primary sm'
+                            onClick={() => {
+                                console.log(this.state);
+                            }}
+                        
+                        > Filter </div>
                     </div>
     
                     <h1 className='header'>
                         Same interests as you
                     </h1>
 
-                    <div className='carousel-container'>
-                        <div 
-                            className='chevron-wrapper'
-                            style={this.initializeChevronState('interests', 'left')}
-                            onClick={this.getPrevInterest}
-                        >
-                            <ChevronLeftIcon />
-                        </div>
+                    {this.state.recommendHobbies.length > 0 ? (
+                        <div className='carousel-container'>
+                            <div 
+                                className='chevron-wrapper'
+                                style={this.initializeChevronState('interests', 'left')}
+                                onClick={this.getPrevInterest}
+                            >
+                                <ChevronLeftIcon />
+                            </div>
+                                <div className='carousel-wrapper'>
+                                    {this.state.recommendHobbies
+                                        .slice(this.state.interestCurrPage - 1)
+                                        .map((r) => (
+                                            <UserCard 
+                                                avatar={r.avatar ? r.avatar : img_default} 
+                                                title={r.name}
+                                                tags={r.hobbies}
+                                                courses={r.courses}
+                                                hobbies={r.hobbies}
+                                                rScore={r.rScore}
+                                                bio={r.bio}
+                                                showProfileModal={this.showProfileModal}
+                                            />
+                                    ))}        
+                                </div>
 
-                        <div className='carousel-wrapper'>
-                            {this.state.recommendHobbies
-                                .slice(this.state.interestCurrPage - 1)
-                                .map((r) => (
-                                    <UserCard 
-                                        avatar={r.avatar} 
-                                        title={r.name}
-                                        tags={r.hobbies}
-                                        courses={r.courses}
-                                        hobbies={r.hobbies}
-                                        bio={r.bio}
-                                        showProfileModal={this.showProfileModal}
-                                    />
-                            ))}        
-                        </div>
 
+                            <div 
+                                className='chevron-wrapper'
+                                style={this.initializeChevronState('interests', 'right')}
+                                onClick={this.getNextInterest}
+                            >
+                                <ChevronRightIcon />
+                            </div>
+                        </div>)
 
-                        <div 
-                            className='chevron-wrapper'
-                            style={this.initializeChevronState('interests', 'right')}
-                            onClick={this.getNextInterest}
-                        >
-                            <ChevronRightIcon />
-                        </div>
-                    </div>
-                    
+                        : (
+                            <div className="carousel-empty"> 
+                                No matches found ;( 
+                            </div>
+                        )
+                    }
 
                     <h1 className='header'>
                         Same courses as you
@@ -263,27 +316,33 @@ class RecommendationPage extends React.Component {
                         <div 
                             className='chevron-wrapper'
                             style={this.initializeChevronState('courses', 'left')}
+                            onClick={this.getPrevCourse}
                         >
                             <ChevronLeftIcon />
                         </div>
 
                         <div className='carousel-wrapper'>    
-                            {this.state.recommendCourses.map((r) => (
-                                <UserCard 
-                                    avatar={r.avatar} 
-                                    title={r.name}
-                                    tags={r.courses}
-                                    courses={r.courses}
-                                    hobbies={r.hobbies}
-                                    bio={r.bio}
-                                    showProfileModal={this.showProfileModal}
-                                />
+                            {this.state.recommendCourses
+                                .slice(this.state.coursesCurrPage - 1)
+                                .map((r, idx) => (
+                                    <UserCard 
+                                        avatar={r.avatar ? r.avatar : img_default} 
+                                        title={r.name}
+                                        tags={r.courses}
+                                        courses={r.courses}
+                                        hobbies={r.hobbies}
+                                        rScore={r.rScore}
+                                        bio={r.bio}
+                                        key={idx}
+                                        showProfileModal={this.showProfileModal}
+                                    />
                             ))}              
                         </div>
 
                         <div 
                             className='chevron-wrapper'
                             style={this.initializeChevronState('courses', 'right')}
+                            onClick={this.getNextCourse}
                         >
                             <ChevronRightIcon />
                         </div>   
@@ -296,12 +355,14 @@ class RecommendationPage extends React.Component {
 }
 
 RecommendationPage.propTypes = {
-	getChats: PropTypes.func.isRequired,
+    getChats: PropTypes.func.isRequired,
+    getUsers: PropTypes.func.isRequired,
 	error: PropTypes.object,
 };
 
 // This is the current state in the store.
 const mapStateToProps = (state) => ({
+    user: state.user,
 	auth: state.auth,
 	error: state.error,
 	chats: state.chats
@@ -309,4 +370,4 @@ const mapStateToProps = (state) => ({
 
 // This connect thing is required to make redux work, we add the different props that we need
 // in the second parameter.
-export default connect(mapStateToProps, { getChats })(RecommendationPage);
+export default connect(mapStateToProps, { getUsers, getChats })(RecommendationPage);

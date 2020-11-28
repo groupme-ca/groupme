@@ -69,6 +69,10 @@
   font-weight: 700;
   margin-top: 2em;
   text-transform: uppercase;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .add-icon {

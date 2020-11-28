@@ -7,20 +7,21 @@ import {
 	USERS_LOADING,
 } from "../actions/types";
 
-export const getUsers = () => (dispatch) => {
+export const getUsers = () => async (dispatch) => {
 	dispatch(setItemsLoading());
 	// This makes a GET request to our api route.
-	axios.get("/api/users").then((res) =>
+	await axios.get("/api/users").then((res) =>
 		dispatch({
 			type: GET_USERS,
 			payload: res.data,
 		})
 	);
 };
-export const findUser = (user) => (dispatch) => {
+
+export const findUser = (user) => async (dispatch) => {
 	dispatch(setItemsLoading());
 	// This makes a POST request to our api route to find the specific user.
-	axios.post("/api/users", user).then((res) =>
+	await axios.post("/api/users", user).then((res) =>
 		dispatch({
 			type: FIND_USER,
 			payload: res.data,
@@ -28,8 +29,8 @@ export const findUser = (user) => (dispatch) => {
 	);
 };
 
-export const deleteUser = (id) => (dispatch) => {
-	axios.delete(`/api/users/${id}`).then((res) =>
+export const deleteUser = (id) => async (dispatch) => {
+	await axios.delete(`/api/users/${id}`).then((res) =>
 		dispatch({
 			type: DELETE_USER,
 			payload: id,

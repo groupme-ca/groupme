@@ -1,3 +1,8 @@
+.user-card-container:hover {
+    transform: scale(1.01);
+    cursor: pointer;
+}
+
 .user-card-container {
     height: 25rem;
     display: flex;
@@ -10,11 +15,11 @@
     border: 0.5px solid #f0f0f0;
 
     background: linear-gradient(180deg, #fff3e2, transparent);
-    box-shadow: -1px -1px 1px rgba(0,0,0, 0.1);    
 }
 
 .card-title:hover {
     cursor: pointer;
+    text-decoration: underline;
 }
 
 .card-title {
@@ -69,6 +74,25 @@
     margin-top: 2px;
 }
 
+.matching-score {
+    color: white;
+    font-weight: 700;
+}
+
+.great {
+    background: #00914e;
+}
+
+.good {
+    background: #004ea1;
+}
+
+.fair {
+    background: rgb(219, 180, 53);
+    color: #333;
+    display: none;
+}
+
 .card-buttons {
     display: flex;
     align-items: center;
@@ -83,7 +107,7 @@
     padding: 0.5em;
     font-size: 0.85em;
     border-radius: 80px;
-    width: 100%;
+    width: 128px;
 }
 
 .friend-notif {

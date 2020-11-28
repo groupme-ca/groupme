@@ -47,7 +47,7 @@ class Sidebar extends React.Component {
 			<div className="sidebar">
 				<div className="hamburger-wrapper">
 					<div className="hamburger">
-						<MenuIcon classname="sidebar-img" />
+						<MenuIcon className="sidebar-img" />
 					</div>
 				</div>
 				<div className="sidebar-head">
@@ -55,10 +55,10 @@ class Sidebar extends React.Component {
 						<img src={logo} width={56} />
 					</Link>
 
-					<div class="sidebar-tab">
+					<div className="sidebar-tab">
 						<SettingsIcon className="sidebar-img" />
 					</div>
-					<div class="sidebar-tab">
+					<div className="sidebar-tab">
 						<NotificationsIcon
 							className="sidebar-img"
 							style={{
@@ -69,9 +69,9 @@ class Sidebar extends React.Component {
 				</div>
 				<div className="sidebar-content">
 					<Link to="/profile">
-						<div class="sidebar-tab">
+						<div className="sidebar-tab">
 							<AccountCircleIcon className="sidebar-img" />
-							<a
+							<div
 								style={{
 									fontWeight:
 										this.state.activePage === "profile"
@@ -84,7 +84,7 @@ class Sidebar extends React.Component {
 								}}
 							>
 								My Profile
-							</a>
+							</div>
 						</div>
 					</Link>
 
@@ -103,17 +103,16 @@ class Sidebar extends React.Component {
 							}}
 						>
 							<SearchIcon className="sidebar-img" />
-							<a>Search </a>
+							<> Search </>
 						</div>
 					</Link>
 
 					<Link to="/" onClick={this.handleOnLogout}>
-						<div class="sidebar-tab">
+						<div className="sidebar-tab">
 							<PowerSettingsNewIcon className="sidebar-img" />
-							<a> Sign out </a>
+							<> Sign out </>
 						</div>
-					</Link>
-					
+					</Link>			
 					<div className="sidebar-header"> 
 						Rooms
 						<AddIcon className='add-icon'/> 

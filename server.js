@@ -56,6 +56,7 @@ db.once("open", () => {
     if (change.operationType === "insert") {
       const chatDetails = change.fullDocument;
       pusher.trigger(String(chatDetails.chatId), 'inserted', chatDetails);
+
       // const participants = Object.entries(chatDetails.participants);
       // participants.forEach(([key, value]) => {
       //   console.log(value.cid);
