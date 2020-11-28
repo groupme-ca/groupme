@@ -183,12 +183,12 @@ nav > .navitem > a {
 }
 
 .sign-in-bg {
-  margin-left: -5vw;
-  margin-top: -5vw;
+  bottom: 0;
+  right: -28vw;
 }
 
 .sign-up-bg {
-  margin-left: -8vw;
+  right: -15vw;
   bottom: 0;
 }
 
