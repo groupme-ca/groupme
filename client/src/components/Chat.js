@@ -36,12 +36,13 @@ const Chat = (state) => {
 
     useEffect(() => {
         scrollToBottom();
-    }, [])
+    }, [state.messages.loading]);
 
     const onClickHandler = (e) => {
         e.preventDefault();
         var date = new Date();
-        var time = date.getHours() + ":" + date.getMinutes() + " " + days[date.getDay()];
+        var day = date.getDate() + '-' + String(parseInt(date.getMonth())+1) + '-' + date.getFullYear();
+        var time = date.getHours() + ":" + date.getMinutes() + " " + days[date.getDay()] + ", " + day;
 
         const newMessage = {
             "chatId": id,
