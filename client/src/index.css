@@ -332,7 +332,6 @@ nav > .navitem > a {
   outline: none;
   margin-bottom: 2vh;
   min-width: 300px;
-  z-index: -1;
 }
 
 .header {
