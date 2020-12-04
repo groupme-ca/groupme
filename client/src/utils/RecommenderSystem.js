@@ -21,9 +21,7 @@ class Recommender {
         this.courseMap = new Map();
         this.hobbiesMap = new Map();
 
-        console.log("rSystem cons:\n")
-        console.log(this.user);
-        console.log(this.users);
+        
 
         return;
     }

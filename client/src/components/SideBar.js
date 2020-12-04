@@ -150,7 +150,6 @@ class Sidebar extends React.Component {
 					<div className="sidebar-header"> 
 						Rooms
 						<AddIcon className='add-icon' onClick={(e) => {
-							console.log("test");
 							this.setState({showCreateGroupModal: true});
 						}} /> 
 					
