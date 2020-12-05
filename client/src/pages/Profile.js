@@ -51,7 +51,6 @@ class ProfilePage extends React.Component {
 		this.setState({ user: user });
 		// Here we're gonna make the request
 
-		console.log(this.state.user);
 	};
 	handleChangeBio = (event) => {
 		// this.setState({ bio: event.target.value });

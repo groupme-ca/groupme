@@ -22,18 +22,14 @@ const LiveChat = (state) => {
 		var channel;		
 		if (state.auth.user !== null) {
 			state.auth.user.ChatIds.forEach((id) => {
-				console.log(0);
 				if (!(cid.includes(id))) {
-					console.log(1);
 					channel = pusher.subscribe(id);
 					channel.bind("inserted", (data) => {
-						console.log(2);
 						state.newMessage(data);
 					});
 					setCid([...cid, id]);
 				};
 			});
-			console.log(pusher.allChannels(), 'pus');
 			// console.log(newChannel, 'newchannel');
 			// channels.forEach(ch =>{
 			// 	ch.unbind_all();
