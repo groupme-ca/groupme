@@ -16,6 +16,7 @@ export default function(state = initialState, action){
                 chat: [...state.chat, action.payload].filter(cht => cht._id !== action.payload._id).concat([action.payload]).sort(), 
                 loading: false
             };
+            
 
 
         // case UPDATE_CHAT:
