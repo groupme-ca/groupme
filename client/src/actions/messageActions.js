@@ -1,12 +1,11 @@
-import axios from '../axios';
-import {NEW_MESSAGE, SEND_MESSAGE, START_SWITCH, END_SWITCH  } from './types';
-
+import axios from "axios";
+import { NEW_MESSAGE, SEND_MESSAGE, START_SWITCH, END_SWITCH } from "./types";
 
 export const newMessage = (msg) => (dispatch) => {
-    dispatch({
-        type: NEW_MESSAGE,
-        payload: msg
-    });
+	dispatch({
+		type: NEW_MESSAGE,
+		payload: msg,
+	});
 };
 
 export const startSwitch = () => {

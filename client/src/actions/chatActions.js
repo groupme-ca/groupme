@@ -1,4 +1,4 @@
-import axios from '../axios';
+import axios from 'axios';
 import { GET_CHATS, GET_USERS} from './types';
 
 
@@ -58,6 +58,3 @@ export const createChat = (chat, participants) => async (dispatch) => {
     }      
     );      
 };
-    
-
-
