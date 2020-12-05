@@ -4,6 +4,8 @@ import { newMessage } from "../actions/messageActions";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { useState, useEffect } from "react";
+import { startSwitch, endSwitch } from "../actions/messageActions";
+
 
 const LiveChat = (state) => {
 	// TODO: figure out how to unscubscribe later
@@ -26,6 +28,11 @@ const LiveChat = (state) => {
 					channel = pusher.subscribe(id);
 					channel.bind("inserted", (data) => {
 						state.newMessage(data);
+						if (state.messages.loading === false) {
+							state.startSwitch();
+						} else {
+							state.endSwitch();
+						};
 					});
 					setCid([...cid, id]);
 				};
@@ -67,4 +74,5 @@ const mapStateToProps = (state) => ({
 	messages: state.messages
 });
 
-export default connect(mapStateToProps, { newMessage })(LiveChat);
+export default connect(mapStateToProps, {startSwitch, endSwitch, newMessage })(LiveChat);
+
