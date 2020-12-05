@@ -6,7 +6,7 @@ import logo from "../assets/img/logo.svg";
 // This connects the frontend to backend.
 import { connect } from "react-redux";
 import { loginUser } from "../actions/authActions";
-import { findUser } from "../actions/userActions";
+import { findUser, getUsers } from "../actions/userActions";
 import { getChats } from "../actions/chatActions";
 import PropTypes from "prop-types";
 import bgImage from "../assets/img/Untitled\ design.png";
@@ -59,6 +59,7 @@ class SignInPage extends React.Component {
 			this.props.getChats(id);
 			this.props.getMessages(id);
 		});
+		this.props.getUsers();
 		// });
 	}
 
@@ -169,6 +170,6 @@ const mapStateToProps = (state) => ({
 
 // This connect thing is required to make redux work, we add the different props that we need
 // in the second parameter.
-export default connect(mapStateToProps, { getMessages, findUser, getChats, loginUser })(
+export default connect(mapStateToProps, { getMessages, findUser, getChats, loginUser, getUsers })(
 	SignInPage
 );
