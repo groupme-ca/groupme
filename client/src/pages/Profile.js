@@ -203,6 +203,7 @@ class ProfilePage extends React.Component {
 										this.state.user.hobbies
 									}
 									onChange={this.handleOnSelectHobbies}
+									formatCreateLabel={(s)=> s}
 								/>
 							</div>
 							<div>
@@ -211,6 +212,7 @@ class ProfilePage extends React.Component {
 									isMulti
 									className="filter-container"
 									options={options.courses}
+									formatCreateLabel={(s)=> s}
 									value={
 										// this.props.auth.user.courses
 										this.state.user.courses

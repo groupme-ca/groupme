@@ -72,8 +72,8 @@ class RecommendationPage extends React.Component {
     async generateRecommendations() {
         await this.props.getUsers();
         this.recommender = new Recommender({ 
-                hobbies: this.props.auth.user.hobbies,
-                courses: this.props.auth.user.courses,
+                hobbies: this.props.auth.user && this.props.auth.user && this.props.auth.user.hobbies ? this.props.auth.user.hobbies : [],
+                courses: this.props.auth.user && this.props.auth.user && this.props.auth.user.courses ? this.props.auth.user.courses : [],
                 email: this.props.auth.user.email,
             }, this.props.user.users
         );

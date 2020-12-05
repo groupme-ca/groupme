@@ -249,6 +249,7 @@ class SignUpPage extends React.Component {
 								options={options.hobbies}
 								value={this.state.hobbies}
 								onChange={this.handleOnSelectHobbies}
+								formatCreateLabel={(s)=> s}
 							/>
 						</div>
 						<div>
@@ -259,6 +260,7 @@ class SignUpPage extends React.Component {
 								options={options.courses}
 								value={this.state.courses}
 								onChange={this.handleOnSelectCourses}
+								formatCreateLabel={(s)=> s}
 							/>
 						</div>
 					</div>
