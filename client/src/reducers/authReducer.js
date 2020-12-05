@@ -8,6 +8,10 @@ import {
 	LOGIN_SUCCESS,
 	LOGIN_FAILURE,
 	LOGOUT,
+	ADD_FRIEND_START,
+	ADD_FRIEND_SUCCESS,
+	ACCEPT_FRIEND_REQUEST_START,
+	ACCEPT_FRIEND_REQUEST_SUCCESS,
 	AUTH_ERROR,
 } from "../actions/types";
 // Add the curent user and some errors/statuses
@@ -23,6 +27,8 @@ export default function (state = initialState, action) {
 		case USER_LOADING:
 		case REGISTER_START:
 		case LOGIN_START:
+		case ADD_FRIEND_START:
+		case ACCEPT_FRIEND_REQUEST_START:
 			return {
 				...state,
 				loading: true,
@@ -55,7 +61,13 @@ export default function (state = initialState, action) {
 				authenticated: false,
 				loading: false,
 			};
-
+		case ADD_FRIEND_SUCCESS:
+		case ACCEPT_FRIEND_REQUEST_SUCCESS:
+			return {
+				...state,
+				...action.payload,
+				loading: false,
+			};
 		default:
 			return state;
 	}

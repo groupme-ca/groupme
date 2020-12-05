@@ -1,14 +1,9 @@
 import axios from "axios";
-import {
-	GET_USERS,
-	FIND_USER,
-	DELETE_USER,
-	UPDATE_USER,
-	USERS_LOADING,
-} from "../actions/types";
+import { GET_USERS, UPDATE_USER, USERS_LOADING } from "../actions/types";
+import { returnErrors } from "../actions/errorActions";
 
 export const getUsers = () => async (dispatch) => {
-	dispatch(setItemsLoading());
+	dispatch(setUsersLoading());
 	// This makes a GET request to our api route.
 	await axios.get("/api/users").then((res) =>
 		dispatch({
@@ -18,24 +13,26 @@ export const getUsers = () => async (dispatch) => {
 	);
 };
 
-export const findUser = (user) => async (dispatch) => {
-	dispatch(setItemsLoading());
-	// This makes a POST request to our api route to find the specific user.
-	await axios.post("/api/users", user).then((res) =>
-		dispatch({
-			type: FIND_USER,
-			payload: res.data,
+/**
+ * Tries to find a user by their id, returns the user if found, otherwise null.
+ * @param id The id of the user to search for
+ * @param errType The type of error to dispatch if the request is not successful
+ */
+export const findUser = (id, errType) => async (dispatch) => {
+	await axios
+		.get(`api/users/${id}`)
+		.then((res) => {
+			return res.data;
 		})
-	);
-};
-
-export const deleteUser = (id) => async (dispatch) => {
-	await axios.delete(`/api/users/${id}`).then((res) =>
-		dispatch({
-			type: DELETE_USER,
-			payload: id,
-		})
-	);
+		.catch((err) => {
+			dispatch(
+				returnErrors(err.response.data, err.response.status, errType)
+			);
+			dispatch({
+				type: errType,
+			});
+			return null;
+		});
 };
 
 /**
@@ -47,7 +44,7 @@ export const updateUser = () => {
 	};
 };
 
-export const setItemsLoading = () => {
+export const setUsersLoading = () => {
 	return {
 		type: USERS_LOADING,
 	};

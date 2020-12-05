@@ -19,48 +19,22 @@ router.get("/", async (req, res) => {
 });
 
 /**
+ * @route       GET
+ * @description Get a user by their id
+ * @access      public
+ */
+router.get("/:id", async (req, res) => {
+	// else get all
+	await User.findById(req.params.id).then((users) => res.json(users));
+});
+
+/**
  * TODO: Change this to make it find any user, not used for login anymore
  * @route       POST api/users
  * @description Register the user from the request into the database
  * @access      public
  */
-router.post("/", async (req, res) => {
-	// const { name, username, email, password } = req.body;
-	// if (!name || !username || !email || !password) {
-	// 	return res
-	// 		.status(400)
-	// 		.json({ msg: "Please enter all fields of information." });
-	// }
-	// // Check for existing user:
-	// User.findOne({ email }).then((user) => {
-	// 	// If the user already exists, send a message back.
-	// 	if (user) {
-	// 		return res.status(400).json({ msg: "User already exists." });
-	// 	}
-	// 	// Construct the new user
-	// 	const newUser = new User(req.body);
-	// 	// Create salt and hash the password
-	// 	bcrypt.genSalt(10, (err, salt) => {
-	// 		bcrypt.hash(newUser.password, salt, (err, hash) => {
-	// 			if (err) throw err;
-	// 			newUser.password = hash;
-	// 			// Save the new user from the request
-	// 			newUser.save().then((user) => {
-	// 				// Sign the token with the unique user id
-	// 				jwt.sign(
-	// 					{ id: user.id },
-	// 					config.get("jwtsecret"),
-	// 					// {expiresIn: time} add this if we want the token to
-	// 					(err, token) => {
-	// 						if (err) throw err;
-	// 						res.json({ token, user });
-	// 					}
-	// 				);
-	// 			});
-	// 		});
-	// 	});
-	// });
-});
+router.post("/", async (req, res) => {});
 
 /**
  * @route       DELETE api/users/:id
@@ -75,7 +49,7 @@ router.delete("/:id", async (req, res) => {
 
 /**
  * @route       UPDATE api/users/:id
- * @description Update a User by their ID and returns the user which was updated
+ * @description Update a User completely by their ID and returns the user which was updated
  * @access      public
  */
 router.put("/:id", async (req, res) => {
@@ -84,7 +58,17 @@ router.put("/:id", async (req, res) => {
 		.catch((err) => res.status(404).json({ success: false }));
 });
 
-//TODO: cookies or a way to identify user
+/**
+ * @route       UPDATE api/users/:id
+ * @description Update particular fields of a User by their ID and returns the updated user.
+ * @access      public
+ */
+router.patch("/:id", async (req, res) => {
+	User.findByIdAndUpdate(req.params.id, req.body, { new: true })
+		.then((user) => res.json(user))
+		.catch((err) => res.status(404).json({ success: false }));
+});
+
 /**
  * @route       GET api/users/signin
  * @description Sign in using your email and password
