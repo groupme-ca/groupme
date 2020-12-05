@@ -23,6 +23,7 @@
   display: flex;
   align-items: center;
   border-bottom: 0.5px solid #f0f0f0;
+  justify-content: space-evenly;
 }
 
 .sidebar-head > a > img {
@@ -82,11 +83,12 @@
 .add-icon:hover {
   color: #333;
   transform: scale(1.02);
+  cursor: pointer;
 }
 
 .chat-div {
   overflow-y: scroll;
-  height: 30vh;
+  max-height: 30vh;
   overflow-x: hidden;
 }
 

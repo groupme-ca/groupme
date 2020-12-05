@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Select from "react-select";
+import CreatableSelect from 'react-select/creatable';
 import options from "../utils/SignUpOptions";
 import logo from "../assets/img/logo.svg";
 
@@ -242,7 +243,7 @@ class SignUpPage extends React.Component {
 					<div className="select-wrapper">
 						<div>
 							<p className="select-header"> Hobbies </p>
-							<Select
+							<CreatableSelect
 								isMulti
 								className="select-container"
 								options={options.hobbies}
@@ -252,7 +253,7 @@ class SignUpPage extends React.Component {
 						</div>
 						<div>
 							<p className="select-header"> Courses </p>
-							<Select
+							<CreatableSelect
 								isMulti
 								className="select-container"
 								options={options.courses}

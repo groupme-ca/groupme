@@ -16,12 +16,22 @@
 .profile-info-field {
     border: none;
     border-radius: 0;
+    height: 1.5em;
+    width: fit-content !important;
     font-family: Roboto;
+    text-indent: 0 !important;
+}
+
+.bio-container > .profile-info-field  {
+    height: 5em;
+    width: 40em !important;
+    text-indent: 1em !important;
 }
 
 .rw-field {
-    border-bottom: 1.2px dotted #ccc;
-    width: fit-content !important;
+    border-radius: 5px;
+    background: #f0f0f0;
+    text-indent: 1px;
 }
 
 .rw-field:active,
@@ -33,4 +43,23 @@
 .ro-field:focus {
     border: none;
     cursor: default;
+}
+
+.profile-save {
+    width: 32px;
+    margin-top: 5vh;
+}
+
+.profile-container {
+    display: flex;
+    align-items: center;
+}
+
+.profile-info-fields {
+    width: 25vw;
+    align-items: center;
+    justify-content: right;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
 }

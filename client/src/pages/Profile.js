@@ -1,5 +1,6 @@
 import React from "react";
 import Select from "react-select";
+import CreatableSelect from 'react-select/creatable';
 import options from "../utils/SignUpOptions";
 
 import "./Recommendations.css";
@@ -19,6 +20,7 @@ class ProfilePage extends React.Component {
 			changePassword: false,
 		};
 	}
+	
 	componentDidMount() {
 		this.setState({ user: this.props.auth.user });
 	}
@@ -53,6 +55,7 @@ class ProfilePage extends React.Component {
 
 		console.log(this.state.user);
 	};
+
 	handleChangeBio = (event) => {
 		// this.setState({ bio: event.target.value });
 		// Construct the modified user object
@@ -60,6 +63,7 @@ class ProfilePage extends React.Component {
 		user.bio = event.target.value;
 		this.setState({ user: user });
 	};
+
 	handleOnSelectHobbies = (selectedOptions) => {
 		// Construct the modified user object
 		const user = this.state.user;
@@ -84,14 +88,15 @@ class ProfilePage extends React.Component {
 					<div>
 						<div className="form-container">
 							<div class="container">
+								<div class="edit-img-overlay">Edit</div>
 								<img
 									class="card-img-top card-profile-pic"
 									src="/static/media/vlad.58e00b26.jpg"
 									height="128"
 								></img>
-								<div class="edit-img-overlay">Edit</div>
+								
 							</div>
-							<div className="form-fields">
+							<div className="profile-info-fields">
 								{formFields.map((field) => (
 									<div className="form-row">
 										<label> {field} </label>
@@ -179,7 +184,7 @@ class ProfilePage extends React.Component {
 						<div className="bio-container">
 							<label> Bio </label>
 							<textarea
-								className="profile-info-field"
+								className="profile-info-field rw-field"
 								defaultValue={
 									// this.props.auth.user.bio
 									this.state.user.bio
@@ -190,7 +195,7 @@ class ProfilePage extends React.Component {
 						<div className="filter-section margin-left">
 							<div>
 								<p className="select-header"> Hobbies </p>
-								<Select
+								<CreatableSelect
 									isMulti
 									className="filter-container"
 									options={options.hobbies}
@@ -203,7 +208,7 @@ class ProfilePage extends React.Component {
 							</div>
 							<div>
 								<p className="select-header"> Courses </p>
-								<Select
+								<CreatableSelect
 									isMulti
 									className="filter-container"
 									options={options.courses}
@@ -215,10 +220,11 @@ class ProfilePage extends React.Component {
 								/>
 							</div>
 						</div>
-						<br />
-						<br />
-						<br />
-						<br />
+						<div 
+							className="btn primary form-submit profile-save"
+						> 
+							Save 
+						</div>
 					</div>
 				</div>
 			</div>

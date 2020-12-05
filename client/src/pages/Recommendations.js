@@ -1,5 +1,6 @@
 import React from 'react';
 import Select from 'react-select';
+import CreatableSelect from 'react-select/creatable';
 import _ from 'lodash';
 
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
@@ -62,7 +63,9 @@ class RecommendationPage extends React.Component {
         this.getNextCourse = this.getNextCourse.bind(this);
         this.getPrevCourse = this.getPrevCourse.bind(this);
 
-        this.generateRecommendations();
+        setTimeout(() => {
+            this.generateRecommendations()
+        }, 1500);
 
     }
 
@@ -238,7 +241,7 @@ class RecommendationPage extends React.Component {
                     <p className='select-header'> Filter By: </p>
                     <div className="filter-section">
                         <div>
-                            <Select 
+                            <CreatableSelect 
                                 isMulti
                                 className="filter-container"
                                 options={options.hobbies} 
@@ -246,7 +249,7 @@ class RecommendationPage extends React.Component {
                             />
                         </div>
                         <div>
-                            <Select 
+                            <CreatableSelect 
                                 isMulti
                                 className="filter-container"
                                 options={options.courses} 
