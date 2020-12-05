@@ -16,6 +16,7 @@ import recommendations from "../utils/UserCardUtils";
 import options from "../utils/SignUpOptions";
 import { getChats } from "../actions/chatActions";
 import { getUsers } from "../actions/userActions";
+
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
@@ -79,12 +80,17 @@ class RecommendationPage extends React.Component {
 			this.props.user.users
 		);
 
+		// Adding await statements so we wait for the recommendations to be generated.
 		const recommendHobbies = this.recommender.generateRecommendations(
 			"hobbies"
 		);
 		const recommendCourses = this.recommender.generateRecommendations(
 			"courses"
 		);
+
+		for (let i = 0; i < recommendHobbies.length; i++) {
+			console.log(recommendHobbies[i]._id);
+		}
 
 		this.setState({
 			recommendHobbies,
@@ -273,6 +279,8 @@ class RecommendationPage extends React.Component {
 									.slice(this.state.interestCurrPage - 1)
 									.map((r) => (
 										<UserCard
+											key={r._id}
+											id={r._id}
 											avatar={
 												r.avatar
 													? r.avatar
@@ -325,8 +333,9 @@ class RecommendationPage extends React.Component {
 						<div className="carousel-wrapper">
 							{this.state.recommendCourses
 								.slice(this.state.coursesCurrPage - 1)
-								.map((r, idx) => (
+								.map((r) => (
 									<UserCard
+										key={r._id}
 										avatar={
 											r.avatar ? r.avatar : img_default
 										}
@@ -336,7 +345,6 @@ class RecommendationPage extends React.Component {
 										hobbies={r.hobbies}
 										rScore={r.rScore}
 										bio={r.bio}
-										key={idx}
 										showProfileModal={this.showProfileModal}
 									/>
 								))}
@@ -362,6 +370,9 @@ class RecommendationPage extends React.Component {
 RecommendationPage.propTypes = {
 	getChats: PropTypes.func.isRequired,
 	getUsers: PropTypes.func.isRequired,
+	addFriend: PropTypes.func.isRequired,
+	auth: PropTypes.object,
+	chats: PropTypes.object,
 	user: PropTypes.object,
 	error: PropTypes.object,
 };

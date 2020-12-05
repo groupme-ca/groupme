@@ -9,8 +9,6 @@ import {
 	ACCEPT_FRIEND_REQUEST_FAILURE,
 } from "./types";
 
-import findUser from "./userActions";
-
 // Start adding a friend.
 const getAddFriendStart = () => ({
 	type: ADD_FRIEND_START,
@@ -39,37 +37,101 @@ const getAcceptRequestSuccess = (user) => ({
  * @return 1 on success, 0 on failure.
  */
 export const addFriend = (id, friendId) => async (dispatch) => {
+	console.log("Getting called pls");
 	dispatch(getAddFriendStart());
 	// Get each of the users and make sure they exist
 	var sender;
 	var receiver;
 
-	sender = findUser(id, ADD_FRIEND_FAILURE);
-	receiver = findUser(friendId, ADD_FRIEND_FAILURE);
+	await axios
+		.get(`api/users/${id}`)
+		.then((res) => {
+			sender = res.data;
+			// console.log(sender);
+		})
+		.catch((err) => {
+			dispatch(
+				returnErrors(
+					err.response.data,
+					err.response.status,
+					ADD_FRIEND_FAILURE
+				)
+			);
+			dispatch({
+				type: ADD_FRIEND_FAILURE,
+			});
+			return null;
+		});
+	await axios
+		.get(`api/users/${friendId}`)
+		.then((res) => {
+			receiver = res.data;
+		})
+		.catch((err) => {
+			dispatch(
+				returnErrors(
+					err.response.data,
+					err.response.status,
+					ADD_FRIEND_FAILURE
+				)
+			);
+			dispatch({
+				type: ADD_FRIEND_FAILURE,
+			});
+			return null;
+		});
+
 	// If either the sender or receiver is not found, then return early indicating failure
 	if (!sender || !receiver) {
 		return 0;
 	}
 	// Modify the friend request arrays by adding the name and id of the respective user.
-	const frSent = {
-		friendRequestsSent: [
-			...sender.friendRequestsSent,
-			{
-				id: receiver.id,
-				name: receiver.name,
-			},
-		],
-	};
-	const frRec = {
-		friendRequestsReceived: [
-			...receiver.friendRequestsReceived,
-			{
-				id: sender.id,
-				name: sender.name,
-			},
-		],
-	};
 
+	let frSent;
+	let frRec;
+	if (!sender.friendRequestsSent) {
+		frSent = {
+			friendRequestsSent: [
+				{
+					id: receiver._id,
+					name: receiver.name,
+				},
+			],
+		};
+	} else {
+		frSent = {
+			friendRequestsSent: [
+				...sender.friendRequestsSent,
+				{
+					id: receiver._id,
+					name: receiver.name,
+				},
+			],
+		};
+	}
+	if (!receiver.friendRequestsRec) {
+		frRec = {
+			friendRequestsRec: [
+				{
+					id: sender._id,
+					name: sender.name,
+				},
+			],
+		};
+	} else {
+		frRec = {
+			friendRequestsRec: [
+				...receiver.friendRequestsRec,
+				{
+					id: sender._id,
+					name: sender.name,
+				},
+			],
+		};
+	}
+
+	console.log(frSent);
+	console.log(frRec);
 	// Add the friendId to the sender's friend requests sent
 	await axios
 		.patch(`/api/users/${id}`, frSent)
@@ -116,8 +178,43 @@ export const acceptRequest = (id, friendId) => async (dispatch) => {
 	var sender;
 	var receiver;
 	// Make sure both the users exist.
-	receiver = findUser(id, ADD_FRIEND_FAILURE);
-	sender = findUser(friendId, ADD_FRIEND_FAILURE);
+	await axios
+		.get(`api/users/${id}`)
+		.then((res) => {
+			receiver = res.data;
+		})
+		.catch((err) => {
+			dispatch(
+				returnErrors(
+					err.response.data,
+					err.response.status,
+					ADD_FRIEND_FAILURE
+				)
+			);
+			dispatch({
+				type: ADD_FRIEND_FAILURE,
+			});
+			return null;
+		});
+	await axios
+		.get(`api/users/${friendId}`)
+		.then((res) => {
+			sender = res.data;
+		})
+		.catch((err) => {
+			dispatch(
+				returnErrors(
+					err.response.data,
+					err.response.status,
+					ADD_FRIEND_FAILURE
+				)
+			);
+			dispatch({
+				type: ADD_FRIEND_FAILURE,
+			});
+			return null;
+		});
+
 	// If either the sender or receiver is not found, then return early indicating failure
 	if (!sender || !receiver) {
 		return 0;

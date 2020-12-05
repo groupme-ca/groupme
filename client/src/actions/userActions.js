@@ -19,20 +19,23 @@ export const getUsers = () => async (dispatch) => {
  * @param errType The type of error to dispatch if the request is not successful
  */
 export const findUser = (id, errType) => async (dispatch) => {
-	await axios
-		.get(`api/users/${id}`)
-		.then((res) => {
-			return res.data;
-		})
-		.catch((err) => {
-			dispatch(
-				returnErrors(err.response.data, err.response.status, errType)
-			);
-			dispatch({
-				type: errType,
-			});
-			return null;
-		});
+	// let usr;
+	// await axios
+	// 	.get(`api/users/${id}`)
+	// 	.then((res) => {
+	// 		usr = res.data;
+	// 	})
+	// 	.catch((err) => {
+	// 		dispatch(
+	// 			returnErrors(err.response.data, err.response.status, errType)
+	// 		);
+	// 		dispatch({
+	// 			type: errType,
+	// 		});
+	// 		usr = null;
+	// 	});
+	// console.log("This is in helper");
+	// return usr;
 };
 
 /**

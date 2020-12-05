@@ -33,7 +33,7 @@ const UserSchema = new Schema({
 		type: Array,
 		default: [],
 	},
-	friendRequestsRecieved: {
+	friendRequestsRec: {
 		type: Array,
 		default: [],
 	},
