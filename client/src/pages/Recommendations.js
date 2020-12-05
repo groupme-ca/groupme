@@ -257,9 +257,7 @@ class RecommendationPage extends React.Component {
                             />
                         </div>
                         <div className='btn primary sm'
-                            onClick={() => {
-                                console.log(this.state);
-                            }}
+                            
                         
                         > Filter </div>
                     </div>

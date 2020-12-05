@@ -13,7 +13,7 @@ export default function(state = initialState, action){
         case GET_CHATS:
             return {
                 ...state, 
-                chat: [...state.chat, action.payload].filter(cht => cht._id !== action.payload._id).concat([action.payload]), 
+                chat: [...state.chat, action.payload].filter(cht => cht._id !== action.payload._id).concat([action.payload]).sort(), 
                 loading: false
             };
 

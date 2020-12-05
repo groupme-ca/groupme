@@ -12,10 +12,13 @@ import { connect } from "react-redux";
 import { logoutUser } from "../actions/authActions";
 import PropTypes from "prop-types";
 import AddIcon from "@material-ui/icons/Add";
+import HomeIcon from '@material-ui/icons/Home';
 import "./SideBar.css";
 import logo from "../assets/img/logo.svg";
 //added these 2 actions to refresh the chat page
 import { startSwitch, endSwitch } from "../actions/messageActions";
+import CreateGroupModal from "../components/CreateGroupModal";
+
 
 import MyVerticallyCenteredModal from './FriendsModal';
 
@@ -26,6 +29,7 @@ class Sidebar extends React.Component {
 			activePage: this.props.activePage,
 			notifOpen: false,
 			showFriendModal: false,
+			showCreateGroupModal: false
 		};
 
 		this.clickHandler.bind(this);
@@ -38,8 +42,11 @@ class Sidebar extends React.Component {
 
 	clickHandler(id) { 
 		this.setState({activePage: id});
-		this.props.startSwitch();
-		this.props.endSwitch();
+		if (this.props.messages.loading === false) {
+			this.props.startSwitch();
+		} else {
+			this.props.endSwitch();
+		};
 	}
 
 	handleOnLogout = (e) => {
@@ -60,7 +67,6 @@ class Sidebar extends React.Component {
 					show={this.state.showFriendModal}
         			onHide={() => this.setState({ showFriendModal: false})}
 				/>
-
 				<div className="sidebar-head">
 					<Link to="/">
 						<img src={logo} width={56} />
@@ -84,6 +90,27 @@ class Sidebar extends React.Component {
 					</div>
 				</div>
 				<div className="sidebar-content">
+
+					<Link to="/home">
+						<div className="sidebar-tab">
+							<HomeIcon className="sidebar-img" />
+							<div
+								style={{
+									fontWeight:
+										this.state.activePage === "home"
+											? "700"
+											: "400",
+									color:
+										this.state.activePage === "home"
+											? "#333"
+											: "",
+								}}
+							>
+								Home
+							</div>
+						</div>
+					</Link>
+
 					<Link to="/profile">
 						<div className="sidebar-tab">
 							<AccountCircleIcon className="sidebar-img" />
@@ -128,13 +155,22 @@ class Sidebar extends React.Component {
 							<PowerSettingsNewIcon className="sidebar-img" />
 							<> Sign out </>
 						</div>
-					</Link>			
+					</Link>
+					<CreateGroupModal
+							show={this.state.showCreateGroupModal}
+						onHide={() => this.setState({ showCreateGroupModal: false})}
+						/>
+					
 					<div className="sidebar-header"> 
 						Rooms
-						<AddIcon className='add-icon'/> 
+						<AddIcon className='add-icon' onClick={(e) => {
+							this.setState({showCreateGroupModal: true});
+						}} /> 
+					
 					
 					</div>
-					<div className="chat-div">	
+					<div className="chat-div">
+					
 						{this.props.chats.chat.map((cht) => {
 							if (cht.name !== "") {
 								return (
@@ -199,6 +235,7 @@ const mapStateToProps = (state) => ({
 	auth: state.auth,
 	error: state.error,
 	chats: state.chats,
+	messages: state.messages
 });
 
 // This connect thing is required to make redux work, we add the different props that we need

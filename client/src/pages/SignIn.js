@@ -78,7 +78,7 @@ class SignInPage extends React.Component {
 				Sign In
 			</Link>
 		) : (
-			<Redirect to={"/welcome"} onload={this.handleOnLoad()} />
+			<Redirect to={"/home"} onload={this.handleOnLoad()} />
 		);
 		return (
 			<div className="onboarding-container">

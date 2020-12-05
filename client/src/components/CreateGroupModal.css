@@ -1,0 +1,167 @@
+@@ -0,0 +1,166 @@
+.modal-bg {
+    background: black;
+    opacity: 0.45;
+    width: 100vw;
+    height: 107vh;
+    position: absolute;
+    top: 0; left: 0;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.modal-container:focus {
+    outline: none;
+}
+
+.modal-selectors:hover {
+    cursor: pointer;
+}
+
+.modal-selectors {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.modal-container {
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    z-index: 2;
+
+    position: absolute;
+    top: 4vw;
+    left: 20vw;
+    width: 60vw;
+}
+
+.friend-modal-head {
+    width: 100%;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.modal-close-btn {
+    margin-left: 50vw;
+    width: 1.3em !important;
+    height: 1.3em !important;
+    color: #888;
+    cursor: pointer;
+    padding: 4px;
+}
+
+.modal-close-btn:hover {
+    background: rgba(204, 204, 204, 0.4);
+    border-radius: 50%;
+}
+
+.modal-profile-pic {
+    width: 10rem;
+    border-radius: 50%;
+}
+
+.modal-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-title {
+    margin: 8px 0;
+}
+
+.modal-bio {
+    width: 40vw;
+    margin: 0;
+}
+
+.tags-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    padding: 32px;
+    align-items: baseline;
+}
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 16px 0;
+}
+
+.tag {
+    color: #333;
+    background: #f0f0f0;
+    margin: 4px 8px 0 0;
+    padding: 6px;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.modal-btn {
+    width: 100px;
+    padding: 8px;
+    margin: 32px;
+    margin-top: 0;
+}
+
+.list-body {
+    margin: 0 32px;
+}
+
+.friend-list-entry {
+    display: flex;
+    align-items: center;
+    margin: 0 32px;
+    padding: 16px;
+    justify-content: space-between;
+}
+
+.friend-list-icon {
+    border-radius: 50%;
+}
+
+.friend-list-icon:hover {
+    cursor: pointer;
+}
+
+.friend-list-info > div > b:hover {
+    color: #ff914e;
+    cursor: pointer;
+}
+
+.friend-list-info {
+    display: flex;
+    align-items: start;
+    flex-direction: column;
+    margin-left: 32px;
+    width: 50vw;
+}
+
+.friend-accept-btn:hover
+.friend-cancel-btn:hover{
+    padding: 0 8px;
+}
+
+.friend-accept-btn  {
+    color: #8ae781;
+}
+
+.friend-accept-btn:hover,
+.friend-cancel-btn:hover{
+    cursor: pointer;
+}
+
+.friend-accept-btn:hover {
+    color: seagreen;
+}
+
+.friend-cancel-btn:hover{ 
+    color: #333;
+}
+
+.friend-cancel-btn {
+    color: #888;
+} 

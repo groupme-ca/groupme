@@ -8,7 +8,7 @@ import { useState, useEffect } from "react"
 
 import SendIcon from '@material-ui/icons/Send';
 
-const Chat = (state) => {
+const Chat = (state) => {    
     const days = ['sun', 'mon','tue', 'wed', 'thu', 'fri', 'sat' ]
     const id = window.location.pathname.slice(6);
     const [input, setInput] = useState("");
@@ -27,11 +27,22 @@ const Chat = (state) => {
             msgs = msgs.concat([msg]);
         }
     })
+    const scrollToBottom = () => {
+        var element = document.getElementById("chat-body"); 
+        if(element !==null && element !== undefined){
+            element.scrollTop = element.scrollHeight;
+        };
+    }
+
+    useEffect(() => {
+        scrollToBottom();
+    }, [state.messages.loading]);
 
     const sendMessage = (e) => {
         e.preventDefault();
         var date = new Date();
-        var time = date.getHours() + ":" + date.getMinutes() + " " + days[date.getDay()];
+        var day = date.getDate() + '-' + String(parseInt(date.getMonth())+1) + '-' + date.getFullYear();
+        var time = date.getHours() + ":" + date.getMinutes() + " " + days[date.getDay()] + ", " + day;
 
         const newMessage = {
             "chatId": id,
@@ -40,11 +51,10 @@ const Chat = (state) => {
             "timestamp": time
         };
 
-    
 
         state.sendMessage(newMessage)
         setInput('');
-
+        
     };
 
     return (
@@ -69,7 +79,7 @@ const Chat = (state) => {
 
                 </div>
             </div>
-            <div className="chat-body">
+            <div id="chat-body" className="chat-body">
                 {msgs.map((message) => (
                     <p className={message.sender === state.auth.user.name ? "chat-message" : "chat-receiver"}>
                         <span className="chat-name">{message.sender}</span>
