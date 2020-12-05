@@ -89,12 +89,17 @@ export const addFriend = (id, friendId) => async (dispatch) => {
 
 	let frSent;
 	let frRec;
+	// Going to store the Id, name, avatar, bio, hobbies and courses for future use.
 	if (!sender.friendRequestsSent) {
 		frSent = {
 			friendRequestsSent: [
 				{
 					id: receiver._id,
 					name: receiver.name,
+					avatar: receiver.avatar,
+					bio: receiver.bio,
+					hobbies: receiver.hobbies,
+					courses: receiver.courses,
 				},
 			],
 		};
@@ -105,6 +110,10 @@ export const addFriend = (id, friendId) => async (dispatch) => {
 				{
 					id: receiver._id,
 					name: receiver.name,
+					avatar: receiver.avatar,
+					bio: receiver.bio,
+					hobbies: receiver.hobbies,
+					courses: receiver.courses,
 				},
 			],
 		};
@@ -115,6 +124,10 @@ export const addFriend = (id, friendId) => async (dispatch) => {
 				{
 					id: sender._id,
 					name: sender.name,
+					avatar: sender.avatar,
+					bio: sender.bio,
+					hobbies: sender.hobbies,
+					courses: sender.courses,
 				},
 			],
 		};
@@ -125,6 +138,10 @@ export const addFriend = (id, friendId) => async (dispatch) => {
 				{
 					id: sender._id,
 					name: sender.name,
+					avatar: sender.avatar,
+					bio: sender.bio,
+					hobbies: sender.hobbies,
+					courses: sender.courses,
 				},
 			],
 		};
@@ -135,8 +152,8 @@ export const addFriend = (id, friendId) => async (dispatch) => {
 	// Add the friendId to the sender's friend requests sent
 	await axios
 		.patch(`/api/users/${id}`, frSent)
-		.then((usr) => {
-			sender = usr;
+		.then((res) => {
+			sender = res.data;
 		})
 		.catch((err) => {
 			dispatch(
@@ -221,13 +238,21 @@ export const acceptRequest = (id, friendId) => async (dispatch) => {
 	}
 	// construct the receiver and sender for searching.
 	const receiverInfo = {
-		id: receiver.id,
+		id: receiver._id,
 		name: receiver.name,
+		avatar: receiver.avatar,
+		bio: receiver.bio,
+		hobbies: receiver.hobbies,
+		courses: receiver.courses,
 	};
 
 	const senderInfo = {
-		id: sender.id,
+		id: sender._id,
 		name: sender.name,
+		avatar: sender.avatar,
+		bio: sender.bio,
+		hobbies: sender.hobbies,
+		courses: sender.courses,
 	};
 
 	// Modify the friendRequests arrays
@@ -287,8 +312,8 @@ export const acceptRequest = (id, friendId) => async (dispatch) => {
 
 		await axios
 			.patch(`/api/users/${id}`, friendsReceiver)
-			.then((usr) => {
-				receiver = usr;
+			.then((res) => {
+				receiver = res.data;
 			})
 			.catch((err) => {
 				dispatch(
