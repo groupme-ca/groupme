@@ -367,6 +367,7 @@ class RecommendationPage extends React.Component {
 RecommendationPage.propTypes = {
 	getChats: PropTypes.func.isRequired,
 	getUsers: PropTypes.func.isRequired,
+	user: PropTypes.object,
 	error: PropTypes.object,
 };
 
