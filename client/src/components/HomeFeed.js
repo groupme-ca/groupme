@@ -11,7 +11,12 @@ const HomeFeed = (state) => {
     var i;
     var msgs = Array.from(state.messages.messages);
     msgs.reverse();
-    var chts = Array.from(state.chats.chat);
+    var chats = Array.from(state.chats.chat);
+    var chts = [];
+    chats.forEach(e => {
+        chts[e._id] = e.name;                
+    });
+    console.log(chts, 'chat');
     
 
     //remove the if statement if we want to see messages sent by us
@@ -23,8 +28,8 @@ const HomeFeed = (state) => {
                         return (
                             <p className="home-message">
                                 <span className="home-name">{message.sender}  
-                                {chts.find(e => e._id === message.chatId).name !== '' ? 
-                                 ' from ' + chts.find(e => e._id === message.chatId).name 
+                                {chts[message.chatId] !== '' ? 
+                                 ' from ' + chts[message.chatId] 
                                  : ''}</span>
                                 {message.content}
                                 <span className="home-timestamp">{message.timestamp}</span>

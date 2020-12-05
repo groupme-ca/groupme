@@ -8,13 +8,27 @@ import "./CreateGroupModal.css";
 import { useState } from 'react';
 
 import CloseIcon from "@material-ui/icons/Close";
-
+import { createChat } from '../actions/chatActions'
 
 
 
 const CreateGroupModal = (state) => {
 
-    const [grpName, setGrpName] = useState('')
+    const [grpName, setGrpName] = useState('');
+    const [participants, setParticipants] = useState([{
+        uid: state.auth.user._id,
+        name: state.auth.user.name
+    }]);
+
+
+
+    const createGroup = () => {
+        const newChat = {
+            participants: participants,
+            name: grpName
+        }
+        state.createChat(newChat);
+    }
 
     return (
 
@@ -74,4 +88,4 @@ const mapStateToProps = (state, path) => ({
 
 // This connect thing is required to make redux work, we add the different props that we need
 // in the second parameter.
-export default connect(mapStateToProps, {})(CreateGroupModal);
+export default connect(mapStateToProps, { createChat })(CreateGroupModal);

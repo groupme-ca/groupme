@@ -195,7 +195,6 @@ class Sidebar extends React.Component {
 
 					<div className="sidebar-header"> 
 						Messages 
-						<AddIcon className='add-icon'/> 
 					</div>
 					<div className="chat-div">
 						{this.props.chats.chat.map((cht) => {

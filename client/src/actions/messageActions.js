@@ -20,10 +20,10 @@ export const endSwitch = () => {
 	};
 };
     
-export const sendMessage = (msg) => (dispatch) => {
+export const sendMessage = (msg) => async (dispatch) => {
     // dispatch(getChatStart());
     // This makes a GET request to our api route
-    axios
+    await axios
     .put(`/api/messages/new_msg`, msg)
     .then((res) => 
         dispatch({
@@ -32,10 +32,10 @@ export const sendMessage = (msg) => (dispatch) => {
     );                  
 };
 
-export const getMessages = (id) => (dispatch) => {
+export const getMessages = (id) => async (dispatch) => {
     // dispatch(getChatStart());
     // This makes a GET request to our api route
-    axios
+    await axios
     .get(`/api/messages/${id}`)
     .then((res) => {
         res.data.forEach(msg => {
