@@ -16,11 +16,6 @@ const getAddFriendStart = () => ({
 	type: ADD_FRIEND_START,
 });
 
-// Adding a friend was a failure.
-const getAddFriendFailure = () => ({
-	type: ADD_FRIEND_FAILURE,
-});
-
 // Adding a friend was a success.
 const getAddFriendSuccess = (user) => ({
 	type: ADD_FRIEND_SUCCESS,
@@ -30,11 +25,6 @@ const getAddFriendSuccess = (user) => ({
 // Start accepting a request
 const getAcceptRequestStart = () => ({
 	type: ACCEPT_FRIEND_REQUEST_START,
-});
-
-// Accepting a request was a failure
-const getAcceptRequestFailure = () => ({
-	type: ACCEPT_FRIEND_REQUEST_FAILURE,
 });
 
 // Accepting a request was a success
