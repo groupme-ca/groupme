@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle';
 import SearchIcon from "@material-ui/icons/Search";
 import PowerSettingsNewIcon from "@material-ui/icons/PowerSettingsNew";
 import MenuIcon from "@material-ui/icons/Menu";
@@ -19,14 +20,18 @@ import { startSwitch, endSwitch } from "../actions/messageActions";
 import CreateGroupModal from "../components/CreateGroupModal";
 
 
+import MyVerticallyCenteredModal from './FriendsModal';
+
 class Sidebar extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			activePage: this.props.activePage,
 			notifOpen: false,
+			showFriendModal: false,
 			showCreateGroupModal: false
 		};
+
 		this.clickHandler.bind(this);
 	}
 
@@ -57,7 +62,11 @@ class Sidebar extends React.Component {
 						<MenuIcon className="sidebar-img" />
 					</div>
 				</div>
-				
+
+				<MyVerticallyCenteredModal 
+					show={this.state.showFriendModal}
+        			onHide={() => this.setState({ showFriendModal: false})}
+				/>
 				<div className="sidebar-head">
 					<Link to="/">
 						<img src={logo} width={56} />
@@ -67,8 +76,13 @@ class Sidebar extends React.Component {
 						<SettingsIcon className="sidebar-img" />
 					</div>
 					<div className="sidebar-tab">
-						<NotificationsIcon
+						<SupervisedUserCircleIcon
 							className="sidebar-img"
+							onClick={(e) => {
+								this.setState({
+									showFriendModal: true
+								})
+							}}
 							style={{
 								color: this.state.notifOpen ? "#333" : "",
 							}}

@@ -6,7 +6,7 @@ import "./Chat.css";
 import { connect } from "react-redux";
 import { useState, useEffect } from "react"
 
-
+import SendIcon from '@material-ui/icons/Send';
 
 const Chat = (state) => {    
     const days = ['sun', 'mon','tue', 'wed', 'thu', 'fri', 'sat' ]
@@ -38,7 +38,7 @@ const Chat = (state) => {
         scrollToBottom();
     }, [state.messages.loading]);
 
-    const onClickHandler = (e) => {
+    const sendMessage = (e) => {
         e.preventDefault();
         var date = new Date();
         var day = date.getDate() + '-' + String(parseInt(date.getMonth())+1) + '-' + date.getFullYear();
@@ -56,6 +56,7 @@ const Chat = (state) => {
         setInput('');
         
     };
+
     return (
         <div className="chat">
             <div className="chat-header">
@@ -78,7 +79,7 @@ const Chat = (state) => {
 
                 </div>
             </div>
-            <div id="chat-body" className="chat-body" onLoad={scrollToBottom()}>
+            <div id="chat-body" className="chat-body">
                 {msgs.map((message) => (
                     <p className={message.sender === state.auth.user.name ? "chat-message" : "chat-receiver"}>
                         <span className="chat-name">{message.sender}</span>
@@ -90,10 +91,20 @@ const Chat = (state) => {
 
             <div className="chat-footer">
                 <form>
-                    <input value={input} onChange={e => setInput(e.target.value)}  placeholder="Type a message"
-                        type="text" />
-                    <button onClick={onClickHandler} type="submit">Send a message
-                    </button>
+                    <input 
+                        value={input} 
+                        onChange={e => setInput(e.target.value)} 
+                        placeholder="Type a message"
+                        onKeyPress={(e) => {
+                            if (e.key === "Enter") {
+                                sendMessage(e);
+                            }
+                        }}
+                        type="text" 
+                    />
+                        <button className="send-button" onClick={sendMessage} type="submit">
+                            <center>  <SendIcon className="send-icon" /> </center>
+                        </button>
                 </form>
             </div>
 

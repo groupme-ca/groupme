@@ -183,8 +183,8 @@ nav > .navitem > a {
 
 .sign-in-bg {
   bottom: 0;
-  top: 0;
-  right: -28vw;
+  top: -11vw;
+  right: -32vw;
   width: 150vw;
 }
 
@@ -374,22 +374,23 @@ nav > .navitem > a {
 }
 
 .edit-img-overlay {
-  position: absolute; 
-  bottom: 0; 
+  position: absolute;
   background: rgb(0, 0, 0);
-  background: rgba(0, 0, 0, 0.5); /* Black see-through */
-  color: #f1f1f1; 
-  width: 100%;
   transition: .5s ease;
-  opacity:0;
+  opacity: 0;
   color: white;
-  font-size: 20px;
-  padding: 20px;
+  margin: 16px;
   text-align: center;
+  width: 128px;
+  height: 128px;
+  border-radius: 50%;
+  display: grid;
+  align-items: center;
 }
 
 .edit-img-overlay:hover {
-  opacity:1;
+  opacity: 1;
+  cursor: pointer;
 }
 
 .profile-btn {

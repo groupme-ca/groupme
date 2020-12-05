@@ -21,8 +21,6 @@ class Recommender {
         this.courseMap = new Map();
         this.hobbiesMap = new Map();
 
-        
-
         return;
     }
 
@@ -32,11 +30,8 @@ class Recommender {
         let count = 0;
         for (let i = 0; i < v.length; i ++) {
             let entry = v[i];
-            if (!_map.has(entry)) {
-                _map.set(entry, entry)
-            }
-
-            else count += 1;
+            if (_map.has(entry)) 
+                count += 1;
         }
 
         return Math.round(100 * count / ((u.length + v.length)/2));
