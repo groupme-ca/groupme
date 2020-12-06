@@ -34,6 +34,7 @@ class MyVerticallyCenteredModal extends React.Component {
 		// This is for if we want to display errors in the future.
 		if (success) {
 			console.log("Accept Request successful");
+			// this.forceUpdate();
 		} else {
 			console.log("Accept Request Unsuccessful");
 		}
