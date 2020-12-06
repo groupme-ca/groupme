@@ -336,6 +336,7 @@ class RecommendationPage extends React.Component {
 								.map((r) => (
 									<UserCard
 										key={r._id}
+										id={r._id}
 										avatar={
 											r.avatar ? r.avatar : img_default
 										}
