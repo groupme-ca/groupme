@@ -25,42 +25,24 @@ const LiveChat = (state) => {
 		if (state.auth.user !== null) {
 			state.auth.user.ChatIds.forEach((id) => {
 				if (!(cid.includes(id))) {
-					channel = pusher.subscribe(id);
-					channel.bind("inserted", (data) => {
-						state.newMessage(data);
-						if (state.messages.loading === false) {
-							state.startSwitch();
-						} else {
-							state.endSwitch();
-						};
-					});
-					setCid([...cid, id]);
+					console.log(id, 'inside');
+					setTimeout(() => {
+						if (pusher.subscribe) {
+							channel = pusher.subscribe(id);
+						} else return;
+						channel.bind("inserted", (data) => {
+							state.newMessage(data);
+							if (state.messages.loading === false) {
+								state.startSwitch();
+							} else {
+								state.endSwitch();
+							};
+						});
+						setCid([...cid, id]);
+					}, 2000);	
 				};
 			});
-			// console.log(newChannel, 'newchannel');
-			// channels.forEach(ch =>{
-			// 	ch.unbind_all();
-			// 	ch.unsubscribe();
-			// })
-			// console.log("channel", channels);
-			// setChannels(newChannel);
-			// console.log("new", newChannel);
-
-
-			// console.log('channels', channels, channels.length);
 		}
-		// setChannels(["hello"]);
-		// console.log(channels, 'final');
-		// return() => {
-		//     channels.forEach(channel => {
-		//         channel.unbind_all();
-		//         channel.unsubscribe();
-		//     });
-		// console.log(channels);
-		// console.log("-");
-		// console.log(channels);
-
-		//};
 	}, [state.chats]);
 
 	return null;

@@ -105,11 +105,11 @@ export const loginUser = (user) => async (dispatch) => {
  * On success, dispatches user loaded and sends the token and user data
  * On failure, dispatches auth error and sends the errors to the error reducer.
  */
-export const loadUser = () => (dispatch, getState) => {
+export const loadUser = () => async (dispatch, getState) => {
 	// User loading
 	dispatch({ type: USER_LOADING });
 
-	axios
+	await axios
 		.get("/api/auth/user", tokenConfig(getState))
 		.then((res) => {
 			dispatch(clearErrors);
@@ -129,7 +129,8 @@ export const loadUser = () => (dispatch, getState) => {
 };
 
 /**
- * Logout the user, this clears all of the current user information from the state.
+ * Logout the user, this clears all of the user information from the auth state.
+ * Also resets all of the redux states back to initialState.
  */
 export const logoutUser = () => (dispatch) => {
 	dispatch({ type: LOGOUT });

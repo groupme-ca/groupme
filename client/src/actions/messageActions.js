@@ -18,31 +18,26 @@ export const endSwitch = () => {
 		type: END_SWITCH,
 	};
 };
-    
+
 export const sendMessage = (msg) => async (dispatch) => {
-    // dispatch(getChatStart());
-    // This makes a GET request to our api route
-    await axios
-    .put(`/api/messages/new_msg`, msg)
-    .then((res) => 
-        dispatch({
-            type: SEND_MESSAGE,
-        })
-    );                  
+	// dispatch(getChatStart());
+	// This makes a GET request to our api route
+	await axios.put(`/api/messages/new_msg`, msg).then((res) =>
+		dispatch({
+			type: SEND_MESSAGE,
+		})
+	);
 };
 
 export const getMessages = (id) => async (dispatch) => {
-    // dispatch(getChatStart());
-    // This makes a GET request to our api route
-    await axios
-    .get(`/api/messages/${id}`)
-    .then((res) => {
-        res.data.forEach(msg => {
-            dispatch(
-                {
-                    type: NEW_MESSAGE,
-                    payload: msg, 
-            });
-        });
-    });                 
+	// dispatch(getChatStart());
+	// This makes a GET request to our api route
+	await axios.get(`/api/messages/${id}`).then((res) => {
+		res.data.forEach((msg) => {
+			dispatch({
+				type: NEW_MESSAGE,
+				payload: msg,
+			});
+		});
+	});
 };

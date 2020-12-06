@@ -73,8 +73,14 @@ class RecommendationPage extends React.Component {
 		await this.props.getUsers();
 		this.recommender = new Recommender(
 			{
-				hobbies: this.props.auth.user.hobbies,
-				courses: this.props.auth.user.courses,
+				hobbies:
+					this.props.auth.user && this.props.auth.user.hobbies
+						? this.props.auth.user.hobbies
+						: [],
+				courses:
+					this.props.auth.user && this.props.auth.user.courses
+						? this.props.auth.user.courses
+						: [],
 				email: this.props.auth.user.email,
 			},
 			this.props.user.users
@@ -87,10 +93,6 @@ class RecommendationPage extends React.Component {
 		const recommendCourses = this.recommender.generateRecommendations(
 			"courses"
 		);
-
-		for (let i = 0; i < recommendHobbies.length; i++) {
-			console.log(recommendHobbies[i]._id);
-		}
 
 		this.setState({
 			recommendHobbies,
@@ -336,6 +338,7 @@ class RecommendationPage extends React.Component {
 								.map((r) => (
 									<UserCard
 										key={r._id}
+										id={r._id}
 										avatar={
 											r.avatar ? r.avatar : img_default
 										}

@@ -65,7 +65,7 @@ export default function (state = initialState, action) {
 		case ACCEPT_FRIEND_REQUEST_SUCCESS:
 			return {
 				...state,
-				user: action.payload,
+				...action.payload,
 				loading: false,
 			};
 		default:

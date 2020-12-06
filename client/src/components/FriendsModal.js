@@ -19,26 +19,25 @@ class MyVerticallyCenteredModal extends React.Component {
 		super(props);
 		this.state = {
 			friends: true,
-			friendd: true,
 			reqIncoming: false,
 			reqPending: false,
 		};
 	}
-
-	// componentDidMount(props) {
-	// 	this.setState = {
-	// 		friends: true,
-	// 		reqIncoming: false,
-	// 		reqPending: false,
-	// 	};
-	// }
-	// const [friends, showFriends] = useState(true); // change to Redux later
-	// const [reqIncoming, showIncoming] = useState(false); // change to Redux later
-	// const [reqPending, showPending] = useState(false); // change to Redux later
-
-	// const exampleHas = frens.hobbies.slice(0, 3);
-	// const exampleInc = frens.courses;
-	// const examplePend = frens.hobbies.slice(4);
+	async handleOnAcceptRequest(friendId) {
+		if (!this.props.auth.user) {
+			return;
+		}
+		const success = await this.props.acceptRequest(
+			this.props.auth.user._id,
+			friendId
+		);
+		// This is for if we want to display errors in the future.
+		if (success) {
+			console.log("Accept Request successful");
+		} else {
+			console.log("Accept Request Unsuccessful");
+		}
+	}
 	swapMode(mode) {
 		if (mode === "friends") {
 			this.setState({
@@ -119,7 +118,7 @@ class MyVerticallyCenteredModal extends React.Component {
 						))}
 					</center>
 				);
-			} else if (this.state.reqIncoming) {
+			} else if (this.state.reqIncoming && this.props.auth.user) {
 				return (
 					<center>
 						{this.props.auth.user.friendRequestsRec.map((f) => (
@@ -140,7 +139,12 @@ class MyVerticallyCenteredModal extends React.Component {
 									<div> {f.bio} </div>
 								</div>
 
-								<div className="friend-accept-btn">
+								<div
+									className="friend-accept-btn"
+									onClick={() =>
+										this.handleOnAcceptRequest(f.id)
+									}
+								>
 									{" "}
 									<CheckIcon />{" "}
 								</div>
@@ -152,7 +156,7 @@ class MyVerticallyCenteredModal extends React.Component {
 						))}
 					</center>
 				);
-			} else if (this.state.reqPending) {
+			} else if (this.state.reqPending && this.props.auth.user) {
 				return (
 					<center>
 						{this.props.auth.user.friendRequestsSent.map((f) => (
