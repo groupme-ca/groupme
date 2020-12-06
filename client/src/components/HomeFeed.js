@@ -16,7 +16,6 @@ const HomeFeed = (state) => {
     chats.forEach(e => {
         chts[e._id] = e.name;                
     });
-    console.log(chts, 'chat');
     
 
     //remove the if statement if we want to see messages sent by us
