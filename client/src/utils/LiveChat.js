@@ -26,16 +26,20 @@ const LiveChat = (state) => {
 			state.auth.user.ChatIds.forEach((id) => {
 				if (!(cid.includes(id))) {
 					console.log(id, 'inside');
-					channel = pusher.subscribe(id);
-					channel.bind("inserted", (data) => {
-						state.newMessage(data);
-						if (state.messages.loading === false) {
-							state.startSwitch();
-						} else {
-							state.endSwitch();
-						};
-					});
-					setCid([...cid, id]);
+					setTimeout(() => {
+						if (pusher.subscribe) {
+							channel = pusher.subscribe(id);
+						} else return;
+						channel.bind("inserted", (data) => {
+							state.newMessage(data);
+							if (state.messages.loading === false) {
+								state.startSwitch();
+							} else {
+								state.endSwitch();
+							};
+						});
+						setCid([...cid, id]);
+					}, 2000);	
 				};
 			});
 		}

@@ -79,6 +79,8 @@ class SignUpPage extends React.Component {
 				stage: 3,
 			});
 		}
+
+		this.setState({ loading: false });
 	};
 
 	authenticate() {
