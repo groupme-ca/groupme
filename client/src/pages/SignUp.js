@@ -58,6 +58,7 @@ class SignUpPage extends React.Component {
 
 		if (this.state.stage === 1 && !this.authenticate()) {
 			this.setState({
+				loading: false,
 				stage: 2,
 				nextPage: "/welcome",
 			});
@@ -74,27 +75,19 @@ class SignUpPage extends React.Component {
 			// Call the action to add the user.
 			await this.props.registerUser(newUser);
 			this.setState({
+				loading: false,
 				stage: 3,
 			});
 		}
 
-		setTimeout(() => {
-			this.setState({
-				loading: false,
-			});
-		}, 500);
+		// setTimeout(() => {
+		// 	this.setState({
+		// 		loading: false,
+		// 	});
+		// }, 500);
 	};
-	/**
-	 * For now, this will just check for hardcoded values
-	 */
+
 	authenticate() {
-		/**
-		 * We input our placeholder logic for now
-		 *
-		 *      Strip spaces on the right for each field.
-		 *      Check for valid email (@mail.utoronto.ca)
-		 *
-		 */
 		let name = this.state.Name;
 		let email = this.state.Email;
 		let password = this.state.Password;
@@ -130,7 +123,7 @@ class SignUpPage extends React.Component {
 			else this.setState({ MailError: false });
 
 			if (!valid_password) this.setState({ PasswordError: true });
-			else this.setState({ PasswordError: true });
+			else this.setState({ PasswordError: false });
 
 			this.setState({
 				error:
@@ -192,7 +185,7 @@ class SignUpPage extends React.Component {
 				</Link>
 			);
 		} else if (
-			this.props.auth.user.friends &&
+			this.props.auth &&
 			this.props.auth.authenticated &&
 			this.state === 3
 		) {

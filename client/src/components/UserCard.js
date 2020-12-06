@@ -43,31 +43,35 @@ class UserCard extends React.Component {
 				profileView: false,
 			});
 		}
-		let userFriends = this.props.auth.user.friends;
-		let userFRSent = this.props.auth.user.friendRequestsSent;
-		// Check if this friend Id is already a friend of the user or that the request has been sent
+		try {
+			let userFriends = this.props.auth.user.friends;
+			let userFRSent = this.props.auth.user.friendRequestsSent;
+			// Check if this friend Id is already a friend of the user or that the request has been sent
 
-		let i;
-		// If this card is already a friend, then set the requestSent to be true.
-		for (i = 0; i < userFriends.length; i++) {
-			if (userFriends[i].id === this.props.id) {
-				this.setState({
-					requestSent: true,
-				});
-				break;
+			let i;
+			// If this card is already a friend, then set the requestSent to be true.
+			for (i = 0; i < userFriends.length; i++) {
+				if (userFriends[i].id === this.props.id) {
+					this.setState({
+						requestSent: true,
+					});
+					break;
+				}
 			}
-		}
-		if (this.state.requestSent) {
-			return;
-		}
-		// If this card has already been sent a request, set the requeseSent to be true.
-		for (i = 0; i < userFRSent.length; i++) {
-			if (userFRSent[i].id === this.props.id) {
-				this.setState({
-					requestSent: true,
-				});
-				break;
+			if (this.state.requestSent) {
+				return;
 			}
+			// If this card has already been sent a request, set the requeseSent to be true.
+			for (i = 0; i < userFRSent.length; i++) {
+				if (userFRSent[i].id === this.props.id) {
+					this.setState({
+						requestSent: true,
+					});
+					break;
+				}
+			}
+		} catch (err) {
+			console.log(err);
 		}
 	}
 
