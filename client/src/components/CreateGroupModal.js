@@ -6,7 +6,7 @@ import Select from 'react-select';
 import frens from '../utils/UserCardUtils';
 
 import "./CreateGroupModal.css";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import CloseIcon from "@material-ui/icons/Close";
 import { createChat, chatEndSwitch, chatStartSwitch } from '../actions/chatActions';
@@ -15,18 +15,28 @@ import { loadUser } from '../actions/authActions';
 
 
 const CreateGroupModal = (state) => {
-    const users = Array.from(state.user.users);
-    const me = {
-        uid: state.auth.user._id,
-        name: state.auth.user.name
-    };
     const [grpName, setGrpName] = useState('');
-    const [participants, setParticipants] = useState([me]);
+    const [participants, setParticipants] = useState([]);
+    const [users, setUsers] = useState([]);
+    const [me, setMe] = useState({});
+    const [friends, setFriends] = useState([])
+    useEffect(() => {
+        if (state.auth.user !== null){
+            console.log(state, 'timeout op?');
+            setUsers(Array.from(state.user.users));
+            setMe({
+                uid: state.auth.user._id,
+                name: state.auth.user.name
+            });
+            setParticipants([me]);
+            Array.from(state.auth.user.friends).forEach((f) => {
+                setFriends([...friends, {value: f.uid,  label: f.name}]);
+            });
+        }
+    }, [state.auth.user]);  
+
     
-    const friends = [];
-    Array.from(state.auth.user.friends).forEach((f) => {
-        friends.push({value: f.uid,  label: f.name});
-    })
+
 
     const handleOnSelect = (f) => {
         const newf = [];
