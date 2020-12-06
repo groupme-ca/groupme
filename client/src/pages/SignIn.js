@@ -9,7 +9,7 @@ import { loginUser } from "../actions/authActions";
 import { findUser, getUsers } from "../actions/userActions";
 import { getChats } from "../actions/chatActions";
 import PropTypes from "prop-types";
-import bgImage from "../assets/img/Untitled\ design.png";
+import bgImage from "../assets/img/Untitled design.png";
 import { getMessages } from "../actions/messageActions";
 
 const formFields = ["Email", "Password"];
@@ -93,48 +93,49 @@ class SignInPage extends React.Component {
 				<div>
 					<div className="form-container">
 						<div className="form-fields">
-
 							<div className="form-row">
 								<label> Email </label>
-								<input 
-									name="Email" 
-									onChange={this.formEvent} 
+								<input
+									name="Email"
+									onChange={this.formEvent}
 									onKeyPress={(e) => {
-										if (e.key === 'Enter') {
-											this.handleOnNext()
+										if (e.key === "Enter") {
+											this.handleOnNext();
 										}
 									}}
-								/> 
+								/>
 							</div>
 
 							<div className="form-row">
 								<label> Password </label>
-								<input 
+								<input
 									name="Password"
-									type="password" 
-									onChange={this.formEvent} 
+									type="password"
+									onChange={this.formEvent}
 									onKeyPress={(e) => {
-										if (e.key === 'Enter') {
-											this.handleOnNext()
+										if (e.key === "Enter") {
+											this.handleOnNext();
 										}
 									}}
-								/> 
+								/>
 							</div>
 
 							<div>
-								<Link 
-									to={this.state.forgotPassword} 
+								<Link
+									to={this.state.forgotPassword}
 									onClick={this.handleForgotPassword}
 								>
 									I forgot my password
 								</Link>
 							</div>
 
-							<div className='onboarding-err'>
-								<br/> <br/>
-								{(this.state.error) ?
-									(<label> {this.state.error} </label>) : ''
-								}
+							<div className="onboarding-err">
+								<br /> <br />
+								{this.state.error ? (
+									<label> {this.state.error} </label>
+								) : (
+									""
+								)}
 							</div>
 						</div>
 					</div>
@@ -170,6 +171,10 @@ const mapStateToProps = (state) => ({
 
 // This connect thing is required to make redux work, we add the different props that we need
 // in the second parameter.
-export default connect(mapStateToProps, { getMessages, findUser, getChats, loginUser, getUsers })(
-	SignInPage
-);
+export default connect(mapStateToProps, {
+	getMessages,
+	findUser,
+	getChats,
+	loginUser,
+	getUsers,
+})(SignInPage);
