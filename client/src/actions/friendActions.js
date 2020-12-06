@@ -96,7 +96,7 @@ export const addFriend = (id, friendId) => async (dispatch) => {
 				{
 					id: receiver._id,
 					name: receiver.name,
-					avatar: receiver.avatar,
+					// avatar: receiver.avatar,
 					bio: receiver.bio,
 					hobbies: receiver.hobbies,
 					courses: receiver.courses,
@@ -110,7 +110,7 @@ export const addFriend = (id, friendId) => async (dispatch) => {
 				{
 					id: receiver._id,
 					name: receiver.name,
-					avatar: receiver.avatar,
+					// avatar: receiver.avatar,
 					bio: receiver.bio,
 					hobbies: receiver.hobbies,
 					courses: receiver.courses,
@@ -124,7 +124,7 @@ export const addFriend = (id, friendId) => async (dispatch) => {
 				{
 					id: sender._id,
 					name: sender.name,
-					avatar: sender.avatar,
+					// avatar: sender.avatar,
 					bio: sender.bio,
 					hobbies: sender.hobbies,
 					courses: sender.courses,
@@ -138,7 +138,7 @@ export const addFriend = (id, friendId) => async (dispatch) => {
 				{
 					id: sender._id,
 					name: sender.name,
-					avatar: sender.avatar,
+					// avatar: sender.avatar,
 					bio: sender.bio,
 					hobbies: sender.hobbies,
 					courses: sender.courses,
@@ -240,7 +240,7 @@ export const acceptRequest = (id, friendId) => async (dispatch) => {
 	const receiverInfo = {
 		id: receiver._id,
 		name: receiver.name,
-		avatar: receiver.avatar,
+		// avatar: receiver.avatar,
 		bio: receiver.bio,
 		hobbies: receiver.hobbies,
 		courses: receiver.courses,
@@ -249,7 +249,7 @@ export const acceptRequest = (id, friendId) => async (dispatch) => {
 	const senderInfo = {
 		id: sender._id,
 		name: sender.name,
-		avatar: sender.avatar,
+		// avatar: sender.avatar,
 		bio: sender.bio,
 		hobbies: sender.hobbies,
 		courses: sender.courses,
@@ -257,12 +257,26 @@ export const acceptRequest = (id, friendId) => async (dispatch) => {
 
 	// Modify the friendRequests arrays
 	let frSent = sender.friendRequestsSent;
-	let frRec = receiver.friendRequestsReceived;
-	let recIndex = frSent.findIndex(receiverInfo);
-	let sendIndex = frRec.findIndex(senderInfo);
+	let frRec = receiver.friendRequestsRec;
+	if (frSent) {
+	}
+	let recIndex = frSent.findIndex((el) => {
+		return el.id === receiverInfo.id;
+	});
+	let sendIndex = frRec.findIndex((el) => {
+		return el.id === senderInfo.id;
+	});
 
 	// If either of the ids are not present, then return 0 for failure
 	if (recIndex < 0 || sendIndex < 0) {
+		console.log("Friend Request Sent:");
+		console.log(frSent);
+		// console.log(receiverInfo);
+		console.log(recIndex);
+		console.log("Friend Request Rec:");
+		console.log(frRec);
+		// console.log(senderInfo);
+		console.log(sendIndex);
 		dispatch(
 			returnErrors(
 				"The user's friend request does not exist",
@@ -283,8 +297,12 @@ export const acceptRequest = (id, friendId) => async (dispatch) => {
 	let friendsReceiver = receiver.friends;
 
 	// Assert that they are not already friends
-	recIndex = friendsSender.findIndex(receiverInfo);
-	sendIndex = friendsReceiver.findIndex(senderInfo);
+	recIndex = friendsSender.findIndex((el) => {
+		return el.id === receiverInfo.id;
+	});
+	sendIndex = friendsReceiver.indexOf((el) => {
+		return el.id === senderInfo.id;
+	});
 
 	// If receiver is not in the sender's friends list
 	if (recIndex < 0) {
@@ -292,7 +310,10 @@ export const acceptRequest = (id, friendId) => async (dispatch) => {
 		friendsSender = [...friendsSender, receiverInfo];
 
 		await axios
-			.patch(`/api/users/${friendId}`, friendsSender)
+			.patch(`/api/users/${friendId}`, {
+				friends: friendsSender,
+				friendRequestsSent: frSent,
+			})
 			.catch((err) => {
 				dispatch(
 					returnErrors(
@@ -311,7 +332,10 @@ export const acceptRequest = (id, friendId) => async (dispatch) => {
 		friendsReceiver = [...friendsReceiver, senderInfo];
 
 		await axios
-			.patch(`/api/users/${id}`, friendsReceiver)
+			.patch(`/api/users/${id}`, {
+				friends: friendsReceiver,
+				friendRequestsRec: frRec,
+			})
 			.then((res) => {
 				receiver = res.data;
 			})
@@ -327,6 +351,7 @@ export const acceptRequest = (id, friendId) => async (dispatch) => {
 			});
 	}
 	// If it reaches here, then adding a friend was successful
+	console.log(receiver.friends);
 	dispatch(clearErrors());
 	dispatch(getAcceptRequestSuccess(receiver));
 	return 1;
