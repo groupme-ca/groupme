@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import Select from "react-select";
 import CreatableSelect from "react-select/creatable";
 import options from "../utils/SignUpOptions";
@@ -53,11 +53,12 @@ class SignUpPage extends React.Component {
 		this.setState({ courses: selectedOptions });
 	};
 
-	handleOnNext = (e) => {
+	handleOnNext = async (e) => {
 		this.setState({ loading: true });
 
 		if (this.state.stage === 1 && !this.authenticate()) {
 			this.setState({
+				loading: false,
 				stage: 2,
 				nextPage: "/welcome",
 			});
@@ -72,26 +73,15 @@ class SignUpPage extends React.Component {
 				courses: this.state.courses,
 			};
 			// Call the action to add the user.
-			this.props.registerUser(newUser);
-		}
-
-		setTimeout(() => {
+			await this.props.registerUser(newUser);
 			this.setState({
 				loading: false,
+				stage: 3,
 			});
-		}, 500);
+		}
 	};
-	/**
-	 * For now, this will just check for hardcoded values
-	 */
+
 	authenticate() {
-		/**
-		 * We input our placeholder logic for now
-		 *
-		 *      Strip spaces on the right for each field.
-		 *      Check for valid email (@mail.utoronto.ca)
-		 *
-		 */
 		let name = this.state.Name;
 		let email = this.state.Email;
 		let password = this.state.Password;
@@ -127,7 +117,7 @@ class SignUpPage extends React.Component {
 			else this.setState({ MailError: false });
 
 			if (!valid_password) this.setState({ PasswordError: true });
-			else this.setState({ PasswordError: true });
+			else this.setState({ PasswordError: false });
 
 			this.setState({
 				error:
@@ -171,6 +161,31 @@ class SignUpPage extends React.Component {
 	}
 
 	render() {
+		let SignUpLink = <div className="loading-wheel" />;
+		if (this.state.loading) {
+			SignUpLink = <div className="loading-wheel" />;
+		} else if (
+			this.state.stage !== 3 ||
+			!this.props.auth.authenticated ||
+			!this.props.auth.user
+		) {
+			SignUpLink = (
+				<Link
+					to={this.state.nextPage}
+					className="btn primary md form-submit"
+					onClick={this.handleOnNext}
+				>
+					{this.state.stage === 1 ? "Next" : "Sign Up"}
+				</Link>
+			);
+		} else if (
+			this.props.auth &&
+			this.props.auth.authenticated &&
+			this.state === 3
+		) {
+			SignUpLink = <Redirect to={"/welcome"} />;
+		}
+
 		return (
 			<div>
 				<Link to="/">
@@ -261,17 +276,7 @@ class SignUpPage extends React.Component {
 						</div>
 					</div>
 				)}
-				{this.state.loading ? (
-					<div className="loading-wheel" />
-				) : (
-					<Link
-						to={this.state.nextPage}
-						className="btn primary md form-submit"
-						onClick={this.handleOnNext}
-					>
-						{this.state.stage === 1 ? "Next" : "Sign Up"}
-					</Link>
-				)}
+				{SignUpLink}
 			</div>
 		);
 	}

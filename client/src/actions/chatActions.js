@@ -1,4 +1,4 @@
-import axios from "../axios";
+import axios from "axios";
 import { GET_CHATS, CHAT_END_SWITCH, CHAT_START_SWITCH } from "./types";
 
 // const getChatSuccess = (chats) => ({

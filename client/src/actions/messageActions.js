@@ -1,4 +1,4 @@
-import axios from "../axios";
+import axios from "axios";
 import { NEW_MESSAGE, SEND_MESSAGE, START_SWITCH, END_SWITCH } from "./types";
 
 export const newMessage = (msg) => (dispatch) => {

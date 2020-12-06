@@ -1,175 +1,265 @@
-import Modal from 'react-bootstrap/Modal';
-import Button from 'react-bootstrap/Button';
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
 
-import frens from '../utils/UserCardUtils';
+import frens from "../utils/UserCardUtils";
 
-import "./FriendModal.css"
-import { useState } from 'react';
-
+import "./FriendModal.css";
+// import { useState } from "react";
+import React from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { acceptRequest } from "../actions/friendActions";
+import img_default from "../assets/img/default.png";
 import CloseIcon from "@material-ui/icons/Close";
-import BlockIcon from '@material-ui/icons/Block';
-import CheckIcon from '@material-ui/icons/Check';
+import BlockIcon from "@material-ui/icons/Block";
+import CheckIcon from "@material-ui/icons/Check";
 
-function MyVerticallyCenteredModal(props) {
+class MyVerticallyCenteredModal extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			friends: true,
+			reqIncoming: false,
+			reqPending: false,
+		};
+	}
+	async handleOnAcceptRequest(friendId) {
+		if (!this.props.auth.user) {
+			return;
+		}
+		const success = await this.props.acceptRequest(
+			this.props.auth.user._id,
+			friendId
+		);
+		// This is for if we want to display errors in the future.
+		if (success) {
+			console.log("Accept Request successful");
+		} else {
+			console.log("Accept Request Unsuccessful");
+		}
+	}
+	swapMode(mode) {
+		if (mode === "friends") {
+			this.setState({
+				friends: true,
+				reqIncoming: false,
+				reqPending: false,
+			});
+		} else if (mode === "reqIncoming") {
+			this.setState({
+				friends: false,
+				reqIncoming: true,
+				reqPending: false,
+			});
+		} else if (mode === "reqPending") {
+			this.setState({
+				friends: false,
+				reqIncoming: false,
+				reqPending: true,
+			});
+		}
+	}
 
-    const [friends, showFriends] = useState(true); // change to Redux later
-    const [reqIncoming, showIncoming] = useState(false); // change to Redux later
-    const [reqPending, showPending] = useState(false); // change to Redux later
+	render() {
+		const getSelectorStyling = (mode) => {
+			if (mode === "friends") {
+				return {
+					color: `${this.state.friends ? "#ff914e" : "#333"}`,
+					borderBottom: `${
+						this.state.friends ? "2px solid #ff914e" : "none"
+					}`,
+					fontWeight: 700,
+				};
+			}
 
-    const exampleHas = frens.hobbies.slice(0,3);
-    const exampleInc = frens.courses;
-    const examplePend = frens.hobbies.slice(4);
+			if (mode === "reqIncoming") {
+				return {
+					color: `${this.state.reqIncoming ? "#ff914e" : "#333"}`,
+					borderBottom: `${
+						this.state.reqIncoming ? "2px solid #ff914e" : "none"
+					}`,
+					fontWeight: 700,
+				};
+			}
 
-    const getSelectorStyling = (mode) => {
-        if (mode === "friends") {
-            return {
-                color: `${friends ? "#ff914e" : "#333"}`,
-                borderBottom: `${friends ? "2px solid #ff914e" : "none"}`,
-                fontWeight: 700,
-            }
-        }
+			if (mode === "reqPending") {
+				return {
+					color: `${this.state.reqPending ? "#ff914e" : "#333"}`,
+					borderBottom: `${
+						this.state.reqPending ? "2px solid #ff914e" : "none"
+					}`,
+					fontWeight: 700,
+				};
+			}
+		};
 
-        if (mode === "reqIncoming") {
-            return {
-                color: `${reqIncoming ? "#ff914e" : "#333"}`,
-                borderBottom: `${reqIncoming ? "2px solid #ff914e" : "none"}`,
-                fontWeight: 700,
-            }
-        }
+		const renderSelectedList = () => {
+			if (this.state.friends && this.props.auth.user) {
+				return (
+					<center>
+						{this.props.auth.user.friends.map((f) => (
+							<div className="friend-list-entry">
+								<img
+									src={f.avatar ? f.avatar : img_default}
+									alt={f.name}
+									height="48"
+									width="48"
+									className="friend-list-icon"
+								/>
 
-        if (mode === "reqPending") {
-            return {
-                color: `${reqPending ? "#ff914e" : "#333"}`,
-                borderBottom: `${reqPending ? "2px solid #ff914e" : "none"}`,
-                fontWeight: 700,
-            }
-        }
-    }
+								<div className="friend-list-info">
+									<div>
+										{" "}
+										<b> {f.name} </b>{" "}
+									</div>
+									<div> {f.bio} </div>
+								</div>
+							</div>
+						))}
+					</center>
+				);
+			} else if (this.state.reqIncoming && this.props.auth.user) {
+				return (
+					<center>
+						{this.props.auth.user.friendRequestsRec.map((f) => (
+							<div className="friend-list-entry">
+								<img
+									src={f.avatar ? f.avatar : img_default}
+									alt={f.name}
+									height="48"
+									width="48"
+									className="friend-list-icon"
+								/>
 
-    const renderSelectedList = (mode) => {
-        if (friends) {
-            return (
-                <center>
-                    {exampleHas.map((f) => (
-                        <div className="friend-list-entry"> 
-                            <img src={f.avatar} height="48" width="48" className="friend-list-icon" />
-                            
-                            <div className="friend-list-info">
-                                <div> <b> {f.name} </b> </div>
-                                <div> {f.bio} </div>
-                            </div>
-                        </div>
-                    ))}
-                </center>
-            );
-        }
+								<div className="friend-list-info">
+									<div>
+										{" "}
+										<b> {f.name} </b>{" "}
+									</div>
+									<div> {f.bio} </div>
+								</div>
 
-        
-        else if (reqIncoming) {
-            return (
-                <center>
-                    {exampleInc.map((f) => (
-                        <div className="friend-list-entry"> 
-                            <img src={f.avatar} height="48" width="48" className="friend-list-icon" />
-                            
-                            <div className="friend-list-info">
-                                <div> <b> {f.name} </b> </div>
-                                <div> {f.bio} </div>
-                            </div>
+								<div
+									className="friend-accept-btn"
+									onClick={() =>
+										this.handleOnAcceptRequest(f.id)
+									}
+								>
+									{" "}
+									<CheckIcon />{" "}
+								</div>
+								<div className="friend-cancel-btn">
+									{" "}
+									<BlockIcon />{" "}
+								</div>
+							</div>
+						))}
+					</center>
+				);
+			} else if (this.state.reqPending && this.props.auth.user) {
+				return (
+					<center>
+						{this.props.auth.user.friendRequestsSent.map((f) => (
+							<div className="friend-list-entry">
+								<img
+									src={f.avatar ? f.avatar : img_default}
+									alt={f.name}
+									height="48"
+									width="48"
+									className="friend-list-icon"
+								/>
 
-                            <div className="friend-accept-btn"> <CheckIcon /> </div>
-                            <div className="friend-cancel-btn"> <BlockIcon /> </div>
-                        </div>
-                    ))}
-                </center>
-            );
-        }
-        
-        else if (reqPending) {
-            return (
-                <center>
-                    {examplePend.map((f) => (
-                        <div className="friend-list-entry"> 
-                            <img src={f.avatar} height="48" width="48" className="friend-list-icon" />
-                            
-                            <div className="friend-list-info">
-                                <div> <b> {f.name} </b> </div>
-                                <div> {f.bio} </div>
-                            </div>
-                            
-                            <div className="friend-cancel-btn"> <BlockIcon /> </div>
-                        </div>
-                    ))}
-                </center>
-            );
-        }
-    }
+								<div className="friend-list-info">
+									<div>
+										{" "}
+										<b> {f.name} </b>{" "}
+									</div>
+									<div> {f.bio} </div>
+								</div>
 
-    return (
-        <div 
-            className="modal-bg"
-            style={(!props.show) ? {display: 'none'} : {display: 'block'}}
-        >
-            <Modal
-                {...props}
-                size="lg"
-                aria-labelledby="contained-modal-title-vcenter"
-                className="modal-container"
-                centered
-            >
-                <Modal.Header className="friend-modal-head">
-                    <CloseIcon 
-                        className="modal-close-btn" 
-                        onClick={() => {
-                            props.onHide();
-                        }}
-                    /> 
-                <div className="modal-selectors"> 
-                    <div 
-                        style={getSelectorStyling("friends")}
-                        onClick={() => {
-                            showIncoming(false);
-                            showFriends(true);
-                            showPending(false);
-                        }}
-                    > 
-                        Friends 
-                    </div> 
-                    
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    
-                    <div 
-                        style={getSelectorStyling("reqIncoming")}
-                        onClick={() => {
-                            showIncoming(true);
-                            showFriends(false);
-                            showPending(false);
-                        }}
-                    > 
-                        Requests 
-                    </div>
-                    
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    
-                    <div 
-                        style={getSelectorStyling("reqPending")}
-                        onClick={() => {
-                            showIncoming(false);
-                            showFriends(false);
-                            showPending(true);
-                        }}
-                    > 
-                        Pending 
-                    </div>
-
-                </div>
-                </Modal.Header>
-                <Modal.Body className="list-body">
-                    {renderSelectedList(friends, reqIncoming, reqPending)}
-                </Modal.Body>
-            </Modal>
-    </div>
-    );
+								<div className="friend-cancel-btn">
+									{" "}
+									<BlockIcon />{" "}
+								</div>
+							</div>
+						))}
+					</center>
+				);
+			}
+		};
+		return (
+			<div
+				className="modal-bg"
+				style={
+					!this.props.show
+						? { display: "none" }
+						: { display: "block" }
+				}
+			>
+				<Modal
+					{...this.props}
+					size="lg"
+					aria-labelledby="contained-modal-title-vcenter"
+					className="modal-container"
+					centered
+				>
+					<Modal.Header className="friend-modal-head">
+						<CloseIcon
+							className="modal-close-btn"
+							onClick={() => {
+								this.props.onHide();
+							}}
+						/>
+						<div className="modal-selectors">
+							<div
+								style={getSelectorStyling("friends")}
+								onClick={() => {
+									this.swapMode("friends");
+								}}
+							>
+								Friends
+							</div>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<div
+								style={getSelectorStyling("reqIncoming")}
+								onClick={() => {
+									this.swapMode("reqIncoming");
+								}}
+							>
+								Requests
+							</div>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<div
+								style={getSelectorStyling("reqPending")}
+								onClick={() => {
+									this.swapMode("reqPending");
+								}}
+							>
+								Pending
+							</div>
+						</div>
+					</Modal.Header>
+					<Modal.Body className="list-body">
+						{renderSelectedList()}
+					</Modal.Body>
+				</Modal>
+			</div>
+		);
+	}
 }
 
-export default MyVerticallyCenteredModal;
+MyVerticallyCenteredModal.propTypes = {
+	acceptRequest: PropTypes.func.isRequired,
+	auth: PropTypes.object,
+	error: PropTypes.object,
+};
+
+// This is the current state in the store.
+const mapStateToProps = (state) => ({
+	auth: state.auth,
+	error: state.error,
+});
+
+export default connect(mapStateToProps, { acceptRequest })(
+	MyVerticallyCenteredModal
+);

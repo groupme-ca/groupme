@@ -14,8 +14,8 @@ const UserSchema = new Schema({
 		unique: true,
 	},
 	password: {
-		type: String, 
-		required: true
+		type: String,
+		required: true,
 	},
 	bio: {
 		type: String,
@@ -33,9 +33,17 @@ const UserSchema = new Schema({
 		type: Array,
 		default: [],
 	},
+	friendRequestsRec: {
+		type: Array,
+		default: [],
+	},
+	friendRequestsSent: {
+		type: Array,
+		default: [],
+	},
 	ChatIds: {
 		type: Array,
-		default: []
+		default: [],
 	},
 });
 
