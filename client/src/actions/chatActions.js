@@ -1,5 +1,5 @@
 import axios from '../axios';
-import { GET_CHATS, GET_USERS} from './types';
+import { GET_CHATS, CHAT_END_SWITCH, CHAT_START_SWITCH} from './types';
 
 
 // const getChatSuccess = (chats) => ({
@@ -8,7 +8,16 @@ import { GET_CHATS, GET_USERS} from './types';
 // });
 
 
-
+export const chatStartSwitch = () => {
+	return {
+		type: CHAT_START_SWITCH,
+	};
+};
+export const chatEndSwitch = () => {
+	return {
+		type: CHAT_END_SWITCH,
+	};
+};
 export const getChats = (id) => async (dispatch) => {
     // dispatch(getChatStart());
     // This makes a GET request to our api route
@@ -39,7 +48,6 @@ export const createChat = (chat, participants) => async (dispatch) => {
         var i =0;
         for(i =0; i < l; i++){
             cids = participants[i].ChatIds.concat([res.data._id]);
-            console.log(cids, 'cids');
             // if(i === l-1){
             //     axios.put(`/api/users/${participants[i].id}`, {ChatIds: cids}).then(
             //         axios.get("/api/users").then((res3) =>
@@ -50,7 +58,7 @@ export const createChat = (chat, participants) => async (dispatch) => {
             //             }))
             //         );                        
             // }else{
-            axios.put(`/api/users/${participants[i].id}`, {ChatIds: cids}).then((res2) => console.log(res2.data, 'res2'));                        
+            axios.put(`/api/users/${participants[i].id}`, {ChatIds: cids});                        
             // };
         
             

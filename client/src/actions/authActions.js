@@ -105,11 +105,11 @@ export const loginUser = (user) => async (dispatch) => {
  * On success, dispatches user loaded and sends the token and user data
  * On failure, dispatches auth error and sends the errors to the error reducer.
  */
-export const loadUser = () => (dispatch, getState) => {
+export const loadUser = () => async (dispatch, getState) => {
 	// User loading
 	dispatch({ type: USER_LOADING });
 
-	axios
+	await axios
 		.get("/api/auth/user", tokenConfig(getState))
 		.then((res) => {
 			dispatch(clearErrors);

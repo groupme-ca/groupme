@@ -21,6 +21,8 @@ export const START_SWITCH = 'START_SWITCH';
 export const END_SWITCH = 'END_SWITCH';
 export const SEND_MESSAGE = 'SEND_MESSAGE';
 export const NEW_MESSAGE = 'NEW_MESSAGE';
+export const CHAT_START_SWITCH = 'CHAT_START_SWITCH';
+export const CHAT_END_SWITCH = 'CHAT_END_SWITCH';
 
 
 

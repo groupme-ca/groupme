@@ -25,6 +25,7 @@ const LiveChat = (state) => {
 		if (state.auth.user !== null) {
 			state.auth.user.ChatIds.forEach((id) => {
 				if (!(cid.includes(id))) {
+					console.log(id, 'inside');
 					channel = pusher.subscribe(id);
 					channel.bind("inserted", (data) => {
 						state.newMessage(data);
@@ -37,30 +38,7 @@ const LiveChat = (state) => {
 					setCid([...cid, id]);
 				};
 			});
-			// console.log(newChannel, 'newchannel');
-			// channels.forEach(ch =>{
-			// 	ch.unbind_all();
-			// 	ch.unsubscribe();
-			// })
-			// console.log("channel", channels);
-			// setChannels(newChannel);
-			// console.log("new", newChannel);
-
-
-			// console.log('channels', channels, channels.length);
 		}
-		// setChannels(["hello"]);
-		// console.log(channels, 'final');
-		// return() => {
-		//     channels.forEach(channel => {
-		//         channel.unbind_all();
-		//         channel.unsubscribe();
-		//     });
-		// console.log(channels);
-		// console.log("-");
-		// console.log(channels);
-
-		//};
 	}, [state.chats]);
 
 	return null;

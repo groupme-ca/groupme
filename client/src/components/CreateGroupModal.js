@@ -9,8 +9,9 @@ import "./CreateGroupModal.css";
 import { useState } from 'react';
 
 import CloseIcon from "@material-ui/icons/Close";
-import { createChat } from '../actions/chatActions';
+import { createChat, chatEndSwitch, chatStartSwitch } from '../actions/chatActions';
 import { getUsers } from '../actions/userActions';
+import { loadUser } from '../actions/authActions';
 
 
 const CreateGroupModal = (state) => {
@@ -26,7 +27,6 @@ const CreateGroupModal = (state) => {
     Array.from(state.auth.user.friends).forEach((f) => {
         friends.push({value: f.uid,  label: f.name});
     })
-    console.log(friends, 'f', participants, 'p');
 
     const handleOnSelect = (f) => {
         const newf = [];
@@ -54,9 +54,14 @@ const CreateGroupModal = (state) => {
         prt.forEach(usr => {
             updated_prt.push({id: usr._id, ChatIds: usr.ChatIds});            
         })
-        console.log('prt', updated_prt);
         await state.createChat(newChat, updated_prt);
         state.getUsers();
+        await state.loadUser();
+        if(state.chats.loading === false){
+            state.chatStartSwitch();
+        } else{
+            state.chatEndSwitch();
+        }
         setGrpName('');
 
         state.onHide();
@@ -132,4 +137,4 @@ const mapStateToProps = (state, path) => ({
 
 // This connect thing is required to make redux work, we add the different props that we need
 // in the second parameter.
-export default connect(mapStateToProps, { createChat, getUsers })(CreateGroupModal);
+export default connect(mapStateToProps, { createChat, getUsers, loadUser, chatEndSwitch, chatStartSwitch })(CreateGroupModal);
