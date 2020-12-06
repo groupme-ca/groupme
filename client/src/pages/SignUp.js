@@ -1,7 +1,7 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import Select from "react-select";
-import CreatableSelect from 'react-select/creatable';
+import CreatableSelect from "react-select/creatable";
 import options from "../utils/SignUpOptions";
 import logo from "../assets/img/logo.svg";
 
@@ -53,12 +53,12 @@ class SignUpPage extends React.Component {
 		this.setState({ courses: selectedOptions });
 	};
 
-	handleOnNext = (e) => {
-
+	handleOnNext = async (e) => {
 		this.setState({ loading: true });
 
 		if (this.state.stage === 1 && !this.authenticate()) {
 			this.setState({
+				loading: false,
 				stage: 2,
 				nextPage: "/welcome",
 			});
@@ -73,26 +73,15 @@ class SignUpPage extends React.Component {
 				courses: this.state.courses,
 			};
 			// Call the action to add the user.
-			this.props.registerUser(newUser);
-		}
-
-		setTimeout(() => {
+			await this.props.registerUser(newUser);
 			this.setState({
-				loading: false
-			})
-		}, 500);
+				loading: false,
+				stage: 3,
+			});
+		}
 	};
-	/**
-	 * For now, this will just check for hardcoded values
-	 */
+
 	authenticate() {
-		/**
-		 * We input our placeholder logic for now
-		 *
-		 *      Strip spaces on the right for each field.
-		 *      Check for valid email (@mail.utoronto.ca)
-		 *
-		 */
 		let name = this.state.Name;
 		let email = this.state.Email;
 		let password = this.state.Password;
@@ -121,24 +110,21 @@ class SignUpPage extends React.Component {
 			});
 			return 0;
 		} else {
-			
-			if (!valid_name)
-				this.setState({ NameError: true });
+			if (!valid_name) this.setState({ NameError: true });
 			else this.setState({ NameError: false });
 
-			if (!valid_email)
-				this.setState({ MailError : true });
-			else this.setState({ MailError : false });
+			if (!valid_email) this.setState({ MailError: true });
+			else this.setState({ MailError: false });
 
-			if (!valid_password)
-				this.setState({ PasswordError : true });
-			else this.setState({ PasswordError : true });
+			if (!valid_password) this.setState({ PasswordError: true });
+			else this.setState({ PasswordError: false });
 
-			this.setState({ error: (
-				this.state.PasswordError ||
-				this.state.MailError ||
-				this.state.NameError
-			) });
+			this.setState({
+				error:
+					this.state.PasswordError ||
+					this.state.MailError ||
+					this.state.NameError,
+			});
 
 			return 1;
 		}
@@ -151,18 +137,13 @@ class SignUpPage extends React.Component {
 	};
 
 	printErrorMsg(field) {
-
 		if (field === "Name" && this.state.NameError) {
-			return (
-				<div className="onboarding-err"> 
-					Invalid name
-				</div>
-			);
+			return <div className="onboarding-err">Invalid name</div>;
 		}
 
 		if (field === "Email" && this.state.MailError) {
 			return (
-				<div className="onboarding-err"> 
+				<div className="onboarding-err">
 					Please enter a valid UTORmail
 				</div>
 			);
@@ -170,7 +151,7 @@ class SignUpPage extends React.Component {
 
 		if (field === "Password" && this.state.PasswordError) {
 			return (
-				<div className="onboarding-err"> 
+				<div className="onboarding-err">
 					Please enter a secure password
 				</div>
 			);
@@ -180,6 +161,31 @@ class SignUpPage extends React.Component {
 	}
 
 	render() {
+		let SignUpLink = <div className="loading-wheel" />;
+		if (this.state.loading) {
+			SignUpLink = <div className="loading-wheel" />;
+		} else if (
+			this.state.stage !== 3 ||
+			!this.props.auth.authenticated ||
+			!this.props.auth.user
+		) {
+			SignUpLink = (
+				<Link
+					to={this.state.nextPage}
+					className="btn primary md form-submit"
+					onClick={this.handleOnNext}
+				>
+					{this.state.stage === 1 ? "Next" : "Sign Up"}
+				</Link>
+			);
+		} else if (
+			this.props.auth &&
+			this.props.auth.authenticated &&
+			this.state === 3
+		) {
+			SignUpLink = <Redirect to={"/welcome"} />;
+		}
+
 		return (
 			<div>
 				<Link to="/">
@@ -189,8 +195,11 @@ class SignUpPage extends React.Component {
 					<h1 className="form-title">Create your profile</h1>
 				</center>
 				{this.state.stage === 1 ? (
-					<div style={{ height: '70vh'}}>
-						<img src={bgImage} className="onboarding-bg sign-up-bg" />
+					<div style={{ height: "70vh" }}>
+						<img
+							src={bgImage}
+							className="onboarding-bg sign-up-bg"
+						/>
 						<div className="form-container">
 							<div className="form-fields">
 								{formFields.map((field) => (
@@ -203,20 +212,22 @@ class SignUpPage extends React.Component {
 													: ""
 											}
 											style={{
-												border: `1px solid ${this.printErrorMsg(field) ? "red" : "#afafaf"}`,
-												outline: 'none'
+												border: `1px solid ${
+													this.printErrorMsg(field)
+														? "red"
+														: "#afafaf"
+												}`,
+												outline: "none",
 											}}
 											name={field}
 											onChange={this.formEvent}
 											onKeyPress={(e) => {
-												if (e.key === 'Enter') {
+												if (e.key === "Enter") {
 													this.handleOnNext();
 												}
 											}}
 										/>
-										<div>
-											{this.printErrorMsg(field)}
-										</div>
+										<div>{this.printErrorMsg(field)}</div>
 									</div>
 								))}
 							</div>
@@ -249,7 +260,7 @@ class SignUpPage extends React.Component {
 								options={options.hobbies}
 								value={this.state.hobbies}
 								onChange={this.handleOnSelectHobbies}
-								formatCreateLabel={(s)=> s}
+								formatCreateLabel={(s) => s}
 							/>
 						</div>
 						<div>
@@ -260,22 +271,12 @@ class SignUpPage extends React.Component {
 								options={options.courses}
 								value={this.state.courses}
 								onChange={this.handleOnSelectCourses}
-								formatCreateLabel={(s)=> s}
+								formatCreateLabel={(s) => s}
 							/>
 						</div>
 					</div>
 				)}
-				{this.state.loading ? (
-						<div className="loading-wheel" />
-					) : (
-						<Link
-							to={this.state.nextPage}
-							className="btn primary md form-submit"
-							onClick={this.handleOnNext}
-						>
-							{this.state.stage === 1 ? "Next" : "Sign Up"}
-						</Link>
-					)}
+				{SignUpLink}
 			</div>
 		);
 	}

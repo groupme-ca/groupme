@@ -129,7 +129,8 @@ export const loadUser = () => async (dispatch, getState) => {
 };
 
 /**
- * Logout the user, this clears all of the current user information from the state.
+ * Logout the user, this clears all of the user information from the auth state.
+ * Also resets all of the redux states back to initialState.
  */
 export const logoutUser = () => (dispatch) => {
 	dispatch({ type: LOGOUT });

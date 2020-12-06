@@ -1,6 +1,6 @@
 import React from "react";
 import Select from "react-select";
-import CreatableSelect from 'react-select/creatable';
+import CreatableSelect from "react-select/creatable";
 import options from "../utils/SignUpOptions";
 
 import "./Recommendations.css";
@@ -20,7 +20,7 @@ class ProfilePage extends React.Component {
 			changePassword: false,
 		};
 	}
-	
+
 	componentDidMount() {
 		this.setState({ user: this.props.auth.user });
 	}
@@ -52,7 +52,6 @@ class ProfilePage extends React.Component {
 		user.name = event.target.value;
 		this.setState({ user: user });
 		// Here we're gonna make the request
-
 	};
 
 	handleChangeBio = (event) => {
@@ -93,7 +92,6 @@ class ProfilePage extends React.Component {
 									src="/static/media/vlad.58e00b26.jpg"
 									height="128"
 								></img>
-								
 							</div>
 							<div className="profile-info-fields">
 								{formFields.map((field) => (
@@ -203,7 +201,7 @@ class ProfilePage extends React.Component {
 										this.state.user.hobbies
 									}
 									onChange={this.handleOnSelectHobbies}
-									formatCreateLabel={(s)=> s}
+									formatCreateLabel={(s) => s}
 								/>
 							</div>
 							<div>
@@ -212,7 +210,7 @@ class ProfilePage extends React.Component {
 									isMulti
 									className="filter-container"
 									options={options.courses}
-									formatCreateLabel={(s)=> s}
+									formatCreateLabel={(s) => s}
 									value={
 										// this.props.auth.user.courses
 										this.state.user.courses
@@ -221,10 +219,8 @@ class ProfilePage extends React.Component {
 								/>
 							</div>
 						</div>
-						<div 
-							className="btn primary form-submit profile-save"
-						> 
-							Save 
+						<div className="btn primary form-submit profile-save">
+							Save
 						</div>
 					</div>
 				</div>

@@ -8,7 +8,8 @@ import ProfilePage from "./pages/Profile";
 import ChatPage from './pages/ChatPage';
 import HomePage from './pages/HomePage';
 import { Provider } from "react-redux";
-import store from "./store";
+import {store, persistor} from "./store";
+import { PersistGate } from 'redux-persist/integration/react';
 import { Component } from "react";
 import LiveChat from "./utils/LiveChat"
 
@@ -21,6 +22,7 @@ class App extends Component {
 	render() {
 		return (
 			<Provider store={store}>
+				<PersistGate loading={null} persistor={persistor}> {/* null passed to loading, persistor is being used here */}
 				<Router>
 					<Route path="/" exact render={() => <LandingPage />} />
 					<Route path="/signup" exact render={() => <SignUpPage />} />
@@ -31,6 +33,7 @@ class App extends Component {
           			<Route path="/chat/:id" exact render={() => <ChatPage path='d'/>}/>
         		</Router>
 				<LiveChat />
+				</PersistGate>
 			</Provider>
 		);
 	}
