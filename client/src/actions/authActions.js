@@ -20,7 +20,7 @@ const getRegisterStart = () => ({
 
 // Register was successful.
 const getRegisterSuccess = (user) => ({
-	type: REGISTER_SUCCESS,
+	type: LOGIN_SUCCESS,
 	payload: user,
 });
 
