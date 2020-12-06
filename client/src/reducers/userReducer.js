@@ -5,6 +5,7 @@ import {
 	DELETE_USER,
 	UPDATE_USER,
 	USERS_LOADING,
+	LOGOUT,
 } from "../actions/types";
 // Add the users array here.
 const initialState = {
@@ -24,9 +25,6 @@ export default function (state = initialState, action) {
 				users: action.payload,
 				loading: false,
 			};
-		// case FIND_USER:
-		// 	return {
-		// 	};
 		case DELETE_USER:
 			return {
 				...state,
@@ -43,6 +41,14 @@ export default function (state = initialState, action) {
 			return {
 				...state,
 				loading: true,
+			};
+		case LOGOUT:
+			return {
+				...state,
+				users: [],
+				loading: false,
+				msg: {},
+				error: null,
 			};
 		default:
 			return state;
