@@ -108,7 +108,7 @@ class SignUpPage extends React.Component {
 		// Password, This is regex for at least 8 characters, 1 capital letter and 1 number.
 		let pass_re = /^(?! )(?=.*\d)(?=.*[A-Z]).{8,}(?<! )$/;
 		const valid_password = pass_re.test(password);
-		if (valid_name && valid_password) {
+		if (valid_name && valid_email && valid_password) {
 			this.setState({
 				error: false,
 				Name: name,
