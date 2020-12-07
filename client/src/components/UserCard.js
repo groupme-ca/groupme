@@ -30,7 +30,6 @@ class UserCard extends React.Component {
 			});
 			return;
 		}
-		console.log(this.props.id);
 		this.setState({
 			requestSent: true,
 		});
@@ -150,12 +149,6 @@ class UserCard extends React.Component {
 							<div
 								className="btn secondary xs"
 								onClick={this.handleOnAddFriend}
-								// onClick={(e) => {
-								// 	console.log(this.props.id);
-								// 	this.setState({
-								// 		requestSent: true,
-								// 	});
-								// }}
 							>
 								Add friend
 							</div>

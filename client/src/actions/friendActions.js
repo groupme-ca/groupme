@@ -37,7 +37,6 @@ const getAcceptRequestSuccess = (user) => ({
  * @return 1 on success, 0 on failure.
  */
 export const addFriend = (id, friendId) => async (dispatch) => {
-	console.log("Getting called pls");
 	dispatch(getAddFriendStart());
 	// Get each of the users and make sure they exist
 	var sender;
@@ -47,7 +46,6 @@ export const addFriend = (id, friendId) => async (dispatch) => {
 		.get(`api/users/${id}`)
 		.then((res) => {
 			sender = res.data;
-			// console.log(sender);
 		})
 		.catch((err) => {
 			dispatch(
@@ -147,8 +145,6 @@ export const addFriend = (id, friendId) => async (dispatch) => {
 		};
 	}
 
-	console.log(frSent);
-	console.log(frRec);
 	// Add the friendId to the sender's friend requests sent
 	await axios
 		.patch(`/api/users/${id}`, frSent)
@@ -269,14 +265,6 @@ export const acceptRequest = (id, friendId) => async (dispatch) => {
 
 	// If either of the ids are not present, then return 0 for failure
 	if (recIndex < 0 || sendIndex < 0) {
-		console.log("Friend Request Sent:");
-		console.log(frSent);
-		// console.log(receiverInfo);
-		console.log(recIndex);
-		console.log("Friend Request Rec:");
-		console.log(frRec);
-		// console.log(senderInfo);
-		console.log(sendIndex);
 		dispatch(
 			returnErrors(
 				"The user's friend request does not exist",
@@ -351,7 +339,6 @@ export const acceptRequest = (id, friendId) => async (dispatch) => {
 			});
 	}
 	// If it reaches here, then adding a friend was successful
-	console.log(receiver.friends);
 	dispatch(clearErrors());
 	dispatch(getAcceptRequestSuccess(receiver));
 	return 1;

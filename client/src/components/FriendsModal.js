@@ -32,11 +32,9 @@ class MyVerticallyCenteredModal extends React.Component {
 			friendId
 		);
 		// This is for if we want to display errors in the future.
-		if (success) {
-			console.log("Accept Request successful");
-		} else {
-			console.log("Accept Request Unsuccessful");
-		}
+		// if (success) {
+		// } else {
+		// }
 	}
 	swapMode(mode) {
 		if (mode === "friends") {

@@ -56,13 +56,19 @@ class SignUpPage extends React.Component {
 	handleOnNext = async (e) => {
 		this.setState({ loading: true });
 
-		if (this.state.stage === 1 && !this.authenticate()) {
+		if (this.state.stage === 1 && this.authenticate()) {
 			this.setState({
 				loading: false,
 				stage: 2,
-				nextPage: "/welcome",
+				// nextPage: "/welcome",
 			});
 		} else if (this.state.stage === 2) {
+			if (!(this.state.hobbies.length && this.state.courses.length)) {
+				this.setState({
+					loading: false,
+				});
+				return;
+			}
 			// construct the data that we want to add into db
 			const newUser = {
 				name: this.state.Name,
@@ -108,7 +114,7 @@ class SignUpPage extends React.Component {
 				Email: email,
 				bio: this.state.bio.trim(),
 			});
-			return 0;
+			return 1;
 		} else {
 			if (!valid_name) this.setState({ NameError: true });
 			else this.setState({ NameError: false });
@@ -126,7 +132,7 @@ class SignUpPage extends React.Component {
 					this.state.NameError,
 			});
 
-			return 1;
+			return 0;
 		}
 	}
 
@@ -179,9 +185,9 @@ class SignUpPage extends React.Component {
 				</Link>
 			);
 		} else if (
-			this.props.auth &&
+			this.props.auth.user &&
 			this.props.auth.authenticated &&
-			this.state === 3
+			this.state.stage === 3
 		) {
 			SignUpLink = <Redirect to={"/welcome"} />;
 		}

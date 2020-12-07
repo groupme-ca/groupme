@@ -47,20 +47,16 @@ class SignInPage extends React.Component {
 
 		if (error) {
 			this.setState({ error: "Invalid username or password" });
-			// console.log("Unsuccessful login");
 		}
 	}
 
 	handleOnLoad() {
 		const chatIds = this.props.auth.user.ChatIds;
-		// chatIds.forEach(id => {
-		// 	console.log(id);
 		chatIds.forEach((id) => {
 			this.props.getChats(id);
 			this.props.getMessages(id);
 		});
 		this.props.getUsers();
-		// });
 	}
 
 	formEvent = ({ target }) => {

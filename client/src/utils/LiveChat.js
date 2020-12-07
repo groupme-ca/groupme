@@ -6,7 +6,6 @@ import { connect } from "react-redux";
 import { useState, useEffect } from "react";
 import { startSwitch, endSwitch } from "../actions/messageActions";
 
-
 const LiveChat = (state) => {
 	// TODO: figure out how to unscubscribe later
 	const [cid, setCid] = useState([]);
@@ -21,11 +20,11 @@ const LiveChat = (state) => {
 	}, []);
 
 	useEffect(() => {
-		var channel;		
+		var channel;
 		if (state.auth.user !== null) {
 			state.auth.user.ChatIds.forEach((id) => {
-				if (!(cid.includes(id))) {
-					console.log(id, 'inside');
+				if (!cid.includes(id)) {
+					// console.log(id, 'inside');
 					channel = pusher.subscribe(id);
 					channel.bind("inserted", (data) => {
 						state.newMessage(data);
@@ -33,10 +32,10 @@ const LiveChat = (state) => {
 							state.startSwitch();
 						} else {
 							state.endSwitch();
-						};
+						}
 					});
 					setCid([...cid, id]);
-				};
+				}
 			});
 		}
 	}, [state.chats]);
@@ -49,8 +48,9 @@ const mapStateToProps = (state) => ({
 	auth: state.auth,
 	error: state.error,
 	chats: state.chats,
-	messages: state.messages
+	messages: state.messages,
 });
 
-export default connect(mapStateToProps, {startSwitch, endSwitch, newMessage })(LiveChat);
-
+export default connect(mapStateToProps, { startSwitch, endSwitch, newMessage })(
+	LiveChat
+);
