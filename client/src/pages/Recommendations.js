@@ -27,8 +27,8 @@ class RecommendationPage extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			recommendHobbies: recommendations.hobbies, // modify this later to read from DB
-			recommendCourses: recommendations.courses, // modify this later to read from DB
+			recommendHobbies: [], // modify this later to read from DB
+			recommendCourses: [], // modify this later to read from DB
 
 			interestHasNext: false,
 			interestHasPrev: false,
@@ -65,14 +65,18 @@ class RecommendationPage extends React.Component {
 		this.getPrevCourse = this.getPrevCourse.bind(this);
 
 		setTimeout(() => {
-			this.generateRecommendations();
-		}, 1500);
+            this.generateRecommendations();
+            setTimeout(() => {
+                this.setState({loading: false});
+            }, 500);
+        }, 1200);
 	}
 
 	async generateRecommendations() {
 		await this.props.getUsers();
 		this.recommender = new Recommender(
 			{
+                friends: this.props.auth.user.friends,
 				hobbies:
 					this.props.auth.user && this.props.auth.user.hobbies
 						? this.props.auth.user.hobbies
@@ -108,7 +112,8 @@ class RecommendationPage extends React.Component {
 			interestHasNext: recommendHobbies.length > 4,
 			interestHasPrev: false,
 			coursesHasNext: recommendCourses.length > 4,
-			coursesHasPrev: false,
+            coursesHasPrev: false,
+            loading: false,
 		});
 	}
 
@@ -264,7 +269,7 @@ class RecommendationPage extends React.Component {
 
 					<h1 className="header">Same interests as you</h1>
 
-					{this.state.recommendHobbies.length > 0 ? (
+					{(!this.state.loading) ? (
 						<div className="carousel-container">
 							<div
 								className="chevron-wrapper"
@@ -313,58 +318,63 @@ class RecommendationPage extends React.Component {
 							</div>
 						</div>
 					) : (
-						<div className="carousel-empty">
-							No matches found ;(
+						<div>
+							<div className="loading-wheel" />
 						</div>
 					)}
 
 					<h1 className="header">Same courses as you</h1>
+                    {(!this.state.loading) ? (
+                        <div className="carousel-container">
+                            <div
+                                className="chevron-wrapper"
+                                style={this.initializeChevronState(
+                                    "courses",
+                                    "left"
+                                )}
+                                onClick={this.getPrevCourse}
+                            >
+                                <ChevronLeftIcon />
+                            </div>
 
-					<div className="carousel-container">
-						<div
-							className="chevron-wrapper"
-							style={this.initializeChevronState(
-								"courses",
-								"left"
-							)}
-							onClick={this.getPrevCourse}
-						>
-							<ChevronLeftIcon />
-						</div>
+                            <div className="carousel-wrapper">
+                                {this.state.recommendCourses
+                                    .slice(this.state.coursesCurrPage - 1)
+                                    .map((r) => (
+                                        <UserCard
+                                            key={r._id}
+                                            id={r._id}
+                                            avatar={
+                                                r.avatar ? r.avatar : img_default
+                                            }
+                                            title={r.name}
+                                            tags={r.courses}
+                                            courses={r.courses}
+                                            hobbies={r.hobbies}
+                                            rScore={r.rScore}
+                                            bio={r.bio}
+                                            showProfileModal={this.showProfileModal}
+                                        />
+                                    ))}
+                            </div>
 
-						<div className="carousel-wrapper">
-							{this.state.recommendCourses
-								.slice(this.state.coursesCurrPage - 1)
-								.map((r) => (
-									<UserCard
-										key={r._id}
-										id={r._id}
-										avatar={
-											r.avatar ? r.avatar : img_default
-										}
-										title={r.name}
-										tags={r.courses}
-										courses={r.courses}
-										hobbies={r.hobbies}
-										rScore={r.rScore}
-										bio={r.bio}
-										showProfileModal={this.showProfileModal}
-									/>
-								))}
-						</div>
-
-						<div
-							className="chevron-wrapper"
-							style={this.initializeChevronState(
-								"courses",
-								"right"
-							)}
-							onClick={this.getNextCourse}
-						>
-							<ChevronRightIcon />
-						</div>
-					</div>
-				</div>
+                            <div
+                                className="chevron-wrapper"
+                                style={this.initializeChevronState(
+                                    "courses",
+                                    "right"
+                                )}
+                                onClick={this.getNextCourse}
+                            >
+                                <ChevronRightIcon />
+                            </div>
+                        </div>
+                    ): (
+                        <div>
+                            <div className="loading-wheel" />
+                        </div>
+                    )}
+                </div>
 			</div>
 		);
 	}

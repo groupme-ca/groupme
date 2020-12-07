@@ -254,9 +254,18 @@ nav > .navitem > a {
   border: 5px solid #fff;
   border-left: 5px solid #ff914e;
   border-radius: 50%;
-  width: 50px; height: 50px;
+  width: 3.2em; height: 3.2em;
   animation: spin 2s linear infinite;
-  margin-left: 12vw;
+  margin: 2em;
+}
+
+.loading-wheel-small {
+  border: 5px solid #fff;
+  border-left: 5px solid #888;
+  border-radius: 50%;
+  width: 1em; height: 1em;
+  animation: spin 1.5s linear infinite;
+  margin: 1em;
 }
 
 @keyframes spin {

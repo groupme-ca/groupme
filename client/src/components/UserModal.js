@@ -1,13 +1,37 @@
 import { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
+import { connect } from "react-redux";
 
 import CloseIcon from '@material-ui/icons/Close';
+
+import { getUsers } from '../actions/userActions';
+import { loadUser } from '../actions/authActions';
 
 import './UserModal.css';
 
 const UserModal = (props) => {
     const [show, setShow] = useState(true);
-  
+
+    const renderFriendStatus = (name) => {
+
+        const has = props.auth.user.friends.find(f => props.title === f.name);
+        if (has) {
+            return `You and ${name} are now friends`;
+        }
+
+        const inc = props.auth.user.friendRequestsRec.find(f => props.title === f.name);
+        if (inc) {
+            return `${name} already wants to be your friend`;
+        }
+
+        const req = props.auth.user.friendRequestsSent.find(f => props.title === f.name);
+        if (req) {
+            return "Request sent!";
+        }
+
+        else return false;
+    }
+
     return (  
         <div 
             className="modal-bg"
@@ -56,13 +80,27 @@ const UserModal = (props) => {
                         </div>
                     </div>
                 </div>
-
-                <div className="btn primary modal-btn">
-                    Add friend
-                </div> 
+                {renderFriendStatus(props.title) ? (
+                    <div className="modal-status"> {renderFriendStatus(props.title)} </div>
+                ) : (
+                    <div className="btn primary modal-btn">
+                        Add friend
+                    </div> 
+                )}
             </Modal>
         </div>
     );
 }
 
-export default UserModal;
+// This is the current state in the store.
+const mapStateToProps = (state, path) => ({
+    auth: state.auth,
+    user: state.user,
+	error: state.error,
+    chats: state.chats,
+    messages: state.messages,
+});
+
+// This connect thing is required to make redux work, we add the different props that we need
+// in the second parameter.
+export default connect(mapStateToProps, { getUsers, loadUser })(UserModal);

@@ -99,3 +99,10 @@
     margin: 32px;
     margin-top: 0;
 }
+
+.modal-status {
+    color: #ff914e;
+    font-weight: 700;
+    margin: 0 2em;
+    margin-bottom: 2em;
+}
