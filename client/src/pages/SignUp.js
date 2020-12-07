@@ -63,21 +63,26 @@ class SignUpPage extends React.Component {
 				nextPage: "/welcome",
 			});
 		} else if (this.state.stage === 2) {
-			// construct the data that we want to add into db
-			const newUser = {
-				name: this.state.Name,
-				email: this.state.Email,
-				password: this.state.Password,
-				bio: this.state.bio,
-				hobbies: this.state.hobbies,
-				courses: this.state.courses,
-			};
-			// Call the action to add the user.
-			await this.props.registerUser(newUser);
-			this.setState({
-				loading: false,
-				stage: 3,
-			});
+			if (this.state.hobbies.length == 0 || this.state.courses.length == 0) {
+
+			} else {
+				// construct the data that we want to add into db
+				const newUser = {
+					name: this.state.Name,
+					email: this.state.Email,
+					password: this.state.Password,
+					bio: this.state.bio,
+					hobbies: this.state.hobbies,
+					courses: this.state.courses,
+				};
+				// Call the action to add the user.
+				await this.props.registerUser(newUser);
+				this.setState({
+					loading: false,
+					stage: 3,
+					nextPage: "/welcome"
+				});
+			}
 		}
 
 		this.setState({ loading: false });
@@ -150,11 +155,21 @@ class SignUpPage extends React.Component {
 				</div>
 			);
 		}
+		let passwordError = "Password must contain: ";
+		if (this.state.Password.length  < 8) {
+			passwordError += "At least 8 characters, "
+		}
+		if (this.state.Password.search(/[A-Z]/) < 1) {
+			passwordError += "An uppercase letter, "
+		}
+		if (this.state.Password.search(/[0-9]/) < 1) {
+			passwordError += "A Number, "
+		}
 
 		if (field === "Password" && this.state.PasswordError) {
 			return (
 				<div className="onboarding-err">
-					Please enter a secure password
+					{passwordError.substring(0, passwordError.length-2)}
 				</div>
 			);
 		}

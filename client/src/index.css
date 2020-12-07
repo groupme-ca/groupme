@@ -197,6 +197,7 @@ nav > .navitem > a {
 .onboarding-err {
   margin-bottom: 0.3em;
   color: #e1143e;
+  width: 20em;
 }
 
 .onboarding-demo {
