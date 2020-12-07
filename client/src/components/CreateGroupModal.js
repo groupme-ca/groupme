@@ -62,7 +62,7 @@ const CreateGroupModal = (state) => {
             prt.push(users.find(u => p.uid === u._id));            
         });
         prt.forEach(usr => {
-            updated_prt.push({id: usr._id, ChatIds: usr.ChatIds});            
+            if (usr) updated_prt.push({id: usr._id, ChatIds: usr.ChatIds});            
         })
         await state.createChat(newChat, updated_prt);
         state.getUsers();

@@ -3,12 +3,21 @@ class Recommender {
     constructor(user, users) {
         this.user = {
             hobbies: user.hobbies.map((h) => h.label),
-            courses: user.courses.map((c) => c.label)
+            courses: user.courses.map((c) => c.label),
+            friends: user.friends,
         };
 
+        this.friends = new Map();
+        this.user.friends.map((f) => {
+            this.friends.set(f.name, f.name);
+        })
+        
         this.users = [];
         users.forEach((usr) => {
+
             if (usr.email === user.email) 
+                return;
+            if (this.friends.has(usr.name)) 
                 return;
 
             this.users.push({
