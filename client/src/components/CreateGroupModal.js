@@ -22,13 +22,15 @@ const CreateGroupModal = (state) => {
     const [friends, setFriends] = useState([])
     useEffect(() => {
         if (state.auth.user !== null){
-            console.log(state, 'timeout op?');
             setUsers(Array.from(state.user.users));
             setMe({
                 uid: state.auth.user._id,
                 name: state.auth.user.name
             });
-            setParticipants([me]);
+            setParticipants([{
+                uid: state.auth.user._id,
+                name: state.auth.user.name
+            }]);
             Array.from(state.auth.user.friends).forEach((f) => {
                 setFriends([...friends, {value: f.uid,  label: f.name}]);
             });
@@ -56,6 +58,12 @@ const CreateGroupModal = (state) => {
             participants: participants,
             name: grpName
         }
+        //prt is a list of particiapants in the form of:
+        // [{uid, name}]
+        // prt is used to create the chat
+        //updatedprt is a list of particiapants in the form of:
+        // [{uid, chatids}]
+        // updatedprt is used to update the users
         const prt = [];
         const updated_prt = [];
         participants.forEach(p => {
