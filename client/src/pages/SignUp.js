@@ -144,8 +144,18 @@ class SignUpPage extends React.Component {
 	};
 
 	printErrorMsg(field) {
+		let NameError = "Name must: ";
+		if (this.state.Name.search(/[^A-Za-z]/) > 0){
+			NameError = "Names can only contain letters"
+		}
+		else {
+			NameError = 'Name must be in form "Firstname Middlename Lastname"'
+		}
+		if (this.state.Name.length === 0){
+			NameError = "You need a name"
+		}
 		if (field === "Name" && this.state.NameError) {
-			return <div className="onboarding-err">Invalid name</div>;
+			return <div className="onboarding-err">{NameError}</div>;
 		}
 
 		if (field === "Email" && this.state.MailError) {
