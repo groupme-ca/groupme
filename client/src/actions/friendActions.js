@@ -46,7 +46,6 @@ export const addFriend = (id, friendId) => async (dispatch) => {
 		.get(`api/users/${id}`)
 		.then((res) => {
 			sender = res.data;
-			// console.log(sender);
 		})
 		.catch((err) => {
 			dispatch(
@@ -266,8 +265,6 @@ export const acceptRequest = (id, friendId) => async (dispatch) => {
 
 	// If either of the ids are not present, then return 0 for failure
 	if (recIndex < 0 || sendIndex < 0) {
-		// console.log(receiverInfo);
-		// console.log(senderInfo);
 		dispatch(
 			returnErrors(
 				"The user's friend request does not exist",

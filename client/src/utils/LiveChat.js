@@ -5,14 +5,18 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { useState, useEffect } from "react";
 import { startSwitch, endSwitch } from "../actions/messageActions";
-import { getChats, chatEndSwitch, chatStartSwitch} from '../actions/chatActions';
-import { getUsers } from '../actions/userActions';
-import {loadUser } from '../actions/authActions'
+import {
+	getChats,
+	chatEndSwitch,
+	chatStartSwitch,
+} from "../actions/chatActions";
+import { getUsers } from "../actions/userActions";
+import { loadUser } from "../actions/authActions";
 
 const LiveChat = (state) => {
 	// TODO: figure out how to unscubscribe later
 	const [cid, setCid] = useState([]);
-	const [me, setMe] = useState(null)
+	const [me, setMe] = useState(null);
 	const [pusher, setPusher] = useState({});
 
 	useEffect(() => {
@@ -25,15 +29,15 @@ const LiveChat = (state) => {
 
 	useEffect(() => {
 		var channel;
-		if(state.auth.user !== null){
+		if (state.auth.user !== null) {
 			setTimeout(() => {
-				if (me === null){
+				if (me === null) {
 					if (pusher.subscribe) {
 						channel = pusher.subscribe(state.auth.user._id);
 						setMe(state.auth.user);
 						// console.log('me', state.auth.user, 'channel', channel);
-						channel.bind("new_chat",async (data) => {
-							console.log(data, 'data');
+						channel.bind("new_chat", async (data) => {
+							console.log(data, "data");
 							state.getChats(data._id);
 							state.getUsers();
 							await state.loadUser();
@@ -41,20 +45,19 @@ const LiveChat = (state) => {
 								state.chatStartSwitch();
 							} else {
 								state.chatEndSwitch();
-							};
+							}
 						});
 					}
 				}
-			}, 2000)
+			}, 2000);
 		}
-		
-	}, [state.auth, pusher])
+	}, [state.auth, pusher]);
 
 	useEffect(() => {
-		var channel;		
+		var channel;
 		if (state.auth.user !== null) {
 			state.auth.user.ChatIds.forEach((id) => {
-				if (!(cid.includes(id))) {
+				if (!cid.includes(id)) {
 					setTimeout(() => {
 						if (pusher.subscribe) {
 							channel = pusher.subscribe(id);
@@ -65,11 +68,11 @@ const LiveChat = (state) => {
 								state.startSwitch();
 							} else {
 								state.endSwitch();
-							};
+							}
 						});
 						setCid([...cid, id]);
-					}, 2000);	
-				};
+					}, 2000);
+				}
 			});
 		}
 	}, [state.chats]);
@@ -83,8 +86,16 @@ const mapStateToProps = (state) => ({
 	user: state.user,
 	error: state.error,
 	chats: state.chats,
-	messages: state.messages
+	messages: state.messages,
 });
 
-export default connect(mapStateToProps, {startSwitch, endSwitch, newMessage, getUsers, loadUser, getChats, chatEndSwitch, chatStartSwitch })(LiveChat);
-
+export default connect(mapStateToProps, {
+	startSwitch,
+	endSwitch,
+	newMessage,
+	getUsers,
+	loadUser,
+	getChats,
+	chatEndSwitch,
+	chatStartSwitch,
+})(LiveChat);
