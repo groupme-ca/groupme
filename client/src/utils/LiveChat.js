@@ -89,6 +89,7 @@ const mapStateToProps = (state) => ({
 	messages: state.messages,
 });
 
+<<<<<<< HEAD
 export default connect(mapStateToProps, {
 	startSwitch,
 	endSwitch,
@@ -99,3 +100,8 @@ export default connect(mapStateToProps, {
 	chatEndSwitch,
 	chatStartSwitch,
 })(LiveChat);
+=======
+export default connect(mapStateToProps, { startSwitch, endSwitch, newMessage })(
+	LiveChat
+);
+>>>>>>> 064ae7a4c850595d47f79313933274bb07c04915
