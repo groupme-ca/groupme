@@ -14,6 +14,8 @@ const UserModal = (props) => {
 
     const renderFriendStatus = (name) => {
 
+        if (!props.auth.user) return;
+
         const has = props.auth.user.friends.find(f => props.title === f.name);
         if (has) {
             return `You and ${name} are now friends`;
