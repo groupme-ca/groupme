@@ -46,16 +46,16 @@ const db = mongoose.connection;
 db.once("open", () => {
   console.log("db connected");
 
-  const chatCollection = db.collection('messages')
-  const changeStream = chatCollection.watch()
+  const messageCollection = db.collection('messages');
+  const changeStream = messageCollection.watch();
 
   changeStream.on('change', (change)=>{
 
     //TODO: MAKE A CHANNEL FOR EVERY USER 
     // console.log(change.operationType);
     if (change.operationType === "insert") {
-      const chatDetails = change.fullDocument;
-      pusher.trigger(String(chatDetails.chatId), 'inserted', chatDetails);
+      const messageDetails = change.fullDocument;
+      pusher.trigger(String(messageDetails.chatId), 'inserted', messageDetails);
 
       // const participants = Object.entries(chatDetails.participants);
       // participants.forEach(([key, value]) => {
@@ -71,7 +71,25 @@ db.once("open", () => {
     } else {
       console.log('error triggering pusher');
     }
+
+    
   });
+
+  const chatCollection = db.collection('chats');
+    const cStream = chatCollection.watch();
+
+    cStream.on('change', (change)=>{
+
+      if (change.operationType === 'insert') {
+        const chatDetails = change.fullDocument;
+        const participants = Array.from(chatDetails.participants);
+        participants.forEach((p) => {
+          console.log(p);
+          pusher.trigger(p.uid, 'new_chat', change.fullDocument);
+        });      
+      }
+      
+    })
 });
 
 // Use Routes 

@@ -30,7 +30,6 @@ class UserCard extends React.Component {
 			});
 			return;
 		}
-		console.log(this.props.id);
 		this.setState({
 			requestSent: true,
 		});
