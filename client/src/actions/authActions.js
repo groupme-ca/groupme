@@ -56,7 +56,6 @@ export const registerUser = (user) => async (dispatch) => {
 		.then((res) => {
 			dispatch(clearErrors());
 			dispatch(getRegisterSuccess(res.data));
-			// console.log("Registered user");
 		})
 		.catch((err) => {
 			dispatch(

@@ -34,7 +34,6 @@ export const findUser = (id, errType) => async (dispatch) => {
 	// 		});
 	// 		usr = null;
 	// 	});
-	// console.log("This is in helper");
 	// return usr;
 };
 
