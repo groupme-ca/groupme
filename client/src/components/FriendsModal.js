@@ -9,9 +9,13 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { acceptRequest } from "../actions/friendActions";
-import { createChat, chatEndSwitch, chatStartSwitch } from '../actions/chatActions';
-import { getUsers } from '../actions/userActions';
-import { loadUser } from '../actions/authActions';
+import {
+	createChat,
+	chatEndSwitch,
+	chatStartSwitch,
+} from "../actions/chatActions";
+import { getUsers } from "../actions/userActions";
+import { loadUser } from "../actions/authActions";
 import img_default from "../assets/img/default.png";
 import CloseIcon from "@material-ui/icons/Close";
 import BlockIcon from "@material-ui/icons/Block";
@@ -38,34 +42,38 @@ class MyVerticallyCenteredModal extends React.Component {
 		if (success) {
 			console.log("Accept Request successful");
 			const me = this.props.auth.user;
-			console.log(me, 'me')
+			console.log(me, "me");
 			await this.props.getUsers();
-			const frnd = Array.from(this.props.user.users).find(f => f._id === friendId); 
+			const frnd = Array.from(this.props.user.users).find(
+				(f) => f._id === friendId
+			);
 			//prt is a list of particiapants in the form of:
 			// [{uid, name}]
 			// prt is used to create the chat
 			//updatedprt is a list of particiapants in the form of:
 			// [{uid, chatids}]
 			// updatedprt is used to update the users
-			const prt =  [{uid: me._id, name: me.name}, {uid: frnd._id, name: frnd.name}];
-			const updatedprt = [{id: me._id, ChatIds: me.ChatIds},
-								{id: frnd._id, ChatIds: frnd.ChatIds}
-								];
+			const prt = [
+				{ uid: me._id, name: me.name },
+				{ uid: frnd._id, name: frnd.name },
+			];
+			const updatedprt = [
+				{ id: me._id, ChatIds: me.ChatIds },
+				{ id: frnd._id, ChatIds: frnd.ChatIds },
+			];
 			const newChat = {
 				name: "",
-				participants: prt
+				participants: prt,
 			};
-			console.log(prt, 'prt', updatedprt, 'updtepert');
+			console.log(prt, "prt", updatedprt, "updtepert");
 			await this.props.createChat(newChat, updatedprt);
 			this.props.getUsers();
 			await this.props.loadUser();
-			if(this.props.chats.loading === false){
+			if (this.props.chats.loading === false) {
 				this.props.chatStartSwitch();
-			} else{
+			} else {
 				this.props.chatEndSwitch();
 			}
-			
-
 		} else {
 			console.log("Accept Request Unsuccessful");
 		}
@@ -289,7 +297,7 @@ MyVerticallyCenteredModal.propTypes = {
 	chatStartSwitch: PropTypes.func.isRequired,
 	auth: PropTypes.object,
 	error: PropTypes.object,
-	chats: PropTypes.object
+	chats: PropTypes.object,
 };
 
 // This is the current state in the store.
@@ -300,6 +308,11 @@ const mapStateToProps = (state) => ({
 	error: state.error,
 });
 
-export default connect(mapStateToProps, { acceptRequest, createChat, getUsers, loadUser, chatEndSwitch, chatStartSwitch })(
-	MyVerticallyCenteredModal
-);
+export default connect(mapStateToProps, {
+	acceptRequest,
+	createChat,
+	getUsers,
+	loadUser,
+	chatEndSwitch,
+	chatStartSwitch,
+})(MyVerticallyCenteredModal);

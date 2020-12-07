@@ -56,33 +56,34 @@ class SignUpPage extends React.Component {
 	handleOnNext = async (e) => {
 		this.setState({ loading: true });
 
-		if (this.state.stage === 1 && !this.authenticate()) {
+		if (this.state.stage === 1 && this.authenticate()) {
 			this.setState({
 				loading: false,
 				stage: 2,
-				nextPage: "/welcome",
+				// nextPage: "/welcome",
 			});
 		} else if (this.state.stage === 2) {
-			if (this.state.hobbies.length == 0 || this.state.courses.length == 0) {
-
-			} else {
-				// construct the data that we want to add into db
-				const newUser = {
-					name: this.state.Name,
-					email: this.state.Email,
-					password: this.state.Password,
-					bio: this.state.bio,
-					hobbies: this.state.hobbies,
-					courses: this.state.courses,
-				};
-				// Call the action to add the user.
-				await this.props.registerUser(newUser);
+			if (!(this.state.hobbies.length && this.state.courses.length)) {
 				this.setState({
 					loading: false,
-					stage: 3,
-					nextPage: "/welcome"
 				});
+				return;
 			}
+			// construct the data that we want to add into db
+			const newUser = {
+				name: this.state.Name,
+				email: this.state.Email,
+				password: this.state.Password,
+				bio: this.state.bio,
+				hobbies: this.state.hobbies,
+				courses: this.state.courses,
+			};
+			// Call the action to add the user.
+			await this.props.registerUser(newUser);
+			this.setState({
+				loading: false,
+				stage: 3,
+			});
 		}
 
 		this.setState({ loading: false });
@@ -115,7 +116,7 @@ class SignUpPage extends React.Component {
 				Email: email,
 				bio: this.state.bio.trim(),
 			});
-			return 0;
+			return 1;
 		} else {
 			if (!valid_name) this.setState({ NameError: true });
 			else this.setState({ NameError: false });
@@ -133,7 +134,7 @@ class SignUpPage extends React.Component {
 					this.state.NameError,
 			});
 
-			return 1;
+			return 0;
 		}
 	}
 
@@ -145,14 +146,13 @@ class SignUpPage extends React.Component {
 
 	printErrorMsg(field) {
 		let NameError = "Name must: ";
-		if (this.state.Name.search(/[^A-Za-z]/) > 0){
-			NameError = "Names can only contain letters"
+		if (this.state.Name.search(/[^A-Za-z]/) > 0) {
+			NameError = "Names can only contain letters";
+		} else {
+			NameError = 'Name must be in form "Firstname Middlename Lastname"';
 		}
-		else {
-			NameError = 'Name must be in form "Firstname Middlename Lastname"'
-		}
-		if (this.state.Name.length === 0){
-			NameError = "You need a name"
+		if (this.state.Name.length === 0) {
+			NameError = "You need a name";
 		}
 		if (field === "Name" && this.state.NameError) {
 			return <div className="onboarding-err">{NameError}</div>;
@@ -166,20 +166,20 @@ class SignUpPage extends React.Component {
 			);
 		}
 		let passwordError = "Password must contain: ";
-		if (this.state.Password.length  < 8) {
-			passwordError += "At least 8 characters, "
+		if (this.state.Password.length < 8) {
+			passwordError += "At least 8 characters, ";
 		}
 		if (this.state.Password.search(/[A-Z]/) < 1) {
-			passwordError += "An uppercase letter, "
+			passwordError += "An uppercase letter, ";
 		}
 		if (this.state.Password.search(/[0-9]/) < 1) {
-			passwordError += "A Number, "
+			passwordError += "A Number, ";
 		}
 
 		if (field === "Password" && this.state.PasswordError) {
 			return (
 				<div className="onboarding-err">
-					{passwordError.substring(0, passwordError.length-2)}
+					{passwordError.substring(0, passwordError.length - 2)}
 				</div>
 			);
 		}
@@ -206,9 +206,9 @@ class SignUpPage extends React.Component {
 				</Link>
 			);
 		} else if (
-			this.props.auth &&
+			this.props.auth.user &&
 			this.props.auth.authenticated &&
-			this.state === 3
+			this.state.stage === 3
 		) {
 			SignUpLink = <Redirect to={"/welcome"} />;
 		}
