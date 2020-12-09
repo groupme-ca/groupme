@@ -31,9 +31,11 @@ const CreateGroupModal = (state) => {
                 uid: state.auth.user._id,
                 name: state.auth.user.name
             }]);
+            var fs = [];
             Array.from(state.auth.user.friends).forEach((f) => {
-                setFriends([...friends, {value: f.uid,  label: f.name}]);
+                fs.push({value: f.uid,  label: f.name});
             });
+            setFriends([...friends, ...fs]);
         }
     }, [state.auth.user]);  
 
